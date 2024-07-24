@@ -135,6 +135,7 @@ obj/
 .idea/gradle.xml
 .idea/jarRepositories.xml
 .idea/navEditor.xml
+.idea/.gitignore
 
 # Legacy Eclipse project files
 .classpath
