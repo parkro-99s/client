@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
         })
 
         // toolbar title 수정
-        (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_home))
+        (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_home), false, false)
 
         return root
     }
@@ -47,4 +47,6 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }

@@ -37,7 +37,7 @@ class DashboardFragment : Fragment() {
             textView.text = it
         })
 
-        (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_dashboard))
+        (activity as? MainActivity)?.updateToolbarTitle("", false, true)
 
         return root
     }
@@ -46,4 +46,5 @@ class DashboardFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
 }

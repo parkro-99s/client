@@ -37,7 +37,8 @@ class NotificationsFragment : Fragment() {
             textView.text = it
         })
 
-        (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_notifications))
+        // Update toolbar title from fragment
+        (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_notifications), true, false)
 
         return root
     }
@@ -46,4 +47,6 @@ class NotificationsFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 }
