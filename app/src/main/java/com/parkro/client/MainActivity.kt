@@ -3,9 +3,7 @@ package com.parkro.client
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
@@ -54,12 +52,12 @@ class MainActivity : AppCompatActivity() {
     // Update toolbar title
     fun updateToolbarTitle(title: String, showBackBtn: Boolean = false, showLogo: Boolean = false) {
         val toolbarTitle: TextView = findViewById(R.id.toolbar_title)
-        val toolbarBackButton: ImageView = findViewById(R.id.toolbar_back)
+        val toolbarBackBtn : ImageButton = findViewById(R.id.toolbar_back)
         val toolbarLogo: ImageView = findViewById(R.id.toolbar_logo)
 
         toolbarTitle.text = title
         if (title.isEmpty()) {
-            toolbarBackButton.visibility = View.GONE
+            toolbarBackBtn.visibility = View.GONE
             toolbarTitle.visibility = View.GONE
             toolbarLogo.visibility = View.VISIBLE
             toolbarLogo.setImageResource(R.drawable.toolbar_logo)
@@ -67,16 +65,16 @@ class MainActivity : AppCompatActivity() {
             toolbarTitle.visibility = View.VISIBLE
             toolbarLogo.visibility = View.GONE
             if (showBackBtn) {
-                toolbarBackButton.visibility = View.VISIBLE
-                toolbarBackButton.setImageResource(R.drawable.left_chevron)
+                toolbarBackBtn.visibility = View.VISIBLE
+                toolbarBackBtn.setImageResource(R.drawable.left_chevron)
                 setMargins(toolbarTitle, 54.0f)
-                toolbarBackButton.setOnClickListener {
+                toolbarBackBtn.setOnClickListener {
                     // 여기 수정 예정
                     onBackPressed()
                 }
             } else {
-                toolbarBackButton.visibility = View.GONE
-                setMargins(toolbarTitle, 17.67f)
+                toolbarBackBtn.visibility = View.GONE
+                setMargins(toolbarTitle, 17.0f)
             }
         }
     }

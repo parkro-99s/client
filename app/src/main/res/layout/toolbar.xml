@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="62.33dp"
+    android:layout_height="62dp"
     android:background="?attr/colorPrimary">
 
     <androidx.appcompat.widget.Toolbar
@@ -14,34 +14,35 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         tools:ignore="MissingConstraints" />
 
-    <!-- toolbar title; text 수정 필요 -->
-    <ImageView
-        android:id="@+id/toolbar_back"
+    <!-- 뒤로가기 버튼 -->
+    <include
+        layout="@layout/btn_back"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
-        android:layout_width="33.33dp"
-        android:layout_height="33.33dp"
-        android:src="@drawable/left_chevron"
-        android:layout_marginStart="13.3dp"
-        android:contentDescription="toolbar_back"/>
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"/>
 
+    <!-- 툴바 로고 -->
+    <include
+        layout="@layout/ic_toolbar_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerInParent="true"
+        android:layout_toEndOf="@id/toolbar_back"
+        />
+
+    <!-- Toolbar Title -->
     <TextView
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="17.67dp"
+        android:layout_toEndOf="@id/toolbar_back"
+        android:layout_marginStart="17dp"
         android:textColor="@color/parkro_black"
         android:textStyle="bold"
-        android:textSize="23.33sp" />
+        android:textSize="23sp" />
 
-    <ImageView
-        android:id="@+id/toolbar_logo"
-        android:layout_width="143.14dp"
-        android:layout_height="33.70dp"
-        android:layout_centerInParent="true"
-        android:src="@drawable/toolbar_logo"
-        android:contentDescription="toolbar_logo"/>
 
 </RelativeLayout>
