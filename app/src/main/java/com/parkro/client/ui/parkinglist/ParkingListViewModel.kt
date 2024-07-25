@@ -1,13 +1,13 @@
-package com.parkro.client.ui.home
+package com.parkro.client.ui.parkinglist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class HomeViewModel : ViewModel() {
+class ParkingListViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+        value = "This is parkinglist Fragment"
     }
     val text: LiveData<String> = _text
 }

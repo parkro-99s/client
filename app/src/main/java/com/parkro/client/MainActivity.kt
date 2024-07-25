@@ -12,6 +12,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.parkro.client.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -37,12 +38,47 @@ class MainActivity : AppCompatActivity() {
         navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                // 관리자 네비
+                // R.id.navigation_parkinglist_admin, R.id.navigation_logout_admin
+                 R.id.navigation_map, R.id.navigation_parkinglist, R.id.navigation_payment, R.id.navigation_mypage
             )
         )
 
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        navView.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
+
+        // 네비게이션 아이템을 선택할 때 호출되는 리스너 설정
+        navView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_map -> {
+                    item.setIcon(R.drawable.ic_map_navy)
+                    true
+                }
+                R.id.navigation_parkinglist -> {
+                    item.setIcon(R.drawable.ic_parkinglist_navy)
+                    true
+                }
+                R.id.navigation_payment -> {
+                    item.setIcon(R.drawable.ic_payment_navy)
+                    true
+                }
+                R.id.navigation_mypage -> {
+                    item.setIcon(R.drawable.ic_mypage_navy)
+                    true
+                }
+                R.id.navigation_parkinglist_admin -> {
+                    item.setIcon(R.drawable.ic_parkinglist_navy)
+                    true
+                }
+                R.id.navigation_logout_admin -> {
+                    item.setIcon(R.drawable.ic_logout_navy)
+                    true
+                }
+                else -> false
+            }
+        }
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             updateToolbarTitle("", showBackBtn = navController.previousBackStackEntry != null)
@@ -60,7 +96,7 @@ class MainActivity : AppCompatActivity() {
             toolbarBackBtn.visibility = View.GONE
             toolbarTitle.visibility = View.GONE
             toolbarLogo.visibility = View.VISIBLE
-            toolbarLogo.setImageResource(R.drawable.toolbar_logo)
+            toolbarLogo.setImageResource(R.drawable.logo)
         } else {
             toolbarTitle.visibility = View.VISIBLE
             toolbarLogo.visibility = View.GONE

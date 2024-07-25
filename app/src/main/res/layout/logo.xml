@@ -8,7 +8,7 @@
         android:id="@+id/toolbar_logo"
         android:layout_width="143dp"
         android:layout_height="33dp"
-        android:src="@drawable/toolbar_logo"
+        android:src="@drawable/logo"
         android:contentDescription="toolbar_logo"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
