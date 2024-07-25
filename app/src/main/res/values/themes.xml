@@ -19,6 +19,6 @@
 
     <style name="ToolbarStyle" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:background">@color/parkro_white</item>
-        <item name="android:textColor">@color/parkro_black</item>
+        <item name="android:textColor">@color/parkro_navy</item>
     </style>
 </resources>
