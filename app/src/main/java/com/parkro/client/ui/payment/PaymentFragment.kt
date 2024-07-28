@@ -1,4 +1,4 @@
-package com.parkro.client.ui.notifications
+package com.parkro.client.ui.payment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,12 +10,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.parkro.client.MainActivity
 import com.parkro.client.R
-import com.parkro.client.databinding.FragmentNotificationsBinding
+import com.parkro.client.databinding.FragmentPaymentBinding
+import com.parkro.client.ui.map.MapViewModel
 
-class NotificationsFragment : Fragment() {
+class PaymentFragment : Fragment() {
 
-    private lateinit var notificationsViewModel: NotificationsViewModel
-    private var _binding: FragmentNotificationsBinding? = null
+    private lateinit var mapViewModel: MapViewModel
+    private var _binding: FragmentPaymentBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,19 +27,19 @@ class NotificationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
+        mapViewModel =
+            ViewModelProvider(this).get(MapViewModel::class.java)
 
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        _binding = FragmentPaymentBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner, Observer {
+        mapViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
 
         // Update toolbar title from fragment
-        (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_notifications), true, false)
+        (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_payment), true, false)
 
         return root
     }

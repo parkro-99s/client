@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_parkinglist_admin"
+        android:icon="@drawable/ic_parkinglist_gray"
+        android:title="@string/title_parkinglist"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/navigation_logout_admin"
+        android:icon="@drawable/ic_logout_gray"
+        android:title="@string/title_logout"
+        app:showAsAction="always"/>
+
+</menu>

@@ -12,12 +12,14 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.parkro.client.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private var isAdmin = true     // 관리자 여부 확인 플래그
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,22 +31,76 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        // Disable the title of the toolbar
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayShowTitleEnabled(false) // 기본 타이틀 비활성화
 
         val navView: BottomNavigationView = binding.navView
 
+        // 권한 여부에 따른 네비게이션 바 요소 지정
         navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                if (isAdmin) {
+                    R.id.navigation_parkinglist_admin; R.id.navigation_logout_admin
+                } else {
+                    R.id.navigation_map; R.id.navigation_parkinglist; R.id.navigation_payment; R.id.navigation_mypage
+                }
             )
         )
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        navView.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
 
+        // 네비게이션 아이템을 선택할 때 호출되는 리스너 설정
         navController.addOnDestinationChangedListener { _, destination, _ ->
+
+            val fragmentsWithoutUpButton = setOf(
+                R.id.navigation_map,
+                R.id.navigation_parkinglist,
+                R.id.navigation_payment,
+                R.id.navigation_mypage,
+                R.id.navigation_parkinglist_admin,
+                R.id.navigation_logout_admin
+            )
+
+            // 기본 네비게이션 아이콘(Back Button) 제거
+            if (destination.id in fragmentsWithoutUpButton                                                                                                                               ) {
+                supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                toolbar.navigationIcon = null
+            }
+
+            // 기본 사용자 아이콘
+            navView.menu.findItem(R.id.navigation_map)?.setIcon(R.drawable.ic_map_gray)
+            navView.menu.findItem(R.id.navigation_parkinglist)?.setIcon(R.drawable.ic_parkinglist_gray)
+            navView.menu.findItem(R.id.navigation_payment)?.setIcon(R.drawable.ic_payment_gray)
+            navView.menu.findItem(R.id.navigation_mypage)?.setIcon(R.drawable.ic_mypage_gray)
+
+            // 관리자 아이콘
+            navView.menu.findItem(R.id.navigation_parkinglist_admin)?.setIcon(R.drawable.ic_parkinglist_gray)
+            navView.menu.findItem(R.id.navigation_logout_admin)?.setIcon(R.drawable.ic_logout_gray)
+
+            // 현재 선택된 아이템 아이콘 업데이트
+            when (destination.id) {
+                R.id.navigation_map -> {
+                    navView.menu.findItem(R.id.navigation_map)?.setIcon(R.drawable.ic_map_navy)
+                }
+                R.id.navigation_parkinglist -> {
+                    navView.menu.findItem(R.id.navigation_parkinglist)?.setIcon(R.drawable.ic_parkinglist_navy)
+                }
+                R.id.navigation_payment -> {
+                    navView.menu.findItem(R.id.navigation_payment)?.setIcon(R.drawable.ic_payment_navy)
+                }
+                R.id.navigation_mypage -> {
+                    navView.menu.findItem(R.id.navigation_mypage)?.setIcon(R.drawable.ic_mypage_navy)
+                }
+                R.id.navigation_parkinglist_admin -> {
+                    navView.menu.findItem(R.id.navigation_parkinglist_admin)?.setIcon(R.drawable.ic_parkinglist_navy)
+                }
+                R.id.navigation_logout_admin -> {
+                    navView.menu.findItem(R.id.navigation_logout_admin)?.setIcon(R.drawable.ic_logout_navy)
+                }
+            }
+
             updateToolbarTitle("", showBackBtn = navController.previousBackStackEntry != null)
         }
     }
@@ -60,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             toolbarBackBtn.visibility = View.GONE
             toolbarTitle.visibility = View.GONE
             toolbarLogo.visibility = View.VISIBLE
-            toolbarLogo.setImageResource(R.drawable.toolbar_logo)
+            toolbarLogo.setImageResource(R.drawable.logo)
         } else {
             toolbarTitle.visibility = View.VISIBLE
             toolbarLogo.visibility = View.GONE

@@ -24,7 +24,7 @@
 
     <!-- 툴바 로고 -->
     <include
-        layout="@layout/ic_toolbar_logo"
+        layout="@layout/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
