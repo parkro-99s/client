@@ -1,9 +1,11 @@
 package com.parkro.client.ui.payment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -41,6 +43,14 @@ class PaymentFragment : Fragment() {
         // Update toolbar title from fragment
         (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_payment), true, false)
 
+        // Find the button and set an onClickListener
+        val btnToPaymentWebView: Button = binding.btnToPaymentWebView
+        btnToPaymentWebView.setOnClickListener {
+            // Start PaymentWebViewActivity
+            val intent = Intent(activity, PaymentWebViewActivity::class.java)
+            startActivity(intent)
+        }
+
         return root
     }
 
@@ -48,6 +58,4 @@ class PaymentFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
 }
