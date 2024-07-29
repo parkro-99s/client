@@ -113,7 +113,7 @@ class MainActivity : AppCompatActivity() {
             }
             // 새로운 FCM Token 발급
             val token = task.result
-            Log.d("FCMTOKEN", token)
+            Log.d("FCM-Token", token)
         }
     }
 
