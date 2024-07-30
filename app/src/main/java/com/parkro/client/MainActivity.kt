@@ -110,6 +110,9 @@ class MainActivity : AppCompatActivity() {
             val token = task.result
             Log.d("FCM-Token", token)
         }
+
+//        // KakaoMap SDK 초기화
+//        KakaoSdk.init(this, "69b2c7b3f6aa63638852cae3724c58e7")
     }
 
     // Update toolbar title
