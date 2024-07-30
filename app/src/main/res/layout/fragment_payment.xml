@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.payment.PaymentFragment">
+    tools:context=".domain.payment.ui.PaymentFragment">
 
     <TextView
         android:id="@+id/text_notifications"
@@ -19,4 +19,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnToPaymentWebView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_notifications"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/parkro_white"
+        android:text="@string/moveToPaymentWebView"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

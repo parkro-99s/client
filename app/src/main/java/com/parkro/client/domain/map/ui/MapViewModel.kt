@@ -1,13 +1,13 @@
-package com.parkro.client.ui.payment
+package com.parkro.client.domain.map.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class PaymentViewModel : ViewModel() {
+class MapViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is payment Fragment"
+        value = "This is map Fragment"
     }
     val text: LiveData<String> = _text
 }

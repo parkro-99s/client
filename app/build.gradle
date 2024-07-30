@@ -4,6 +4,9 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+def Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     compileSdk 31
 
@@ -15,6 +18,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "PAYMENT_CLIENT_KEY", properties["toss_payment_client_key"])
+        buildConfigField("String", "SERVER_BASEURL", properties["server_baseurl"])
     }
 
     buildTypes {

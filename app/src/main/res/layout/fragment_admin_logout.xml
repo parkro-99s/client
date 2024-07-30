@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.admin_logout.AdminLogoutFragment">
+    tools:context=".domain.admin_logout.ui.AdminLogoutFragment">
 
     <TextView
         android:id="@+id/text_admin_logout"

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>결제하기</title>
+    <script src="https://js.tosspayments.com/v1/payment"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Android 인터페이스를 통해 클라이언트 키와 서버 URL을 가져옵니다.
+            var clientKey = Android.getClientKey();
+            var serverBaseUrl = Android.getServerBaseUrl();
+            var tossPayments = TossPayments(clientKey);
+
+            tossPayments.requestPayment("카드", {
+              amount: 1000,
+              orderId: 'ORDER_ID', // parking_id
+              orderName: "테스트 결제",
+              customerName: "김토스",
+              successUrl: serverBaseUrl + "/payment/success",
+              failUrl: "file:///android_asset/fail.html",
+            })
+            .catch(function (error) {
+                if (error.code === "USER_CANCEL") {
+                    alert("사용자가 결제를 취소하였습니다.");
+                } else if (error.code === "INVALID_CARD_COMPANY") {
+                    alert("유효하지 않은 카드입니다.");
+                } else {
+                    alert("결제 오류: " + error.message);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>

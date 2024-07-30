@@ -1,4 +1,4 @@
-package com.parkro.client.ui.payment
+package com.parkro.client.domain.map.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,13 +10,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.parkro.client.MainActivity
 import com.parkro.client.R
-import com.parkro.client.databinding.FragmentPaymentBinding
-import com.parkro.client.ui.map.MapViewModel
+import com.parkro.client.databinding.FragmentMapBinding
 
-class PaymentFragment : Fragment() {
+class MapFragment : Fragment() {
 
     private lateinit var mapViewModel: MapViewModel
-    private var _binding: FragmentPaymentBinding? = null
+    private var _binding: FragmentMapBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -30,16 +29,16 @@ class PaymentFragment : Fragment() {
         mapViewModel =
             ViewModelProvider(this).get(MapViewModel::class.java)
 
-        _binding = FragmentPaymentBinding.inflate(inflater, container, false)
+        _binding = FragmentMapBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
+        val textView: TextView = binding.textHome
         mapViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
 
-        // Update toolbar title from fragment
-        (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_payment), true, false)
+        // toolbar title 수정
+        (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_map), false, false)
 
         return root
     }

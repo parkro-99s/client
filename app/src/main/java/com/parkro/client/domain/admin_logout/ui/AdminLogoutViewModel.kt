@@ -1,4 +1,4 @@
-package com.parkro.client.ui.admin_logout
+package com.parkro.client.domain.admin_logout.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

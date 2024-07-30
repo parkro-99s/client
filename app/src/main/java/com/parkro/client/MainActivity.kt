@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.navigation_parkinglist_admin; R.id.navigation_logout_admin
                 } else {
                     R.id.navigation_map; R.id.navigation_parkinglist; R.id.navigation_payment; R.id.navigation_mypage
+//                    R.id.navigation_example; R.id.navigation_parkinglist; R.id.navigation_payment; R.id.navigation_mypage // map 대신 example
                 }
             )
         )
@@ -57,6 +58,7 @@ class MainActivity : AppCompatActivity() {
 
             val fragmentsWithoutUpButton = setOf(
                 R.id.navigation_map,
+//                R.id.navigation_example, // map 대신 example
                 R.id.navigation_parkinglist,
                 R.id.navigation_payment,
                 R.id.navigation_mypage,
@@ -65,25 +67,24 @@ class MainActivity : AppCompatActivity() {
             )
 
             // 기본 네비게이션 아이콘(Back Button) 제거
-            if (destination.id in fragmentsWithoutUpButton                                                                                                                               ) {
+            if (destination.id in fragmentsWithoutUpButton) {
                 supportActionBar?.setDisplayHomeAsUpEnabled(false)
                 toolbar.navigationIcon = null
             }
 
             // 기본 사용자 아이콘
             navView.menu.findItem(R.id.navigation_map)?.setIcon(R.drawable.ic_map_gray)
+//            navView.menu.findItem(R.id.navigation_example)?.setIcon(R.drawable.ic_map_gray) // map 대신 example
             navView.menu.findItem(R.id.navigation_parkinglist)?.setIcon(R.drawable.ic_parkinglist_gray)
             navView.menu.findItem(R.id.navigation_payment)?.setIcon(R.drawable.ic_payment_gray)
             navView.menu.findItem(R.id.navigation_mypage)?.setIcon(R.drawable.ic_mypage_gray)
 
-            // 관리자 아이콘
-            navView.menu.findItem(R.id.navigation_parkinglist_admin)?.setIcon(R.drawable.ic_parkinglist_gray)
-            navView.menu.findItem(R.id.navigation_logout_admin)?.setIcon(R.drawable.ic_logout_gray)
-
             // 현재 선택된 아이템 아이콘 업데이트
             when (destination.id) {
                 R.id.navigation_map -> {
+//                R.id.navigation_example -> { // map 대신 example
                     navView.menu.findItem(R.id.navigation_map)?.setIcon(R.drawable.ic_map_navy)
+//                    navView.menu.findItem(R.id.navigation_example)?.setIcon(R.drawable.ic_map_navy) // map 대신 example
                 }
                 R.id.navigation_parkinglist -> {
                     navView.menu.findItem(R.id.navigation_parkinglist)?.setIcon(R.drawable.ic_parkinglist_navy)
@@ -93,12 +94,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.navigation_mypage -> {
                     navView.menu.findItem(R.id.navigation_mypage)?.setIcon(R.drawable.ic_mypage_navy)
-                }
-                R.id.navigation_parkinglist_admin -> {
-                    navView.menu.findItem(R.id.navigation_parkinglist_admin)?.setIcon(R.drawable.ic_parkinglist_navy)
-                }
-                R.id.navigation_logout_admin -> {
-                    navView.menu.findItem(R.id.navigation_logout_admin)?.setIcon(R.drawable.ic_logout_navy)
                 }
             }
 
@@ -137,7 +132,6 @@ class MainActivity : AppCompatActivity() {
                 toolbarBackBtn.setImageResource(R.drawable.left_chevron)
                 setMargins(toolbarTitle, 54.0f)
                 toolbarBackBtn.setOnClickListener {
-                    // 여기 수정 예정
                     onBackPressed()
                 }
             } else {
