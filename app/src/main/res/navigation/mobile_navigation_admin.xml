@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_parkinglist_admin"
-        android:name="com.parkro.client.ui.admin_parkinglist.AdminParkingListFragment"
+        android:name="com.parkro.client.domain.admin_parkinglist.ui.AdminParkingListFragment"
         android:label="@string/title_parkinglist"
         tools:layout="@layout/fragment_admin_parking_list" />
 
     <fragment
         android:id="@+id/navigation_logout_admin"
-        android:name="com.parkro.client.ui.admin_logout.AdminLogoutFragment"
+        android:name="com.parkro.client.domain.admin_logout.ui.AdminLogoutFragment"
         android:label="@string/title_logout"
         tools:layout="@layout/fragment_admin_logout" />
 </navigation>

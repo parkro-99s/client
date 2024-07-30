@@ -4,28 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_map">
+    <!-- Fragment 시작 위치 -->
+<!--    app:startDestination="@+id/navigation_example">-->
 
     <fragment
         android:id="@+id/navigation_map"
-        android:name="com.parkro.client.ui.map.MapFragment"
+        android:name="com.parkro.client.domain.map.ui.MapFragment"
         android:label="@string/title_map"
         tools:layout="@layout/fragment_map" />
 
     <fragment
+        android:id="@+id/navigation_example"
+        android:name="com.parkro.client.domain.example.ui.ExampleFragment"
+        android:label="@string/title_example"
+        tools:layout="@layout/fragment_example" />
+
+    <fragment
         android:id="@+id/navigation_parkinglist"
-        android:name="com.parkro.client.ui.parkinglist.ParkingListFragment"
+        android:name="com.parkro.client.domain.parkinglist.ui.ParkingListFragment"
         android:label="@string/title_parkinglist"
         tools:layout="@layout/fragment_parkinglist" />
 
     <fragment
         android:id="@+id/navigation_payment"
-        android:name="com.parkro.client.ui.payment.PaymentFragment"
+        android:name="com.parkro.client.domain.payment.ui.PaymentFragment"
         android:label="@string/title_payment"
         tools:layout="@layout/fragment_payment" />
 
     <fragment
         android:id="@+id/navigation_mypage"
-        android:name="com.parkro.client.ui.mypage.MypageFragment"
+        android:name="com.parkro.client.domain.mypage.ui.MypageFragment"
         android:label="@string/title_mypage"
         tools:layout="@layout/fragment_mypage" />
 </navigation>

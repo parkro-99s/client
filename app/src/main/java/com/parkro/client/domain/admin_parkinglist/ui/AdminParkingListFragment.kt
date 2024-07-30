@@ -1,4 +1,4 @@
-package com.parkro.client.ui.parkinglist
+package com.parkro.client.domain.admin_parkinglist.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,12 +10,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.parkro.client.MainActivity
 import com.parkro.client.R
-import com.parkro.client.databinding.FragmentParkinglistBinding
+import com.parkro.client.databinding.FragmentAdminParkingListBinding
 
-class ParkingListFragment : Fragment() {
+class AdminParkingListFragment : Fragment() {
 
-    private lateinit var parkingListViewModel: ParkingListViewModel
-    private var _binding: FragmentParkinglistBinding? = null
+    private lateinit var adminParkingListViewModel: AdminParkingListViewModel
+    private var _binding: FragmentAdminParkingListBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -26,14 +26,14 @@ class ParkingListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        parkingListViewModel =
-            ViewModelProvider(this).get(ParkingListViewModel::class.java)
+        adminParkingListViewModel =
+            ViewModelProvider(this).get(AdminParkingListViewModel::class.java)
 
-        _binding = FragmentParkinglistBinding.inflate(inflater, container, false)
+        _binding = FragmentAdminParkingListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textDashboard
-        parkingListViewModel.text.observe(viewLifecycleOwner, Observer {
+        val textView: TextView = binding.textAdminParkingList
+        adminParkingListViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
 

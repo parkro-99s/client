@@ -1,4 +1,4 @@
-package com.parkro.client.ui.mypage
+package com.parkro.client.domain.admin_logout.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,11 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.parkro.client.MainActivity
 import com.parkro.client.R
-import com.parkro.client.databinding.FragmentMypageBinding
+import com.parkro.client.databinding.FragmentAdminLogoutBinding
 
-class MypageFragment : Fragment() {
-    private lateinit var mypageViewModel: MypageViewModel
-    private var _binding: FragmentMypageBinding? = null
+class AdminLogoutFragment : Fragment() {
+    private lateinit var adminLogoutViewModel: AdminLogoutViewModel
+    private var _binding: FragmentAdminLogoutBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -25,14 +25,14 @@ class MypageFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        mypageViewModel =
-            ViewModelProvider(this).get(MypageViewModel::class.java)
+        adminLogoutViewModel =
+            ViewModelProvider(this).get(AdminLogoutViewModel::class.java)
 
-        _binding = FragmentMypageBinding.inflate(inflater, container, false)
+        _binding = FragmentAdminLogoutBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textMypage
-        mypageViewModel.text.observe(viewLifecycleOwner, Observer {
+        val textView: TextView = binding.textAdminLogout
+        adminLogoutViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
 

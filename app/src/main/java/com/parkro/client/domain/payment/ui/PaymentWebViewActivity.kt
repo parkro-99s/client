@@ -1,4 +1,4 @@
-package com.parkro.client.ui.payment
+package com.parkro.client.domain.payment.ui
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
