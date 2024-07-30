@@ -1,7 +1,7 @@
 package com.parkro.client
 
-import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
+import com.google.firebase.messaging.FirebaseMessaging
 import com.parkro.client.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -102,6 +103,17 @@ class MainActivity : AppCompatActivity() {
             }
 
             updateToolbarTitle("", showBackBtn = navController.previousBackStackEntry != null)
+        }
+
+        // TODO: 로그인 시, FCM Token 헤더에 함께 전달
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("FCM", "Fetching FCM registration token failed", task.exception)
+                return@addOnCompleteListener
+            }
+            // 새로운 FCM Token 발급
+            val token = task.result
+            Log.d("FCM-Token", token)
         }
     }
 
