@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">client</string>
+    <string name="app_name">Parkro</string>
     <string name="title_map">지도</string>
     <string name="title_parkinglist">주차 내역</string>
     <string name="title_payment">정산</string>
