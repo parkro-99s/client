@@ -10,4 +10,6 @@
     <string name="moveToPaymentWebView">결제창 이동</string>
 
     <string name="title_example">테스트</string>
+    <string name="title_activity_admin">AdminActivity</string>
+    <string name="error_login">아이디 혹은 비밀번호가 일치하지 않습니다.</string>
 </resources>

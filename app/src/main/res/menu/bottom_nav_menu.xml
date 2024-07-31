@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item
-        android:id="@+id/navigation_map"
-        android:icon="@drawable/ic_map_gray"
-        android:title="@string/title_map"
-        app:showAsAction="always"/>
+<!--    <item-->
+<!--        android:id="@+id/navigation_map"-->
+<!--        android:icon="@drawable/ic_map_gray"-->
+<!--        android:title="@string/title_map"-->
+<!--        app:showAsAction="always"/>-->
 
     <!-- map 대신 Example 하려면 위 item 주석 처리 후 아래 주석 해제 -->
-<!--    <item-->
-<!--        android:id="@+id/navigation_example"-->
-<!--        android:icon="@drawable/ic_map_gray"-->
-<!--        android:title="@string/title_example"-->
-<!--        app:showAsAction="always"/>-->
+    <item
+        android:id="@+id/navigation_example"
+        android:icon="@drawable/ic_map_gray"
+        android:title="@string/title_example"
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/navigation_parkinglist"
