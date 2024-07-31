@@ -11,13 +11,24 @@
             var serverBaseUrl = Android.getServerBaseUrl();
             var tossPayments = TossPayments(clientKey);
 
+            var amount = parseInt(Android.getPaymentData('amount'), 10);
+            var orderId = Android.getPaymentData('orderId');
+            var orderName = Android.getPaymentData('orderName');
+            var customerName = Android.getPaymentData('customerName');
+
+            // amount가 0일 경우 바로 성공 페이지로 이동
+            if (amount === 0) {
+                window.location.href = serverBaseUrl + "/payment/success?paymentKey=default&orderId=" + orderId + "&amount=" + amount;
+                return;
+            }
+
             tossPayments.requestPayment("카드", {
-              amount: 1000,
-              orderId: 'ORDER_ID', // parking_id
-              orderName: "테스트 결제",
-              customerName: "김토스",
-              successUrl: serverBaseUrl + "/payment/success",
-              failUrl: "file:///android_asset/fail.html",
+                amount: amount,
+                orderId: orderId, // 최소 6자
+                orderName: orderName,
+                customerName: customerName,
+                successUrl: serverBaseUrl + "/payment/success",
+                failUrl: "file:///android_asset/fail.html",
             })
             .catch(function (error) {
                 if (error.code === "USER_CANCEL") {

@@ -4,30 +4,391 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="62dp"
+    android:paddingBottom="56dp"
     tools:context=".domain.payment.ui.PaymentFragment">
 
     <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
+        android:id="@+id/paymentStoreNameText"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
+        android:textColor="@color/parkro_black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/carNumberFrame"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/paymentParkingLotNameText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/parkro_black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/paymentStoreNameText"
+        app:layout_constraintEnd_toStartOf="@id/carNumberFrame"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/paymentEntranceDateText"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textAlignment="textStart"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/paymentParkingLotNameText"
+        app:layout_constraintEnd_toStartOf="@id/carNumberFrame"
+        android:visibility="invisible" />
+
+    <FrameLayout
+        android:id="@+id/carNumberFrame"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toTopOf="@id/paymentStoreNameText"
+        app:layout_constraintStart_toEndOf="@id/paymentParkingLotNameText"
+        android:visibility="invisible" >
+
+        <ImageView
+            android:id="@+id/paymentLicenseFrameImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_license_plate_png"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/parkingCarNumberText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:textColor="@color/parkro_black"
+            android:textSize="18sp" />
+
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/useCouponFrame"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/paymentEntranceDateText"
+        app:layout_constraintEnd_toStartOf="@id/useReceiptFrame"
+        android:visibility="invisible" >
+
+        <ImageButton
+            android:id="@+id/btnUseCoupon"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:background="@color/parkro_white"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:adjustViewBounds="true"
+            android:src="@drawable/btn_shadow"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/textUseCoupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/btn_use_coupon"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/parkro_black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/btnUseCoupon"
+            app:layout_constraintEnd_toEndOf="@id/btnUseCoupon"
+            app:layout_constraintTop_toTopOf="@id/btnUseCoupon"
+            app:layout_constraintBottom_toBottomOf="@id/btnUseCoupon"
+            android:gravity="center" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/useReceiptFrame"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/paymentEntranceDateText"
+        app:layout_constraintStart_toEndOf="@id/useCouponFrame"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="invisible">
+
+        <ImageButton
+            android:id="@+id/btnUseReceipt"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:background="@color/parkro_white"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:adjustViewBounds="true"
+            android:src="@drawable/btn_shadow"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/textUseReceipt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/btn_use_receipt"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/parkro_black"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/btnUseReceipt"
+            app:layout_constraintEnd_toEndOf="@id/btnUseReceipt"
+            app:layout_constraintTop_toTopOf="@id/btnUseReceipt"
+            app:layout_constraintBottom_toBottomOf="@id/btnUseReceipt"
+            android:gravity="center" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/paymentFrame"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/useCouponFrame"
+        android:visibility="invisible" >
 
-    <Button
-        android:id="@+id/btnToPaymentWebView"
+        <ImageView
+            android:id="@+id/paymentFrameImg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_payment_frame"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textTitleParkingTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:gravity="start"
+            android:text="@string/title_parking_time"
+            android:textColor="@color/parkro_black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textTitleCouponDiscount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textValueParkingTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:gravity="end"
+            android:text="@string/default_value_payment"
+            android:textColor="@color/parkro_black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textTitleParkingTime"
+            app:layout_constraintBottom_toBottomOf="@id/textTitleParkingTime" />
+
+        <TextView
+            android:id="@+id/textTitleCouponDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:gravity="start"
+            android:text="@string/title_discount_coupon"
+            android:textColor="@color/parkro_black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textTitleReceiptDiscount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textTitleParkingTime" />
+
+        <TextView
+            android:id="@+id/textValueCouponDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:gravity="end"
+            android:text="@string/default_value_payment"
+            android:textColor="@color/parkro_black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textTitleCouponDiscount"
+            app:layout_constraintBottom_toBottomOf="@id/textTitleCouponDiscount" />
+
+        <TextView
+            android:id="@+id/textTitleReceiptDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:gravity="start"
+            android:text="@string/title_discount_receipt"
+            android:textColor="@color/parkro_black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/textTitlePaymentTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textTitleCouponDiscount" />
+
+        <TextView
+            android:id="@+id/textValueReceiptDiscount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:gravity="end"
+            android:text="@string/default_value_payment"
+            android:textColor="@color/parkro_black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textTitleReceiptDiscount"
+            app:layout_constraintBottom_toBottomOf="@id/textTitleReceiptDiscount" />
+
+        <TextView
+            android:id="@+id/textTitlePaymentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="start"
+            android:text="@string/title_payment_time"
+            android:textColor="@color/parkro_black"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textTitleReceiptDiscount" />
+
+        <TextView
+            android:id="@+id/textValuePaymentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:gravity="end"
+            android:text="@string/default_value_payment"
+            android:textColor="@color/parkro_black"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textTitlePaymentTime"
+            app:layout_constraintBottom_toBottomOf="@id/textTitlePaymentTime" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/textTitleAmountPayment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="start"
+        android:text="@string/title_amount_payment"
+        android:textColor="@color/parkro_black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/paymentFrame"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/textValueAmountPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="26dp"
+        android:gravity="end"
+        android:text="@string/default_value_payment"
+        android:textColor="@color/parkro_black"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/textTitleAmountPayment"
+        app:layout_constraintBottom_toBottomOf="@id/textTitleAmountPayment"
+        android:visibility="invisible" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/moveToPaymentFrame"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/text_notifications"
-        android:layout_marginTop="40dp"
-        android:textColor="@color/parkro_white"
-        android:text="@string/moveToPaymentWebView"/>
+        app:layout_constraintTop_toBottomOf="@id/textTitleAmountPayment"
+        android:visibility="invisible" >
+
+        <ImageButton
+            android:id="@+id/btnToPayment"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/parkro_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_btn_navy_long"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
+
+        <TextView
+            android:id="@+id/textMoveToPayment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_completed_payment"
+            android:textColor="@color/parkro_white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/btnToPayment"
+            app:layout_constraintEnd_toEndOf="@id/btnToPayment"
+            app:layout_constraintTop_toTopOf="@id/btnToPayment"
+            app:layout_constraintBottom_toBottomOf="@id/btnToPayment"
+            android:gravity="center" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ImageView
+        android:id="@+id/icCarEmptyPayment"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/ic_car"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/contentEmptyPayment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/parkro_black"
+        android:text="@string/content_empty_payment"
+        android:layout_marginBottom="230dp"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="invisible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
