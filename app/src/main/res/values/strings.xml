@@ -7,12 +7,14 @@
     <string name="title_receipt">영수증</string>
     <string name="title_barcode_scan">바코드 스캔</string>
     <string name="title_logout">로그아웃</string>
+    <string name="title_payment_success">정산 성공</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_btn_payment_web">결제창 이동</string>
 
     <string name="title_example">테스트</string>
 
+<<<<<<< HEAD
     <string name="title_parking_price_info">상품금액별 무료 주차 안내</string>
     <string name="content_parking_price_info">- 2만원 이상 구매 : 1시간\n- 3만원 이상 구매 : 2시간\n- 4만원 이상 구매 : 3시간\n- 6만원 이상 구매 : 5시간</string>
 
@@ -24,4 +26,27 @@
     <string name="title_btn_register">등록하기</string>
 
     <string name="formatted_amount_payment">%1$s원</string>
+=======
+    <!-- payment -->
+    <string name="formatted_parking_entrance_date">입차 yyyy.MM.dd HH:mm</string>
+    <string name="btn_use_coupon">쿠폰 사용</string>
+    <string name="btn_use_receipt">영수증 등록</string>
+
+    <string name="title_parking_time">주차 시간</string>
+    <string name="title_discount_coupon">쿠폰 할인</string>
+    <string name="title_discount_receipt">영수증 할인</string>
+
+    <string name="title_payment_time">정산 필요 시간</string>
+
+    <string name="default_value_payment">-</string>
+
+    <string name="title_amount_payment">결제 금액</string>
+    <string name="formatted_payment_time">%1$d시 %2$d분</string>
+    <string name="formatted_amount_payment">%1$s원</string>
+
+    <string name="btn_completed_payment">결제 완료</string>
+
+    <string name="title_empty_payment">정산할 차량 없음</string>
+    <string name="content_empty_payment">현재 주차된 차량이 없습니다.</string>
+>>>>>>> 367425e (:sparkles: Feat : 사전 정산 페이지)
 </resources>

@@ -70,6 +70,7 @@ dependencies {
     // Firebase
     implementation platform('com.google.firebase:firebase-bom:29.0.3')
     implementation 'com.google.firebase:firebase-analytics'
+<<<<<<< HEAD
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
 
     // for barcode scanner
@@ -81,4 +82,7 @@ dependencies {
 
     // Google Play - location
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+=======
+    implementation 'com.google.firebase:firebase-messaging'
+>>>>>>> 367425e (:sparkles: Feat : 사전 정산 페이지)
 }
