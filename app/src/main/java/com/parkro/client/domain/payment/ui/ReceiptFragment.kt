@@ -28,7 +28,7 @@ class ReceiptFragment : Fragment() {
 
         receiptViewModel.receiptData.observe(viewLifecycleOwner, Observer { receiptData ->
             receiptData?.let {
-                binding.textReceiptValueTotalPrice.text = getString(R.string.formatted_amount_payment, it.totalPrice.toString())
+                binding.textReceiptValueTotalPrice.text = getString(R.string.formatted_amount_payment, it.totalPrice)
                 binding.textReceiptValueReceiptDiscount.text = calculateDiscountTime(it.totalPrice)
             }
         })
