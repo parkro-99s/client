@@ -44,7 +44,7 @@ class PaymentFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        binding.btnToPayment.setOnClickListener {
+        binding.btnPaymentToPayment.setOnClickListener {
             val parkingInfo = paymentViewModel.currentParkingInfo.value
             if (parkingInfo != null) {
                 // 정산할 내역이 있으면 PaymentWebViewActivity로 이동
@@ -74,54 +74,52 @@ class PaymentFragment : Fragment() {
         })
     }
 
-    @SuppressLint("StringFormatMatches")
     private fun updateUI(currentParking: GetCurrentParkingInfo) {
         binding.apply {
             // Hide empty state views
-            icCarEmptyPayment.visibility = View.GONE
-            contentEmptyPayment.visibility = View.GONE
+            imgPaymentCar.visibility = View.GONE
+            textPaymentEmptyMessage.visibility = View.GONE
 
             // Show payment details
-            paymentStoreNameText.visibility = View.VISIBLE
-            paymentParkingLotNameText.visibility = View.VISIBLE
-            paymentEntranceDateText.visibility = View.VISIBLE
-            useCouponFrame.visibility = View.VISIBLE
-            useReceiptFrame.visibility = View.VISIBLE
-            carNumberFrame.visibility = View.VISIBLE
-            paymentFrame.visibility = View.VISIBLE
-            textTitleAmountPayment.visibility = View.VISIBLE
-            textValueAmountPayment.visibility = View.VISIBLE
-            moveToPaymentFrame.visibility = View.VISIBLE
+            textPaymentStoreName.visibility = View.VISIBLE
+            textPaymentParkingLotName.visibility = View.VISIBLE
+            textPaymentEntranceDate.visibility = View.VISIBLE
+            layoutPaymentBtnCoupon.visibility = View.VISIBLE
+            layoutPaymentBtnReceipt.visibility = View.VISIBLE
+            imgCarNumberFrame.visibility = View.VISIBLE
+            layoutPaymentCurrStatus.visibility = View.VISIBLE
+            textPaymentTitleAmountPayment.visibility = View.VISIBLE
+            textPaymentValueAmountPayment.visibility = View.VISIBLE
+            layoutPaymentBtn.visibility = View.VISIBLE
 
-            paymentStoreNameText.text = currentParking.storeName
-            paymentParkingLotNameText.text = currentParking.parkingLotName
-            paymentEntranceDateText.text = formatDateTime(currentParking.entranceDate)
-            parkingCarNumberText.text = currentParking.carNumber
+            textPaymentStoreName.text = currentParking.storeName
+            textPaymentParkingLotName.text = currentParking.parkingLotName
+            textPaymentEntranceDate.text = formatDateTime(currentParking.entranceDate)
+            textCarNumber.text = currentParking.carNumber
 
-            textValueParkingTime.text = getString(R.string.formatted_payment_time, currentParking.parkingTimeHour, currentParking.parkingTimeMinute)
-            textValuePaymentTime.text = getString(R.string.formatted_payment_time, currentParking.parkingTimeHour, currentParking.parkingTimeMinute)
+            textPaymentValueTotalTime.text = getString(R.string.formatted_payment_time, currentParking.parkingTimeHour, currentParking.parkingTimeMinute)
+            textPaymentValuePaymentTime.text = getString(R.string.formatted_payment_time, currentParking.parkingTimeHour, currentParking.parkingTimeMinute)
 
-            textValueAmountPayment.text = getString(R.string.formatted_amount_payment, calTotalAmountPayment(currentParking.parkingTimeHour, currentParking.parkingTimeMinute, currentParking.perPrice))
+            textPaymentValueAmountPayment.text = getString(R.string.formatted_amount_payment, calTotalAmountPayment(currentParking.parkingTimeHour, currentParking.parkingTimeMinute, currentParking.perPrice))
         }
     }
 
     private fun showEmptyState() {
         binding.apply {
-            // Show empty state views
-            icCarEmptyPayment.visibility = View.VISIBLE
-            contentEmptyPayment.visibility = View.VISIBLE
 
-            // Hide payment details
-            paymentStoreNameText.visibility = View.GONE
-            paymentParkingLotNameText.visibility = View.GONE
-            paymentEntranceDateText.visibility = View.GONE
-            btnUseCoupon.visibility = View.GONE
-            btnUseReceipt.visibility = View.GONE
-            carNumberFrame.visibility = View.GONE
-            paymentFrame.visibility = View.GONE
-            textTitleAmountPayment.visibility = View.GONE
-            textValueAmountPayment.visibility = View.GONE
-            moveToPaymentFrame.visibility = View.GONE
+            imgPaymentCar.visibility = View.VISIBLE
+            textPaymentEmptyMessage.visibility = View.VISIBLE
+
+            textPaymentStoreName.visibility = View.GONE
+            textPaymentParkingLotName.visibility = View.GONE
+            textPaymentEntranceDate.visibility = View.GONE
+            layoutPaymentBtnCoupon.visibility = View.GONE
+            layoutPaymentBtnReceipt.visibility = View.GONE
+            imgCarNumberFrame.visibility = View.GONE
+            layoutPaymentCurrStatus.visibility = View.GONE
+            textPaymentTitleAmountPayment.visibility = View.GONE
+            textPaymentValueAmountPayment.visibility = View.GONE
+            layoutPaymentBtn.visibility = View.GONE
         }
     }
 
