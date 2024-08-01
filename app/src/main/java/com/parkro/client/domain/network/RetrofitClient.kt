@@ -1,5 +1,6 @@
 package com.parkro.client.domain.network
 
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.parkro.client.BuildConfig
 import retrofit2.Retrofit

@@ -8,6 +8,18 @@
 <!--    app:startDestination="@+id/navigation_example">-->
 
     <fragment
+        android:id="@+id/navigation_barcode_scan"
+        android:name="com.parkro.client.domain.payment.ui.BarcodeScanFragment"
+        android:label="@string/title_barcode_scan"
+        tools:layout="@layout/fragment_barcode_scan" />
+
+    <fragment
+        android:id="@+id/navigation_receipt"
+        android:name="com.parkro.client.domain.payment.ui.ReceiptFragment"
+        android:label="@string/title_receipt"
+        tools:layout="@layout/fragment_receipt" />
+
+    <fragment
         android:id="@+id/navigation_map"
         android:name="com.parkro.client.domain.map.ui.MapFragment"
         android:label="@string/title_map"
