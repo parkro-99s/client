@@ -1,5 +1,6 @@
 package com.parkro.client.domain.payment.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -73,6 +74,7 @@ class PaymentFragment : Fragment() {
         })
     }
 
+    @SuppressLint("StringFormatMatches")
     private fun updateUI(currentParking: GetCurrentParkingInfo) {
         binding.apply {
             // Hide empty state views
@@ -99,7 +101,7 @@ class PaymentFragment : Fragment() {
             textValueParkingTime.text = getString(R.string.formatted_payment_time, currentParking.parkingTimeHour, currentParking.parkingTimeMinute)
             textValuePaymentTime.text = getString(R.string.formatted_payment_time, currentParking.parkingTimeHour, currentParking.parkingTimeMinute)
 
-            textValueAmountPayment.text = getString(R.string.formatted_amount_payment, calTotalAmountPayment(currentParking.parkingTimeHour, currentParking.parkingTimeMinute, currentParking.perPrice).toString())
+            textValueAmountPayment.text = getString(R.string.formatted_amount_payment, calTotalAmountPayment(currentParking.parkingTimeHour, currentParking.parkingTimeMinute, currentParking.perPrice))
         }
     }
 

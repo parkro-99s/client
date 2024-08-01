@@ -335,12 +335,6 @@
         android:layout_marginTop="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-<<<<<<< HEAD
-        app:layout_constraintTop_toTopOf="@id/text_notifications"
-        android:layout_marginTop="40dp"
-        android:textColor="@color/parkro_white"
-        android:text="@string/title_btn_payment_web"/>
-=======
         app:layout_constraintTop_toBottomOf="@id/textTitleAmountPayment"
         android:visibility="invisible" >
 
@@ -397,5 +391,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="invisible" />
 
->>>>>>> 367425e (:sparkles: Feat : 사전 정산 페이지)
 </androidx.constraintlayout.widget.ConstraintLayout>
