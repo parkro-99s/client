@@ -39,10 +39,12 @@
         android:layout_width="280dp"
         android:layout_height="50dp"
         android:layout_below="@+id/layout_signup"
+        android:layout_toLeftOf="@id/btn_signup_verify_username"
         android:background="@drawable/edt_background"
         android:hint="아이디"
         android:inputType="text"
         android:textSize="16sp"
+        android:layout_marginEnd="7dp"
         android:textStyle="normal" />
 
     <TextView
@@ -136,13 +138,14 @@
 
     <EditText
         android:id="@+id/edt_signup_car_number"
-        android:layout_width="280dp"
+        android:layout_width="170dp"
         android:layout_height="50dp"
         android:layout_below="@id/edt_signup_check_password"
         android:layout_marginTop="18dp"
         android:background="@drawable/edt_background"
-        android:hint="차량 번호"
+        android:hint="123가4567"
         android:inputType="text"
+        android:layout_marginEnd="7dp"
         android:textSize="16sp"
         android:textStyle="normal" />
 
@@ -185,6 +188,20 @@
         android:textStyle="bold"
         android:visibility="invisible" />
 
+    <EditText
+        android:id="@+id/edt_signup_name"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/edt_signup_check_password"
+        android:layout_marginTop="18dp"
+        android:layout_toLeftOf="@id/btn_signup_verify_car_number"        android:layout_toRightOf="@+id/edt_signup_car_number"
+        android:background="@drawable/edt_background"
+        android:hint="이름"
+        android:inputType="text"
+        android:textSize="16sp"
+        android:layout_marginEnd="7dp"
+        android:textStyle="normal" />
+
     <Button
         android:id="@+id/btn_signup_verify_car_number"
         android:layout_width="wrap_content"
@@ -198,18 +215,6 @@
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/edt_signup_name"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/edt_signup_car_number"
-        android:layout_marginTop="18dp"
-        android:background="@drawable/edt_background"
-        android:hint="이름"
-        android:inputType="text"
-        android:textSize="16sp"
-        android:textStyle="normal" />
 
     <EditText
         android:id="@+id/edt_signup_nickname"
