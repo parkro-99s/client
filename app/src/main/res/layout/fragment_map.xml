@@ -6,26 +6,145 @@
     android:layout_height="match_parent"
     tools:context=".domain.map.ui.MapFragment">
 
-    <TextView
-        android:id="@+id/text_map"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.kakao.vectormap.MapView
-        android:id="@+id/map_view"
+    <FrameLayout
+        android:id="@+id/fram_map"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.kakao.vectormap.MapView
+            android:id="@+id/map_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include
+                android:id="@+id/toolbar_gradient"
+                layout="@layout/toolbar_gradient"
+                android:layout_width="match_parent"
+                android:layout_height="85dp"
+                android:elevation="4dp" />
+
+            <RelativeLayout
+                android:id="@+id/btn_map_space1"
+                android:layout_width="110dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/toolbar_gradient"
+                android:layout_marginTop="-15dp">
+
+                <ImageView
+                    android:id="@+id/img_map_space1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/btn_map_store_white" />
+
+                <TextView
+                    android:id="@+id/text_map_space1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:paddingBottom="8dp"
+                    android:text="스페이스원"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_map_dongdaemoon"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/toolbar_gradient"
+                android:layout_marginStart="-10dp"
+                android:layout_marginTop="-15dp"
+                android:layout_toEndOf="@id/btn_map_space1">
+
+                <ImageView
+                    android:id="@+id/img_map_dongdaemoon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/btn_map_store_white" />
+
+                <TextView
+                    android:id="@+id/text_map_dongdaemoon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:paddingBottom="8dp"
+                    android:text="동대문점"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_map_pangyo"
+                android:layout_width="80dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/toolbar_gradient"
+                android:layout_marginTop="-15dp"
+                android:layout_marginStart="-10dp"
+                android:layout_toEndOf="@id/btn_map_dongdaemoon">
+
+                <ImageView
+                    android:id="@+id/img_map_pangyo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/btn_map_store_white" />
+
+                <TextView
+                    android:id="@+id/text_map_pangyo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:paddingBottom="8dp"
+                    android:text="판교점"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_map_daegu"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/toolbar_gradient"
+                android:layout_marginStart="-10dp"
+                android:layout_marginTop="-15dp"
+                android:layout_toEndOf="@id/btn_map_pangyo">
+
+                <ImageView
+                    android:id="@+id/img_map_daegu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/btn_map_store_white" />
+
+                <TextView
+                    android:id="@+id/text_map_daegu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:paddingBottom="8dp"
+                    android:text="더현대 대구"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

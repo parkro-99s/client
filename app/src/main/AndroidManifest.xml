@@ -92,8 +92,8 @@
         </service>
 
         <meta-data
-            android:name="com.kakao.sdk.APP_KEY"
-            android:value="69b2c7b3f6aa63638852cae3724c58e7"/>
+            android:name="com.kakao.vectormap.APP_KEY"
+            android:value="${KAKAO_APP_KEY}"/>
     </application>
 
 </manifest>
