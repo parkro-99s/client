@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.parkro.client.MainActivity
 import com.parkro.client.R
 import com.parkro.client.databinding.FragmentPaymentBinding
@@ -61,11 +62,14 @@ class PaymentFragment : Fragment() {
                 startActivity(intent)
             }
         }
+
+        binding.btnPaymentReceipt.setOnClickListener {
+            findNavController(this@PaymentFragment).navigate(R.id.navigation_receipt)
+        }
     }
 
     private fun observeViewModel() {
         paymentViewModel.currentParkingInfo.observe(viewLifecycleOwner, Observer { parking ->
-            println("parking: " + parking)
             if (parking != null) {
                 updateUI(parking)
             } else {
