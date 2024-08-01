@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:paddingTop="62dp"
     android:paddingBottom="56dp"
+    android:paddingHorizontal="20dp"
     tools:context=".domain.payment.ui.PaymentFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,8 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp" >
 
         <ImageView
@@ -30,34 +29,29 @@
             android:id="@+id/text_receipt_price_info_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:paddingHorizontal="20dp"
             app:layout_constraintStart_toStartOf="@id/img_receipt_info_frame"
             app:layout_constraintEnd_toEndOf="@id/img_receipt_info_frame"
             app:layout_constraintTop_toTopOf="@id/img_receipt_info_frame"
             app:layout_constraintBottom_toTopOf="@id/text_receipt_price_info_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="30dp"
             android:textStyle="bold"
-            android:textSize="22.5sp"
+            android:textSize="20sp"
             android:text="@string/title_parking_price_info" />
 
         <TextView
             android:id="@+id/text_receipt_price_info_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
+            android:paddingHorizontal="20dp"
             app:layout_constraintStart_toStartOf="@id/img_receipt_info_frame"
             app:layout_constraintEnd_toEndOf="@id/img_receipt_info_frame"
             app:layout_constraintTop_toBottomOf="@id/text_receipt_price_info_title"
             app:layout_constraintBottom_toBottomOf="@id/img_receipt_info_frame"
-            android:layout_marginBottom="10dp"
-            android:textSize="17sp"
-            android:text="@string/content_parking_price_info" />
+            android:layout_marginBottom="30dp"
+            android:textSize="14sp"
+            android:text="@string/content_parking_price_info"
+            android:lineSpacingMultiplier="1.4" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -87,7 +81,7 @@
             android:layout_height="wrap_content"
             android:text="@string/title_btn_barcode"
             android:textColor="@color/parkro_black"
-            android:textSize="22sp"
+            android:textSize="16sp"
             android:layout_marginBottom="8dp"
             app:layout_constraintStart_toStartOf="@id/btn_receipt_btn_to_scanner"
             app:layout_constraintEnd_toEndOf="@id/btn_receipt_btn_to_scanner"
@@ -101,8 +95,6 @@
         android:id="@+id/layout_receipt_curr_discount_info"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_receipt_btn_to_barcode" >
@@ -115,7 +107,7 @@
             android:gravity="start"
             android:text="@string/title_discount_amount"
             android:textColor="@color/parkro_black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toTopOf="@id/text_receipt_title_receipt_discount"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -128,7 +120,7 @@
             android:gravity="end"
             android:text="@string/default_value_payment"
             android:textColor="@color/parkro_black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_receipt_title_total_price"
@@ -142,7 +134,7 @@
             android:gravity="start"
             android:text="@string/title_discount_hours"
             android:textColor="@color/parkro_black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_receipt_title_total_price" />
@@ -155,7 +147,7 @@
             android:gravity="end"
             android:text="@string/default_value_payment"
             android:textColor="@color/parkro_black"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_receipt_title_receipt_discount"
@@ -166,8 +158,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_receipt_btn_register"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_receipt_curr_discount_info" >
@@ -175,12 +168,12 @@
         <ImageButton
             android:id="@+id/btn_receipt_register"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="match_parent"
             android:background="@color/parkro_white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/ic_btn_navy_long"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             android:adjustViewBounds="true" />
 
         <TextView
@@ -189,7 +182,7 @@
             android:layout_height="wrap_content"
             android:text="@string/title_btn_register"
             android:textColor="@color/parkro_white"
-            android:textSize="20sp"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/btn_receipt_register"
             app:layout_constraintEnd_toEndOf="@id/btn_receipt_register"
             app:layout_constraintTop_toTopOf="@id/btn_receipt_register"
