@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="62dp"
+    android:paddingBottom="56dp"
+    android:paddingHorizontal="20dp"
+    tools:context=".domain.payment.ui.PaymentFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_receipt_price_info"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp" >
+
+        <ImageView
+            android:id="@+id/img_receipt_info_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/parking_price_frame" />
+
+        <TextView
+            android:id="@+id/text_receipt_price_info_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            app:layout_constraintStart_toStartOf="@id/img_receipt_info_frame"
+            app:layout_constraintEnd_toEndOf="@id/img_receipt_info_frame"
+            app:layout_constraintTop_toTopOf="@id/img_receipt_info_frame"
+            app:layout_constraintBottom_toTopOf="@id/text_receipt_price_info_content"
+            android:layout_marginTop="30dp"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:text="@string/title_parking_price_info" />
+
+        <TextView
+            android:id="@+id/text_receipt_price_info_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp"
+            app:layout_constraintStart_toStartOf="@id/img_receipt_info_frame"
+            app:layout_constraintEnd_toEndOf="@id/img_receipt_info_frame"
+            app:layout_constraintTop_toBottomOf="@id/text_receipt_price_info_title"
+            app:layout_constraintBottom_toBottomOf="@id/img_receipt_info_frame"
+            android:layout_marginBottom="30dp"
+            android:textSize="14sp"
+            android:text="@string/content_parking_price_info"
+            android:lineSpacingMultiplier="1.4" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_receipt_btn_to_barcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_receipt_price_info" >
+
+        <ImageButton
+            android:id="@+id/btn_receipt_btn_to_scanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/parkro_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_btn_shadow_long"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true" />
+
+        <TextView
+            android:id="@+id/text_receipt_btn_to_barcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_btn_barcode"
+            android:textColor="@color/parkro_black"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintStart_toStartOf="@id/btn_receipt_btn_to_scanner"
+            app:layout_constraintEnd_toEndOf="@id/btn_receipt_btn_to_scanner"
+            app:layout_constraintTop_toTopOf="@id/btn_receipt_btn_to_scanner"
+            app:layout_constraintBottom_toBottomOf="@id/btn_receipt_btn_to_scanner"
+            android:gravity="center" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_receipt_curr_discount_info"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_receipt_btn_to_barcode" >
+
+        <TextView
+            android:id="@+id/text_receipt_title_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:gravity="start"
+            android:text="@string/title_discount_amount"
+            android:textColor="@color/parkro_black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toTopOf="@id/text_receipt_title_receipt_discount"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_receipt_value_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:gravity="end"
+            android:text="@string/default_value_payment"
+            android:textColor="@color/parkro_black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_receipt_title_total_price"
+            app:layout_constraintBottom_toBottomOf="@id/text_receipt_title_total_price" />
+
+        <TextView
+            android:id="@+id/text_receipt_title_receipt_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:gravity="start"
+            android:text="@string/title_discount_hours"
+            android:textColor="@color/parkro_black"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_receipt_title_total_price" />
+
+        <TextView
+            android:id="@+id/text_receipt_value_receipt_discount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:gravity="end"
+            android:text="@string/default_value_payment"
+            android:textColor="@color/parkro_black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_receipt_title_receipt_discount"
+            app:layout_constraintBottom_toBottomOf="@id/text_receipt_title_receipt_discount" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_receipt_btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_receipt_curr_discount_info" >
+
+        <ImageButton
+            android:id="@+id/btn_receipt_register"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/parkro_white"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_btn_navy_long"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true" />
+
+        <TextView
+            android:id="@+id/text_receipt_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_btn_register"
+            android:textColor="@color/parkro_white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/btn_receipt_register"
+            app:layout_constraintEnd_toEndOf="@id/btn_receipt_register"
+            app:layout_constraintTop_toTopOf="@id/btn_receipt_register"
+            app:layout_constraintBottom_toBottomOf="@id/btn_receipt_register"
+            android:gravity="center" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
