@@ -2,9 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.parkro.client">
 
+    <!-- 인터넷 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  
+    <!--    카메라 권한    -->
     <uses-permission android:name="android.permission.CAMERA" />
+    <!--    정확한 위치    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!--    대략적인 위치    -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <queries>
         <package android:name="com.kakao.talk" />
@@ -86,6 +93,10 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
+
+        <meta-data
+            android:name="com.kakao.vectormap.APP_KEY"
+            android:value="${KAKAO_APP_KEY}"/>
     </application>
 
 </manifest>
