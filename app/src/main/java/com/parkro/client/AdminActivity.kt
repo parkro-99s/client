@@ -16,17 +16,18 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.parkro.client.databinding.ActivityAdminBinding
 import com.parkro.client.databinding.ActivityMainBinding
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class AdminActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityAdminBinding
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Custom toolbar setup
@@ -37,16 +38,14 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 //
-        navController = findNavController(R.id.nav_host_fragment_activity_main)
+        navController = findNavController(R.id.nav_host_fragment_activity_admin)
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_example, // map 대신 example
-                R.id.navigation_parkinglist,
-                R.id.navigation_payment,
-                R.id.navigation_mypage
+                R.id.navigation_parkinglist_admin,
+                R.id.navigation_logout_admin
             )
         )
-
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
@@ -57,10 +56,6 @@ class MainActivity : AppCompatActivity() {
             val fragmentsWithoutUpButton = setOf(
 //                R.id.navigation_map,
                 R.id.navigation_example, // map 대신 example
-                R.id.navigation_map,
-                R.id.navigation_receipt,
-                R.id.navigation_barcode_scan,
-//                R.id.navigation_example, // map 대신 example
                 R.id.navigation_parkinglist,
                 R.id.navigation_payment,
                 R.id.navigation_mypage,
