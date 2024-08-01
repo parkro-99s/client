@@ -4,14 +4,16 @@
     <string name="title_parkinglist">주차 내역</string>
     <string name="title_payment">정산</string>
     <string name="title_mypage">마이</string>
+    <string name="title_receipt">영수증</string>
+    <string name="title_barcode_scan">바코드 스캔</string>
     <string name="title_logout">로그아웃</string>
     <string name="title_payment_success">정산 성공</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="moveToPaymentWebView">결제창 이동</string>
+    <string name="title_btn_payment_web">결제창 이동</string>
 
     <string name="title_example">테스트</string>
-
+  
     <!-- payment -->
     <string name="formatted_parking_entrance_date">입차 yyyy.MM.dd HH:mm</string>
     <string name="btn_use_coupon">쿠폰 사용</string>
@@ -33,4 +35,14 @@
 
     <string name="title_empty_payment">정산할 차량 없음</string>
     <string name="content_empty_payment">현재 주차된 차량이 없습니다.</string>
+  
+  
+    <string name="title_parking_price_info">상품금액별 무료 주차 안내</string>
+    <string name="content_parking_price_info">- 2만원 이상 구매 : 1시간\n- 3만원 이상 구매 : 2시간\n- 4만원 이상 구매 : 3시간\n- 6만원 이상 구매 : 5시간</string>
+
+    <string name="title_btn_barcode">바코드 인식</string>
+
+    <string name="title_discount_amount">결제 금액</string>
+    <string name="title_discount_hours">차감 시간</string>
+    <string name="title_btn_register">등록하기</string>
 </resources>

@@ -42,7 +42,7 @@
         android:layout_marginStart="17dp"
         android:textColor="@color/parkro_black"
         android:textStyle="bold"
-        android:textSize="23sp" />
+        android:textSize="20sp" />
 
 
 </RelativeLayout>
