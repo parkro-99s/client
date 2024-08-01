@@ -78,4 +78,6 @@ dependencies {
 
     // Google Play - location
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+    // for barcode scanner
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
 }
