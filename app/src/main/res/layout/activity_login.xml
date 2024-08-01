@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/container"
@@ -13,10 +11,11 @@
 
         <RelativeLayout
             android:id="@+id/header_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginRight="30dp">
+            android:layout_marginRight="30dp"
+            android:gravity="center">
 
             <!-- Car shadow ImageView -->
             <ImageView
@@ -39,70 +38,79 @@
                 android:src="@drawable/toolbar_logo" />
         </RelativeLayout>
 
-
-        <EditText
-            android:id="@+id/edittext_username"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/header_title"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:background="@drawable/edittext_long_background"
-            android:hint="아이디"
-            android:inputType="text"
-            android:textSize="16sp"
-            android:textStyle="normal" />
+            android:layout_centerVertical="true"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
-        <EditText
-            android:id="@+id/edittext_password"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@id/edittext_username"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/edittext_long_background"
-            android:hint="비밀번호"
-            android:inputType="textPassword"
-            android:textSize="16sp"
-            android:textStyle="normal" />
+            <EditText
+                android:id="@+id/edittext_username"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/edittext_long_background"
+                android:hint="아이디"
+                android:inputType="text"
+                android:paddingRight="20dp"
+                android:textSize="16sp"
+                android:textStyle="normal" />
 
-        <TextView
-            android:id="@+id/textview_error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/edittext_password"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="17dp"
-            android:text="@string/error_login"
-            android:textColor="@color/parkro_red"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:visibility="invisible" />
+            <EditText
+                android:id="@+id/edittext_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/edittext_username"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edittext_long_background"
+                android:hint="비밀번호"
+                android:inputType="textPassword"
+                android:textSize="16sp"
+                android:textStyle="normal" />
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_below="@id/edittext_password"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/btn_large_background"
-            android:text="로그인"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/textview_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edittext_password"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="17dp"
+                android:text="@string/error_login"
+                android:textColor="@color/parkro_red"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="invisible" />
 
-        <TextView
-            android:id="@+id/sign_up"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/btn_login"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="25dp"
-            android:text="회원가입"
-            android:textColor="@color/parkro_gray"
-            android:textSize="13sp"
-            android:textStyle="normal"
-            android:visibility="visible" />
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@id/edittext_password"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/btn_large_background"
+                android:text="로그인"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_login"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="25dp"
+                android:text="회원가입"
+                android:textColor="@color/parkro_gray"
+                android:textSize="13sp"
+                android:textStyle="normal"
+                android:visibility="visible" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>

@@ -4,10 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.view.animation.Animation
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.marginTop
 import com.parkro.client.AdminActivity
@@ -19,19 +16,23 @@ import com.parkro.client.domain.login.data.LoginRepository
 import com.parkro.client.domain.signup.ui.SignUpActivity
 import org.json.JSONObject
 import java.util.Base64
+import android.view.animation.AnimationUtils
+import android.widget.*
+
 
 class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(com.parkro.client.R.layout.activity_login)
         Utils.init(applicationContext)
-        val usernameText: EditText = findViewById(R.id.edittext_username)
-        val passwordText: EditText = findViewById(R.id.edittext_password)
-        val submitButton: Button = findViewById(R.id.btn_login)
-        val signUpButton: TextView = findViewById(R.id.sign_up)
+        val usernameText: EditText = findViewById(com.parkro.client.R.id.edittext_username)
+        val passwordText: EditText = findViewById(com.parkro.client.R.id.edittext_password)
+        val submitButton: Button = findViewById(com.parkro.client.R.id.btn_login)
+        val signUpButton: TextView = findViewById(com.parkro.client.R.id.sign_up)
         val loginRepository = LoginRepository()
-        val errorText: TextView = findViewById(R.id.textview_error)
+        val errorText: TextView = findViewById(com.parkro.client.R.id.textview_error)
+        val car: ImageView = findViewById(com.parkro.client.R.id.car_shadow)
 
         submitButton.setOnClickListener {
             val username = usernameText.text.toString().trim()
@@ -51,10 +52,25 @@ class LoginActivity : AppCompatActivity() {
                                 val intent = Intent(this, AdminActivity::class.java)
                                 startActivity(intent)
                             } else {
-                                val intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
+
+                                val animCarOut: Animation =
+                                    AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
+                                car.startAnimation(animCarOut)
+                                animCarOut.setAnimationListener(object : Animation.AnimationListener {
+                                    override fun onAnimationStart(animation: Animation?) {
+                                    }
+
+                                    override fun onAnimationEnd(animation: Animation?) {
+                                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                        startActivity(intent)
+                                    }
+
+                                    override fun onAnimationRepeat(animation: Animation?) {
+                                    }
+                                })
+
+                                car.startAnimation(animCarOut)
                             }
-                            finish()
                         }
                     },
                     onFailure = { error ->
