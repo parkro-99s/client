@@ -9,7 +9,7 @@ interface LoginService {
 
     // API 경로 지정 및 응답 데이터 지정
     @POST("/member/sign-in")
-    fun postLoginInfo(@Header("FCM-TOKEN") token: String?, @Body postLoginReq: PostLoginReq): Call<String>
+    fun postLogin(@Header("FCM-TOKEN") token: String?, @Body postLoginReq: PostLoginReq): Call<String>
 
 
 }

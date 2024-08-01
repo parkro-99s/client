@@ -6,7 +6,7 @@
     android:paddingRight="20dp">
 
     <RelativeLayout
-        android:id="@+id/header_title"
+        android:id="@+id/layout_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -15,7 +15,7 @@
 
         <!-- Car shadow ImageView -->
         <ImageView
-            android:id="@+id/car_shadow"
+            android:id="@+id/img_signup_car_shadow"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_alignParentTop="true"
@@ -26,7 +26,7 @@
 
         <!-- Main logo ImageView, placed above car shadow -->
         <ImageView
-            android:id="@+id/main_logo"
+            android:id="@+id/img_signup_logo"
             android:layout_width="150dp"
             android:layout_height="80dp"
             android:layout_centerVertical="true"
@@ -35,36 +35,36 @@
     </RelativeLayout>
 
     <EditText
-        android:id="@+id/edittext_username"
+        android:id="@+id/edt_signup_username"
         android:layout_width="280dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/header_title"
-        android:background="@drawable/edittext_long_background"
+        android:layout_below="@+id/layout_signup"
+        android:background="@drawable/edt_background"
         android:hint="아이디"
         android:inputType="text"
         android:textSize="16sp"
         android:textStyle="normal" />
 
     <TextView
-        android:id="@+id/fe_login_error"
+        android:id="@+id/tv_signup_login_error_fe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edittext_username"
+        android:layout_below="@id/edt_signup_username"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="4dp"
-        android:text="@string/fe_error_id"
+        android:text="@string/error_signup_username_fe"
         android:textColor="@color/parkro_red"
         android:textSize="14sp"
         android:textStyle="bold"
         android:visibility="invisible" />
 
     <TextView
-        android:id="@+id/be_login_error"
+        android:id="@+id/tv_signup_login_error_be"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edittext_username"
+        android:layout_below="@id/edt_signup_username"
         android:layout_marginTop="4dp"
-        android:text="@string/be_error_id"
+        android:text="@string/error_signup_username_be"
         android:textColor="@color/parkro_red"
         android:layout_marginLeft="10dp"
         android:textSize="14sp"
@@ -72,37 +72,37 @@
         android:visibility="invisible" />
 
     <Button
-        android:id="@+id/btn_verify_id"
+        android:id="@+id/btn_signup_verify_username"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_below="@+id/header_title"
-    android:layout_alignParentRight="true"
-    android:background="@drawable/btn_small_background"
-    android:enabled="false"
-    android:text="조회"
-    android:textColor="#FFFFFF"
-    android:textSize="16sp"
-    android:textStyle="bold" />
+        android:layout_below="@+id/layout_signup"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/btn_small_background"
+        android:enabled="false"
+        android:text="조회"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edittext_password"
+        android:id="@+id/edt_signup_password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/edittext_username"
+        android:layout_below="@id/edt_signup_username"
         android:layout_marginTop="18dp"
-        android:background="@drawable/edittext_long_background"
+        android:background="@drawable/edt_background"
         android:hint="비밀번호"
         android:inputType="textPassword"
         android:textSize="16sp"
         android:textStyle="normal" />
 
     <TextView
-        android:id="@+id/fe_password_error"
+        android:id="@+id/tv_signup_password_error_fe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edittext_password"
+        android:layout_below="@id/edt_signup_password"
         android:layout_marginTop="4dp"
-        android:text="@string/fe_error_password"
+        android:text="@string/error_signup_password_fe"
         android:textColor="@color/parkro_red"
         android:layout_marginLeft="10dp"
         android:textSize="14sp"
@@ -110,24 +110,24 @@
         android:visibility="invisible" />
 
     <EditText
-        android:id="@+id/edittext_check_password"
+        android:id="@+id/edt_signup_check_password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/edittext_password"
+        android:layout_below="@id/edt_signup_password"
         android:layout_marginTop="18dp"
-        android:background="@drawable/edittext_long_background"
+        android:background="@drawable/edt_background"
         android:hint="비밀번호 확인"
         android:inputType="textPassword"
         android:textSize="16sp"
         android:textStyle="normal" />
 
     <TextView
-        android:id="@+id/fe_check_password_error"
+        android:id="@+id/tv_signup_check_password_error_fe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edittext_check_password"
+        android:layout_below="@id/edt_signup_check_password"
         android:layout_marginTop="4dp"
-        android:text="@string/fe_error_check_password"
+        android:text="@string/error_signup_check_password_fe"
         android:textColor="@color/parkro_red"
         android:layout_marginLeft="10dp"
         android:textSize="14sp"
@@ -135,24 +135,24 @@
         android:visibility="invisible" />
 
     <EditText
-        android:id="@+id/edittext_car_number"
+        android:id="@+id/edt_signup_car_number"
         android:layout_width="280dp"
         android:layout_height="50dp"
-        android:layout_below="@id/edittext_check_password"
+        android:layout_below="@id/edt_signup_check_password"
         android:layout_marginTop="18dp"
-        android:background="@drawable/edittext_long_background"
+        android:background="@drawable/edt_background"
         android:hint="차량 번호"
         android:inputType="text"
         android:textSize="16sp"
         android:textStyle="normal" />
 
     <TextView
-        android:id="@+id/be_invalid_car_number_error"
+        android:id="@+id/tv_signup_invalid_car_number_error_be"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edittext_car_number"
+        android:layout_below="@id/edt_signup_car_number"
         android:layout_marginTop="4dp"
-        android:text="@string/be_error_invalid_car_number"
+        android:text="@string/error_signup_invalid_car_number_be"
         android:textColor="@color/parkro_red"
         android:textSize="14sp"
         android:layout_marginLeft="10dp"
@@ -160,12 +160,12 @@
         android:visibility="invisible" />
 
     <TextView
-        android:id="@+id/be_duplicated_car_number_error"
+        android:id="@+id/tv_signup_duplicated_car_number_error_be"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edittext_car_number"
+        android:layout_below="@id/edt_signup_car_number"
         android:layout_marginTop="4dp"
-        android:text="@string/be_error_duplicated_car_number"
+        android:text="@string/error_signup_duplicated_car_number_be"
         android:textColor="@color/parkro_red"
         android:layout_marginLeft="10dp"
         android:textSize="14sp"
@@ -173,12 +173,12 @@
         android:visibility="invisible" />
 
     <TextView
-        android:id="@+id/server_error"
+        android:id="@+id/tv_signup_server_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edittext_car_number"
+        android:layout_below="@id/edt_signup_car_number"
         android:layout_marginTop="4dp"
-        android:text="@string/server_error"
+        android:text="@string/error_signup_server"
         android:textColor="@color/parkro_red"
         android:layout_marginLeft="10dp"
         android:textSize="14sp"
@@ -186,10 +186,10 @@
         android:visibility="invisible" />
 
     <Button
-        android:id="@+id/btn_verify_car"
+        android:id="@+id/btn_signup_verify_car_number"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_below="@id/edittext_check_password"
+        android:layout_below="@id/edt_signup_check_password"
         android:layout_alignParentRight="true"
         android:layout_marginTop="18dp"
         android:background="@drawable/btn_small_background"
@@ -200,36 +200,36 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edittext_name"
+        android:id="@+id/edt_signup_name"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/edittext_car_number"
+        android:layout_below="@id/edt_signup_car_number"
         android:layout_marginTop="18dp"
-        android:background="@drawable/edittext_long_background"
+        android:background="@drawable/edt_background"
         android:hint="이름"
         android:inputType="text"
         android:textSize="16sp"
         android:textStyle="normal" />
 
     <EditText
-        android:id="@+id/edittext_nickname"
+        android:id="@+id/edt_signup_nickname"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/edittext_name"
+        android:layout_below="@id/edt_signup_name"
         android:layout_marginTop="18dp"
-        android:background="@drawable/edittext_long_background"
+        android:background="@drawable/edt_background"
         android:hint="닉네임"
         android:inputType="text"
         android:textSize="16sp"
         android:textStyle="normal" />
 
     <TextView
-        android:id="@+id/fe_nickname_number_error"
+        android:id="@+id/tv_signup_nickname_error_fe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edittext_nickname"
+        android:layout_below="@id/edt_signup_nickname"
         android:layout_marginTop="4dp"
-        android:text="@string/fe_error_nickname"
+        android:text="@string/error_signup_nickname_fe"
         android:textColor="@color/parkro_red"
         android:layout_marginLeft="10dp"
         android:textSize="14sp"
@@ -237,24 +237,24 @@
         android:visibility="invisible" />
 
     <EditText
-        android:id="@+id/edittext_phone_number"
+        android:id="@+id/edt_signup_phone_number"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/edittext_nickname"
+        android:layout_below="@id/edt_signup_nickname"
         android:layout_marginTop="18dp"
-        android:background="@drawable/edittext_long_background"
+        android:background="@drawable/edt_background"
         android:hint="전화번호"
         android:inputType="phone"
         android:textSize="16sp"
         android:textStyle="normal" />
 
     <TextView
-        android:id="@+id/fe_phone_number_error"
+        android:id="@+id/tv_signup_phone_number_error_fe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edittext_phone_number"
+        android:layout_below="@id/edt_signup_phone_number"
         android:layout_marginTop="4dp"
-        android:text="@string/fe_error_phone_number"
+        android:text="@string/error_signup_phone_number_fe"
         android:layout_marginLeft="10dp"
         android:textColor="@color/parkro_red"
         android:textSize="14sp"
@@ -262,12 +262,12 @@
         android:visibility="invisible" />
 
     <TextView
-        android:id="@+id/be_phone_number_error"
+        android:id="@+id/tv_signup_phone_number_error_be"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edittext_phone_number"
+        android:layout_below="@id/edt_signup_phone_number"
         android:layout_marginTop="4dp"
-        android:text="@string/be_error_phone_number"
+        android:text="@string/error_signup_phone_number_be"
         android:textColor="@color/parkro_red"
         android:layout_marginLeft="10dp"
         android:textSize="14sp"
@@ -278,7 +278,7 @@
         android:id="@+id/btn_signup"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_below="@id/edittext_phone_number"
+        android:layout_below="@id/edt_signup_phone_number"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
         android:background="@drawable/btn_large_background"

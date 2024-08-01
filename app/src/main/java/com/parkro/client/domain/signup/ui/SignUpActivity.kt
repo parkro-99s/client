@@ -20,7 +20,6 @@ import com.parkro.client.domain.signup.api.PostSignUpReq
 import com.parkro.client.domain.signup.data.SignUpRepository
 import org.json.JSONException
 import org.json.JSONObject
-import retrofit2.HttpException
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
@@ -57,31 +56,31 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var signUpBtn: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+        setContentView(R.layout.activity_signup)
 
         val signUpRepository = SignUpRepository()
-        usernameText = findViewById(R.id.edittext_username)
-        passwordText = findViewById(R.id.edittext_password)
-        checkPasswordText = findViewById(R.id.edittext_check_password)
-        carNumberText = findViewById(R.id.edittext_car_number)
-        nameText = findViewById(R.id.edittext_name)
-        nicknameText = findViewById(R.id.edittext_nickname)
-        phoneNumberText = findViewById(R.id.edittext_phone_number)
+        usernameText = findViewById(R.id.edt_signup_username)
+        passwordText = findViewById(R.id.edt_signup_password)
+        checkPasswordText = findViewById(R.id.edt_signup_check_password)
+        carNumberText = findViewById(R.id.edt_signup_car_number)
+        nameText = findViewById(R.id.edt_signup_name)
+        nicknameText = findViewById(R.id.edt_signup_nickname)
+        phoneNumberText = findViewById(R.id.edt_signup_phone_number)
 
-        feIdError = findViewById(R.id.fe_login_error)
-        fePasswordError = findViewById(R.id.fe_password_error)
-        feCheckPasswordError = findViewById(R.id.fe_check_password_error)
-        feNickNameError = findViewById(R.id.fe_nickname_number_error)
-        fePhoneNumberError = findViewById(R.id.fe_phone_number_error)
+        feIdError = findViewById(R.id.tv_signup_login_error_fe)
+        fePasswordError = findViewById(R.id.tv_signup_password_error_fe)
+        feCheckPasswordError = findViewById(R.id.tv_signup_check_password_error_fe)
+        feNickNameError = findViewById(R.id.tv_signup_nickname_error_fe)
+        fePhoneNumberError = findViewById(R.id.tv_signup_phone_number_error_fe)
 
-        beIdError = findViewById(R.id.be_login_error)
-        beDuplicatedCarError = findViewById(R.id.be_duplicated_car_number_error)
-        bePhoneNumberError = findViewById(R.id.be_phone_number_error)
-        beInvalidCarError = findViewById(R.id.be_invalid_car_number_error)
-        serverError = findViewById(R.id.server_error)
+        beIdError = findViewById(R.id.tv_signup_login_error_be)
+        beDuplicatedCarError = findViewById(R.id.tv_signup_duplicated_car_number_error_be)
+        bePhoneNumberError = findViewById(R.id.tv_signup_phone_number_error_be)
+        beInvalidCarError = findViewById(R.id.tv_signup_invalid_car_number_error_be)
+        serverError = findViewById(R.id.tv_signup_server_error)
 
-        verifyIdBtn = findViewById(R.id.btn_verify_id)
-        verifyCarBtn = findViewById(R.id.btn_verify_car)
+        verifyIdBtn = findViewById(R.id.btn_signup_verify_username)
+        verifyCarBtn = findViewById(R.id.btn_signup_verify_car_number)
         signUpBtn = findViewById(R.id.btn_signup)
 
         setupTextWatchers()
@@ -462,8 +461,8 @@ class SignUpActivity : AppCompatActivity() {
                 isfePhoneNumberErrorValid &&
                 isfeNicknameErrorValid &&
                 isbeIdErrorValid &&
-                isbeInvalidCarErrorValid &&
-                isbeDuplicatedCarErrorValid &&
+//                isbeInvalidCarErrorValid &&
+//                isbeDuplicatedCarErrorValid &&
                 isbePhoneNumberErrorValid &&
                 isServerErrorValid
 

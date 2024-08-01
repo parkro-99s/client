@@ -6,14 +6,13 @@ import android.util.TypedValue
 import android.view.ViewGroup
 import android.view.animation.Animation
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.marginTop
 import com.parkro.client.AdminActivity
 import com.parkro.client.MainActivity
-import com.parkro.client.R
 import com.parkro.client.Utils
 import com.parkro.client.domain.login.api.PostLoginReq
 import com.parkro.client.domain.login.data.LoginRepository
 import com.parkro.client.domain.signup.ui.SignUpActivity
+
 import org.json.JSONObject
 import java.util.Base64
 import android.view.animation.AnimationUtils
@@ -26,20 +25,20 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(com.parkro.client.R.layout.activity_login)
         Utils.init(applicationContext)
-        val usernameText: EditText = findViewById(com.parkro.client.R.id.edittext_username)
-        val passwordText: EditText = findViewById(com.parkro.client.R.id.edittext_password)
+        val usernameText: EditText = findViewById(com.parkro.client.R.id.edt_login_username)
+        val passwordText: EditText = findViewById(com.parkro.client.R.id.edt_login_password)
         val submitButton: Button = findViewById(com.parkro.client.R.id.btn_login)
-        val signUpButton: TextView = findViewById(com.parkro.client.R.id.sign_up)
+        val signupButton: TextView = findViewById(com.parkro.client.R.id.tv_signup)
         val loginRepository = LoginRepository()
-        val errorText: TextView = findViewById(com.parkro.client.R.id.textview_error)
-        val car: ImageView = findViewById(com.parkro.client.R.id.car_shadow)
+        val errorText: TextView = findViewById(com.parkro.client.R.id.tv_login_error)
+        val car: ImageView = findViewById(com.parkro.client.R.id.img_login_car_shadow)
 
         submitButton.setOnClickListener {
             val username = usernameText.text.toString().trim()
             val password = passwordText.text.toString().trim()
 
             val loginDTO = PostLoginReq(username, password)
-            loginRepository.postLoginInfo(loginDTO) { result ->
+            loginRepository.postLogin(loginDTO) { result ->
                 result.fold(
                     onSuccess = { response ->
                         response?.let {
@@ -83,7 +82,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        signUpButton.setOnClickListener {
+        signupButton.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }

@@ -4,13 +4,13 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/container"
+        android:id="@+id/layout_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true">
 
         <RelativeLayout
-            android:id="@+id/header_title"
+            android:id="@+id/layout_login_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -19,7 +19,7 @@
 
             <!-- Car shadow ImageView -->
             <ImageView
-                android:id="@+id/car_shadow"
+                android:id="@+id/img_login_car_shadow"
                 android:layout_width="100dp"
                 android:layout_height="80dp"
                 android:layout_alignParentTop="true"
@@ -30,7 +30,7 @@
 
             <!-- Main logo ImageView, placed above car shadow -->
             <ImageView
-                android:id="@+id/main_logo"
+                android:id="@+id/img_login_logo"
                 android:layout_width="150dp"
                 android:layout_height="80dp"
                 android:layout_centerVertical="true"
@@ -41,18 +41,18 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/header_title"
+            android:layout_below="@id/layout_login_header"
             android:layout_centerVertical="true"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
             <EditText
-                android:id="@+id/edittext_username"
+                android:id="@+id/edt_login_username"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/edittext_long_background"
+                android:background="@drawable/edt_background"
                 android:hint="아이디"
                 android:inputType="text"
                 android:paddingRight="20dp"
@@ -60,25 +60,25 @@
                 android:textStyle="normal" />
 
             <EditText
-                android:id="@+id/edittext_password"
+                android:id="@+id/edt_login_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_below="@id/edittext_username"
+                android:layout_below="@id/edt_login_username"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/edittext_long_background"
+                android:background="@drawable/edt_background"
                 android:hint="비밀번호"
                 android:inputType="textPassword"
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
             <TextView
-                android:id="@+id/textview_error"
+                android:id="@+id/tv_login_error"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/edittext_password"
+                android:layout_below="@id/edt_login_password"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="17dp"
-                android:text="@string/error_login"
+                android:text="@string/error_login_login_fe"
                 android:textColor="@color/parkro_red"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -88,7 +88,7 @@
                 android:id="@+id/btn_login"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_below="@id/edittext_password"
+                android:layout_below="@id/edt_login_password"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="40dp"
                 android:background="@drawable/btn_large_background"
@@ -98,7 +98,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/sign_up"
+                android:id="@+id/tv_signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/btn_login"

@@ -16,7 +16,7 @@ class LoginRepository {
         RetrofitClient.instance.create(LoginService::class.java)
     }
 
-    fun postLoginInfo(postLoginReq: PostLoginReq, onResult: (Result<PostLoginRes>) -> Unit) {
+    fun postLogin(postLoginReq: PostLoginReq, onResult: (Result<PostLoginRes>) -> Unit) {
         // Fetch FCM Token
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (!task.isSuccessful) {
@@ -27,7 +27,7 @@ class LoginRepository {
             val fcmToken = task.result
 
             // Proceed with login request
-            val call = loginService.postLoginInfo(fcmToken, postLoginReq)
+            val call = loginService.postLogin(fcmToken, postLoginReq)
             call.enqueue(object : Callback<String> {
                 override fun onResponse(call: Call<String>, response: Response<String>) {
                     if (response.isSuccessful) {
