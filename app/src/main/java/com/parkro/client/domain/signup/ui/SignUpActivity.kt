@@ -1,0 +1,571 @@
+package com.parkro.client.domain.signup.ui
+
+import android.content.Intent
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.util.TypedValue
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
+import com.parkro.client.*
+import com.parkro.client.domain.login.ui.LoginActivity
+import com.parkro.client.domain.signup.api.PostCarReq
+import com.parkro.client.domain.signup.api.PostSignUpReq
+import com.parkro.client.domain.signup.data.SignUpRepository
+import org.json.JSONException
+import org.json.JSONObject
+import retrofit2.HttpException
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.io.OutputStreamWriter
+import java.net.HttpURLConnection
+import java.net.URL
+import java.util.concurrent.Executors
+import java.util.regex.Pattern
+
+class SignUpActivity : AppCompatActivity() {
+    private val executor = Executors.newSingleThreadExecutor()
+    private lateinit var usernameText: EditText
+    private lateinit var passwordText: EditText
+    private lateinit var checkPasswordText: EditText
+    private lateinit var carNumberText: EditText
+    private lateinit var nameText: EditText
+    private lateinit var nicknameText: EditText
+    private lateinit var phoneNumberText: EditText
+
+    private lateinit var feIdError: TextView
+    private lateinit var fePasswordError: TextView
+    private lateinit var feCheckPasswordError: TextView
+    private lateinit var feNickNameError: TextView
+    private lateinit var fePhoneNumberError: TextView
+
+    private lateinit var beIdError: TextView
+    private lateinit var beDuplicatedCarError: TextView
+    private lateinit var beInvalidCarError: TextView
+    private lateinit var bePhoneNumberError: TextView
+
+    private lateinit var serverError: TextView
+
+    private lateinit var verifyIdBtn: Button
+    private lateinit var verifyCarBtn: Button
+    private lateinit var signUpBtn: Button
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_sign_up)
+
+        val signUpRepository = SignUpRepository()
+        usernameText = findViewById(R.id.edittext_username)
+        passwordText = findViewById(R.id.edittext_password)
+        checkPasswordText = findViewById(R.id.edittext_check_password)
+        carNumberText = findViewById(R.id.edittext_car_number)
+        nameText = findViewById(R.id.edittext_name)
+        nicknameText = findViewById(R.id.edittext_nickname)
+        phoneNumberText = findViewById(R.id.edittext_phone_number)
+
+        feIdError = findViewById(R.id.fe_login_error)
+        fePasswordError = findViewById(R.id.fe_password_error)
+        feCheckPasswordError = findViewById(R.id.fe_check_password_error)
+        feNickNameError = findViewById(R.id.fe_nickname_number_error)
+        fePhoneNumberError = findViewById(R.id.fe_phone_number_error)
+
+        beIdError = findViewById(R.id.be_login_error)
+        beDuplicatedCarError = findViewById(R.id.be_duplicated_car_number_error)
+        bePhoneNumberError = findViewById(R.id.be_phone_number_error)
+        beInvalidCarError = findViewById(R.id.be_invalid_car_number_error)
+        serverError = findViewById(R.id.server_error)
+
+        verifyIdBtn = findViewById(R.id.btn_verify_id)
+        verifyCarBtn = findViewById(R.id.btn_verify_car)
+        signUpBtn = findViewById(R.id.btn_signup)
+
+        setupTextWatchers()
+        usernameText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val username = usernameText.text.toString()
+                if (username.length == 0){
+                    feIdError.visibility = TextView.GONE
+                    setEditTextMarginTop(passwordText, 18)
+                    verifyIdBtn.isEnabled = false
+                }
+                if (isValidId(username)) {
+                    feIdError.visibility = TextView.GONE
+                    setEditTextMarginTop(passwordText, 18)
+                    verifyIdBtn.isEnabled = true
+                } else {
+                    feIdError.visibility = TextView.VISIBLE
+                    setEditTextMarginTop(passwordText, 35)
+                    verifyIdBtn.isEnabled = false
+                }
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                beIdError.visibility = TextView.GONE
+            }
+        })
+
+        passwordText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val password = passwordText.text.toString()
+                val checkPassword = checkPasswordText.text.toString()
+                if(password.length == 0){
+                    fePasswordError.visibility = TextView.GONE
+                    setEditTextMarginTop(checkPasswordText, 18)
+                }
+                if(checkPassword.length == 0){
+                    feCheckPasswordError.visibility = TextView.GONE
+                    setEditTextMarginTop(carNumberText, 18)
+                    setButtonMarginTop(verifyCarBtn, 18);
+                }
+                else{
+                    if (isValidCheckPassword(password, checkPassword)) {
+                        feCheckPasswordError.visibility = TextView.GONE
+                        setEditTextMarginTop(carNumberText, 18)
+                        setButtonMarginTop(verifyCarBtn, 18);
+                    } else {
+                        feCheckPasswordError.visibility = TextView.VISIBLE
+                        setEditTextMarginTop(carNumberText, 35)
+                        setButtonMarginTop(verifyCarBtn, 18)
+                    }
+                }
+                if (isValidPassword(password)) {
+                    fePasswordError.visibility = TextView.GONE
+                    setEditTextMarginTop(checkPasswordText, 18)
+                } else {
+                    fePasswordError.visibility = TextView.VISIBLE
+                    setEditTextMarginTop(checkPasswordText, 35)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable) {}
+        })
+
+        checkPasswordText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val password = passwordText.text.toString()
+                val checkPassword = checkPasswordText.text.toString()
+                if(checkPassword.length == 0){
+                    feCheckPasswordError.visibility = TextView.GONE
+                    setEditTextMarginTop(carNumberText, 18)
+                    setButtonMarginTop(verifyCarBtn, 18);
+                }
+                else{
+                    if (isValidCheckPassword(password, checkPassword)) {
+                        feCheckPasswordError.visibility = TextView.GONE
+                        setEditTextMarginTop(carNumberText, 18)
+                        setButtonMarginTop(verifyCarBtn, 18);
+                    } else {
+                        feCheckPasswordError.visibility = TextView.VISIBLE
+                        setEditTextMarginTop(carNumberText, 35)
+                        setButtonMarginTop(verifyCarBtn, 18)
+                    }
+                }
+
+            }
+
+            override fun afterTextChanged(s: Editable) {}
+        })
+
+        carNumberText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val name = nameText.text.toString()
+                val carNum = carNumberText.text.toString()
+                if(name.length == 0 && carNum.length == 0) verifyCarBtn.isEnabled = false
+                else if(name.length > 0 && carNum.length > 0) verifyCarBtn.isEnabled = true
+            }
+            override fun afterTextChanged(s: Editable) {
+                beInvalidCarError.visibility = TextView.GONE
+                serverError.visibility = TextView.GONE
+                setEditTextMarginTop(nameText, 18)
+                beDuplicatedCarError.visibility = TextView.GONE
+            }
+        })
+
+        nameText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val name = nameText.text.toString()
+                val carNum = carNumberText.text.toString()
+                if(name.length == 0 && carNum.length == 0) verifyCarBtn.isEnabled = false
+                else if(name.length > 0 && carNum.length > 0) verifyCarBtn.isEnabled = true
+
+            }
+            override fun afterTextChanged(s: Editable) {}
+        })
+
+        verifyIdBtn.setOnClickListener({
+            val username = usernameText.text.toString().trim()
+            signUpRepository.getUsername(username) { result ->
+                result.fold(
+                    onSuccess = { response ->
+                        response?.let {
+                            beIdError.visibility = TextView.GONE
+                            verifyIdBtn.isEnabled = false
+                            usernameText.isEnabled = false
+                        }
+                    },
+                    onFailure = { error ->
+                        runOnUiThread {
+                            beIdError.visibility = TextView.VISIBLE
+                            setEditTextMarginTop(passwordText, 35)
+                        }
+                    }
+                )
+            }
+
+        })
+
+        signUpBtn.setOnClickListener {
+            val username = usernameText.text.toString()
+            val password = passwordText.text.toString()
+            val nickname = nicknameText.text.toString()
+            val phoneNumber = phoneNumberText.text.toString()
+            val carNumber =
+                if (!carNumberText.isEnabled && carNumberText.visibility == View.VISIBLE) {
+                    carNumberText.text.toString()
+                } else {
+                    null
+                }
+            Log.d("SignUp", "Username: $username")
+            Log.d("SignUp", "Password: $password")
+            Log.d("SignUp", "Nickname: $nickname")
+            Log.d("SignUp", "PhoneNumber: $phoneNumber")
+            Log.d("SignUp", "CarNumber: $carNumber")
+            signUpRepository.postSignUp(
+                PostSignUpReq(username, password, carNumber, nickname, phoneNumber)
+            ) { result ->
+                Log.d("result", "result+$result ")
+                result.fold(
+                    onSuccess = { response ->
+                        // Navigate to LoginActivity on successful sign-up
+                        response?.let {
+                            Intent(this, LoginActivity::class.java).also {
+                                startActivity(it)
+                            }
+                        }
+                                 },
+                        onFailure = { error ->
+                            runOnUiThread {
+                                handleSignUpError(error)
+                            }
+                        }
+                    )
+                }
+        }
+
+
+        verifyCarBtn.setOnClickListener {
+            val carNumber = carNumberText.text.toString().trim()
+            val name = nameText.text.toString().trim()
+            val carToken = BuildConfig.VERIFY_CAR_TOKEN
+            val postCarReq = PostCarReq(carNumber, name)
+            val queryUrl =
+                "https://datahub-dev.scraping.co.kr/assist/common/carzen/CarAllInfoInquiry"
+            executor.execute {
+                try {
+                    val url = URL(queryUrl)
+                    val connection = url.openConnection() as HttpURLConnection
+                    connection.requestMethod = "POST"
+                    connection.setRequestProperty("Content-Type", "application/json; utf-8")
+                    connection.setRequestProperty("Accept", "application/json")
+                    connection.setRequestProperty("Authorization", carToken)
+                    connection.doOutput = true
+
+                    val gson = Gson()
+                    val jsonInputString = gson.toJson(postCarReq)
+
+                    connection.outputStream.use { os ->
+                        val writer = OutputStreamWriter(os, "UTF-8")
+                        writer.write(jsonInputString)
+                        writer.flush()
+                    }
+
+                    val responseBody = BufferedReader(InputStreamReader(connection.inputStream, "UTF-8")).use { reader ->
+                        reader.readText()
+                    }
+
+                    val jsonObject = JSONObject(responseBody)
+
+                    val errCode = jsonObject.optString("errCode")
+
+                    runOnUiThread {
+                        if (errCode.equals("0000")) {
+                            carNumberText.isEnabled = false
+                            nameText.isEnabled = false
+                            verifyCarBtn.isEnabled = false
+                            beInvalidCarError.visibility = TextView.GONE
+                        } else if(errCode.equals("6112") || errCode.equals("6114")){
+                            beInvalidCarError.visibility = TextView.VISIBLE
+                            setEditTextMarginTop(nameText, 35)
+                        } else{
+                            serverError.visibility = View.VISIBLE
+                            setEditTextMarginTop(nameText, 35)
+                        }
+                    }
+                } catch (e: Exception) {
+                    runOnUiThread {
+                        serverError.visibility = View.VISIBLE
+                        setEditTextMarginTop(nameText, 35)
+                    }
+                }
+            }
+        }
+
+        nicknameText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val nickname = nicknameText.text.toString()
+                if(nickname.length == 0){
+                    feNickNameError.visibility = TextView.VISIBLE
+                    setEditTextMarginTop(phoneNumberText, 35)
+                }
+                else{
+                    feNickNameError.visibility = TextView.GONE
+                    setEditTextMarginTop(phoneNumberText, 18)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable) {}
+        })
+
+        phoneNumberText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                val phoneNumber = phoneNumberText.text.toString()
+                if(phoneNumber.length == 0){
+                        fePhoneNumberError.visibility = TextView.GONE
+                        setButtonMarginTop(signUpBtn, 18)
+                    }
+                    if (isValidPhoneNumber(phoneNumber)) {
+                        fePhoneNumberError.visibility = TextView.GONE
+                        setButtonMarginTop(signUpBtn, 18)
+                } else {
+                    fePhoneNumberError.visibility = TextView.VISIBLE
+                    setButtonMarginTop(signUpBtn, 35)
+                }
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                bePhoneNumberError.visibility = TextView.GONE
+                serverError.visibility = TextView.GONE
+            }
+        })
+
+
+    }
+
+
+    // 회원 가입 버튼 enable / disable
+    private fun setupTextWatchers() {
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                validateInputs()
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                validateInputs()
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                validateInputs()
+            }
+        }
+
+        usernameText.addTextChangedListener(textWatcher)
+        passwordText.addTextChangedListener(textWatcher)
+        checkPasswordText.addTextChangedListener(textWatcher)
+        nicknameText.addTextChangedListener(textWatcher)
+        phoneNumberText.addTextChangedListener(textWatcher)
+        feIdError.addTextChangedListener(textWatcher)
+        feCheckPasswordError.addTextChangedListener(textWatcher)
+        fePasswordError.addTextChangedListener(textWatcher)
+        feNickNameError.addTextChangedListener(textWatcher)
+        fePhoneNumberError.addTextChangedListener(textWatcher)
+        beIdError.addTextChangedListener(textWatcher)
+        beInvalidCarError.addTextChangedListener(textWatcher)
+        beDuplicatedCarError.addTextChangedListener(textWatcher)
+        bePhoneNumberError.addTextChangedListener(textWatcher)
+        serverError.addTextChangedListener(textWatcher)
+    }
+
+    private fun validateInputs() {
+        val isUsernameValid = usernameText.text.length > 0
+        Log.d("Validation", "Username valid: $isUsernameValid")
+
+        val isPasswordValid = passwordText.text.length > 0
+        Log.d("Validation", "Password valid: $isPasswordValid")
+
+        val isCheckPasswordValid = checkPasswordText.text.length > 0
+        Log.d("Validation", "CheckPassword valid: $isCheckPasswordValid")
+
+        val isNicknameValid = nicknameText.text.length > 0
+        Log.d("Validation", "Nickname valid: $isNicknameValid")
+
+        val isPhoneNumberValid = phoneNumberText.text.length > 0
+        Log.d("Validation", "PhoneNumber valid: $isPhoneNumberValid")
+
+        // Check if the view is either GONE or INVISIBLE
+        val isfeIdErrorValid = feIdError.visibility == View.GONE || feIdError.visibility == View.INVISIBLE
+        Log.d("Validation", "feIdError valid: $isfeIdErrorValid")
+
+        val isfePasswordErrorValid = fePasswordError.visibility == View.GONE || fePasswordError.visibility == View.INVISIBLE
+        Log.d("Validation", "fePasswordError valid: $isfePasswordErrorValid")
+
+        val isfeCheckPasswordErrorValid = feCheckPasswordError.visibility == View.GONE || feCheckPasswordError.visibility == View.INVISIBLE
+        Log.d("Validation", "feCheckPasswordError valid: $isfeCheckPasswordErrorValid")
+
+        val isfeNicknameErrorValid = feNickNameError.visibility == View.GONE || feNickNameError.visibility == View.INVISIBLE
+        Log.d("Validation", "feNickNameError valid: $isfeNicknameErrorValid")
+
+        val isfePhoneNumberErrorValid = fePhoneNumberError.visibility == View.GONE || fePhoneNumberError.visibility == View.INVISIBLE
+        Log.d("Validation", "fePhoneNumberError valid: $isfePhoneNumberErrorValid")
+
+        val isbeIdErrorValid = beIdError.visibility == View.GONE || beIdError.visibility == View.INVISIBLE
+        Log.d("Validation", "beIdError valid: $isbeIdErrorValid")
+
+        val isbeInvalidCarErrorValid = beInvalidCarError.visibility == View.GONE || beInvalidCarError.visibility == View.INVISIBLE
+        Log.d("Validation", "beCarError valid: $isbeInvalidCarErrorValid")
+
+        val isbeDuplicatedCarErrorValid = beDuplicatedCarError.visibility == View.GONE || beDuplicatedCarError.visibility == View.INVISIBLE
+
+        val isServerErrorValid = serverError.visibility == View.GONE || serverError.visibility == View.INVISIBLE
+        Log.d("Validation", "serverError valid: $isServerErrorValid")
+
+        val isbePhoneNumberErrorValid = bePhoneNumberError.visibility == View.GONE || bePhoneNumberError.visibility == View.INVISIBLE
+
+        val allFieldsValid = isUsernameValid &&
+                isPasswordValid &&
+                isCheckPasswordValid &&
+//                isCarNumberValid &&
+//                isNameValid &&
+                isNicknameValid &&
+                isPhoneNumberValid &&
+//                isVerifyCarBtnValid &&
+//                isVerifyIdBtnValid &&
+                isfeIdErrorValid &&
+                isfePasswordErrorValid &&
+                isfeCheckPasswordErrorValid &&
+                isfePhoneNumberErrorValid &&
+                isfeNicknameErrorValid &&
+                isbeIdErrorValid &&
+                isbeInvalidCarErrorValid &&
+                isbeDuplicatedCarErrorValid &&
+                isbePhoneNumberErrorValid &&
+                isServerErrorValid
+
+        signUpBtn.isEnabled = allFieldsValid
+    }
+
+    private fun isValidId(Id: String): Boolean {
+        // 아이디 정규 표현식 (예: testtest5)
+        val idPattern = "^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]{6,12}$"
+        return Pattern.matches(idPattern, Id)
+
+    }
+
+    private fun isValidPassword(password: String): Boolean {
+        // 비밀번호 정규 표현식 (예: aaaaaaaA1!)
+        val passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,12}$"
+        return Pattern.matches(passwordPattern, password)
+    }
+
+    private fun isValidCheckPassword(password: String, checkPassword: String): Boolean {
+        // 비밀번호 확인 정규 표현식
+        return password == checkPassword
+    }
+
+    private fun isValidPhoneNumber(phoneNumber: String): Boolean {
+        // 전화번호 정규 표현식 (예: 010-1234-5678 형식)
+        val phoneNumberPattern = "^(010|011|016|017|018|019)-\\d{3,4}-\\d{4}$"
+        return Pattern.matches(phoneNumberPattern, phoneNumber)
+    }
+
+    private fun setEditTextMarginTop(editText: EditText, marginDp: Int) {
+        val layoutParams = editText.layoutParams as ViewGroup.MarginLayoutParams
+        val marginPx = dpToPx(marginDp)
+        layoutParams.topMargin = marginPx
+        editText.layoutParams = layoutParams
+    }
+
+    private fun setButtonMarginTop(button: Button, marginDp: Int) {
+        val layoutParams = button.layoutParams as ViewGroup.MarginLayoutParams
+        val marginPx = dpToPx(marginDp)
+        layoutParams.topMargin = marginPx
+        button.layoutParams = layoutParams
+    }
+
+    // Function to convert dp to px
+    private fun dpToPx(dp: Int): Int {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp.toFloat(),
+            resources.displayMetrics
+        ).toInt()
+    }
+
+    private fun handleSignUpError(error: Throwable) {
+        try {
+            val errorString = error.toString()
+
+            val jsonString = errorString.substringAfter("Body: ").trim()
+
+            Log.d("errorbody", "errorbody: $jsonString")
+
+            if (!jsonString.isNullOrEmpty()) {
+                val jsonError = JSONObject(jsonString)
+                val errorCode = jsonError.optString("errorCode")
+                when (errorCode) {
+                    "PHONE_NUMBER_ALREADY_EXISTS" -> {
+                        bePhoneNumberError.apply {
+                            visibility = TextView.VISIBLE
+                        }
+                        setButtonMarginTop(signUpBtn, 35)
+                    }
+                    "FIND_DUPLICATED_CARNUMBER" -> {
+                        beDuplicatedCarError.apply {
+                            visibility = TextView.VISIBLE
+
+                        }
+                        carNumberText.isEnabled = true
+                        nameText.isEnabled = true
+                        verifyCarBtn.isEnabled = true
+                        setEditTextMarginTop(nameText, 35)
+                    }
+                    "CAR_NUMBER_AND_PHONE_NUMBER_ALREADY_EXISTS" -> {
+                        bePhoneNumberError.apply {
+                            visibility = TextView.VISIBLE
+                        }
+                        setButtonMarginTop(signUpBtn, 35)
+                        beDuplicatedCarError.apply {
+                            visibility = TextView.VISIBLE
+                        }
+                        setEditTextMarginTop(nameText, 35)
+                    }
+                    else -> {
+                        Log.d("UnknownErrorCode", "Unknown error code: $errorCode")
+                    }
+                }
+            } else {
+                Log.e("Error", "Error body is null or empty")
+            }
+        } catch (e: JSONException) {
+            Log.e("JSONError", "Failed to parse JSON error: ${e.message}", e)
+        } catch (e: Exception) {
+            Log.e("GeneralError", "An unexpected error occurred: ${e.message}", e)
+        }
+    }
+}

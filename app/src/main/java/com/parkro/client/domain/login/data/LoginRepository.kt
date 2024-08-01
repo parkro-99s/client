@@ -1,9 +1,9 @@
-package com.parkro.client.domain.example.data
+package com.parkro.client.domain.login.data
 
 import com.google.firebase.messaging.FirebaseMessaging
-import com.parkro.client.domain.example.api.PostLoginReq
-import com.parkro.client.domain.example.api.LoginService
-import com.parkro.client.domain.example.api.PostLoginRes
+import com.parkro.client.domain.login.api.PostLoginReq
+import com.parkro.client.domain.login.api.LoginService
+import com.parkro.client.domain.login.api.PostLoginRes
 import com.parkro.client.domain.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback

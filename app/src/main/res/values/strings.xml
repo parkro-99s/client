@@ -12,4 +12,21 @@
     <string name="title_example">테스트</string>
     <string name="title_activity_admin">AdminActivity</string>
     <string name="error_login">아이디 혹은 비밀번호가 일치하지 않습니다.</string>
+
+    <!-- 프론트엔드 회원가입 유효성 검사 에러 메시지-->
+    <string name="fe_error_id">영문 숫자 포함 6 ~ 12자이어야 합니다.</string>
+    <string name="fe_error_password">영문 대소문자, 숫자, 특수문자 포함 8 ~ 12자이어야 합니다.</string>
+    <string name="fe_error_check_password">비밀번호가 일치하지 않습니다.</string>
+    <string name="fe_error_nickname">닉네임은 필수 입력 값입니다.</string>
+    <string name="fe_error_phone_number">전화번호 형식은 "xxx-xxxx-xxxx"입니다.</string>
+
+
+    <!-- 백엔드 회원가입 에러 메시지 -->
+    <string name="be_error_id">중복된 아이디 입니다.</string>
+    <string name="be_error_invalid_car_number">없는 차량 번호입니다.</string>
+    <string name="be_error_duplicated_car_number">이미 등록된 차량 번호입니다.</string>
+    <string name="be_error_phone_number">이미 등록된 전화 번호입니다.</string>
+
+    <!-- 외부 api 에러 메시지 -->
+    <string name="server_error">잠시 후 다시 시도해 주세요.</string>
 </resources>

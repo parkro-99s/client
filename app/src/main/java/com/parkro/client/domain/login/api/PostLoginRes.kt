@@ -1,4 +1,4 @@
-package com.parkro.client.domain.example.api
+package com.parkro.client.domain.login.api
 
 import com.google.gson.annotations.SerializedName
 

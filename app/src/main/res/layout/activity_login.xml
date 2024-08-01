@@ -6,7 +6,7 @@
     android:paddingRight="18dp">
 
     <ImageView
-        android:id="@+id/mainLogo"
+        android:id="@+id/main_logo"
         android:layout_width="253dp"
         android:layout_height="113dp"
         android:layout_centerHorizontal="true"
@@ -16,8 +16,8 @@
     <EditText
         android:id="@+id/edittext_username"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_below="@id/mainLogo"
+        android:layout_height="50dp"
+        android:layout_below="@id/main_logo"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
         android:background="@drawable/edittext_long_background"
@@ -29,9 +29,9 @@
     <EditText
         android:id="@+id/edittext_password"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_below="@id/edittext_username"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:background="@drawable/edittext_long_background"
         android:hint="비밀번호"
         android:inputType="textPassword"
@@ -51,16 +51,28 @@
         android:visibility="invisible" />
 
     <Button
-        android:id="@+id/btn_logIn"
+        android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="67dp"
         android:layout_below="@id/edittext_password"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
         android:text="로그인"
         android:textStyle="bold"
         android:textSize="23sp"
         android:textColor="#FFFFFF"
-        android:background="@drawable/btn_enable_background"/>
+        android:background="@drawable/btn_background"/>
 
+    <TextView
+        android:id="@+id/sign_up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="회원가입"
+        android:textColor="@color/parkro_gray"
+        android:textSize="13sp"
+        android:textStyle="normal"
+        android:visibility="visible" />
 </RelativeLayout>

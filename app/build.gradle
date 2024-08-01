@@ -21,6 +21,7 @@ android {
 
         buildConfigField("String", "PAYMENT_CLIENT_KEY", properties["toss_payment_client_key"])
         buildConfigField("String", "SERVER_BASEURL", properties["server_baseurl"])
+        buildConfigField("String", "VERIFY_CAR_TOKEN", properties["verify_car_token"])
     }
 
     buildTypes {
@@ -71,6 +72,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
 
-
+    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
 
 }

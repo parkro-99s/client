@@ -7,6 +7,7 @@ public class Utils {
     private static final String PREFS = "prefs";
     private static final String ACCESS_TOKEN = "ACCESS_TOKEN";
     private static final String USER_NAME = "USER_NAME";
+    private static final String NAME = "NAME";
     private static Utils instance;
     private final SharedPreferences prefs;
     private final SharedPreferences.Editor prefsEditor;
