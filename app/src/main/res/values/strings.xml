@@ -64,4 +64,6 @@
     <string name="title_discount_amount">결제 금액</string>
     <string name="title_discount_hours">차감 시간</string>
     <string name="title_btn_register">등록하기</string>
+
+    <string name="title_logout_modal">로그아웃 하시겠습니까?</string>
 </resources>

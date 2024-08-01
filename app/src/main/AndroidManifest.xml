@@ -64,7 +64,7 @@
             android:name=".domain.signup.ui.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".AdminActivity"
+            android:name=".domain.admin.ui.AdminActivity"
             android:exported="true"
             android:label="@string/title_activity_admin" />
         <activity

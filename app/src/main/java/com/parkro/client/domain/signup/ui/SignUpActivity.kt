@@ -252,6 +252,7 @@ class SignUpActivity : AppCompatActivity() {
                         response?.let {
                             Intent(this, LoginActivity::class.java).also {
                                 startActivity(it)
+                                finish()
                             }
                         }
                                  },

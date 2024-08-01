@@ -6,7 +6,7 @@ import android.util.TypedValue
 import android.view.ViewGroup
 import android.view.animation.Animation
 import androidx.appcompat.app.AppCompatActivity
-import com.parkro.client.AdminActivity
+import com.parkro.client.domain.admin.ui.AdminActivity
 import com.parkro.client.MainActivity
 import com.parkro.client.Utils
 import com.parkro.client.domain.login.api.PostLoginReq
@@ -48,12 +48,23 @@ class LoginActivity : AppCompatActivity() {
                             val payload = decodeJWT(it.token)
                             val rolesList = extractRolesFromPayload(payload) // Extract roles as a list of strings
                             if (rolesList.contains("ROLE_ADMIN")) {
-                                val intent = Intent(this, AdminActivity::class.java)
-                                startActivity(intent)
-                            } else {
+                                val animCarOut: Animation = AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
+                                car.startAnimation(animCarOut)
+                                animCarOut.setAnimationListener(object : Animation.AnimationListener {
+                                    override fun onAnimationStart(animation: Animation?) {
+                                    }
 
-                                val animCarOut: Animation =
-                                    AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
+                                    override fun onAnimationEnd(animation: Animation?) {
+                                        val intent = Intent(this@LoginActivity, AdminActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    }
+
+                                    override fun onAnimationRepeat(animation: Animation?) {
+                                    }
+                                })
+                            } else {
+                                val animCarOut: Animation = AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
                                 car.startAnimation(animCarOut)
                                 animCarOut.setAnimationListener(object : Animation.AnimationListener {
                                     override fun onAnimationStart(animation: Animation?) {
@@ -62,16 +73,15 @@ class LoginActivity : AppCompatActivity() {
                                     override fun onAnimationEnd(animation: Animation?) {
                                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                         startActivity(intent)
+                                        finish()
                                     }
 
                                     override fun onAnimationRepeat(animation: Animation?) {
                                     }
                                 })
-
-                                car.startAnimation(animCarOut)
+                                }
                             }
-                        }
-                    },
+                        },
                     onFailure = { error ->
                         runOnUiThread {
                             errorText.visibility = TextView.VISIBLE
