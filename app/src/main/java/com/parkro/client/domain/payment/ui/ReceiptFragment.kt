@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment.findNavController
+import com.parkro.client.MainActivity
 import com.parkro.client.R
 import com.parkro.client.databinding.FragmentReceiptBinding
 
@@ -31,6 +32,8 @@ class ReceiptFragment : Fragment() {
                 binding.textReceiptValueReceiptDiscount.text = calculateDiscountTime(it.totalPrice)
             }
         })
+
+        (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_payment), true, false)
 
         return binding.root
     }
