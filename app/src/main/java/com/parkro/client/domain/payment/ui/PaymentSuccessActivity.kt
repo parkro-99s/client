@@ -19,11 +19,11 @@ class PaymentSuccessActivity : AppCompatActivity() {
         val amount = intent.getStringExtra("amount")
 
         // 결제 성공 메시지 설정
-        val successTextView: TextView = findViewById(R.id.successTextView)
+        val successTextView: TextView = findViewById(R.id.text_payment_success_message)
         successTextView.text = "결제 완료!\nOrder ID: $orderId \nAmount: $amount"
 
         // 결제 완료 버튼 클릭 리스너 설정
-        val btnCompletePayment: Button = findViewById(R.id.btnCompletePayment)
+        val btnCompletePayment: Button = findViewById(R.id.btn_payment_success_complete)
         btnCompletePayment.setOnClickListener {
             // MainActivity로 이동
             val mainIntent = Intent(this, MainActivity::class.java)

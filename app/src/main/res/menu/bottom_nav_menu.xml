@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/navigation_map"
+        android:id="@+id/navigation_receipt"
         android:icon="@drawable/ic_map_gray"
         android:title="@string/title_map"
         app:showAsAction="always"/>

@@ -7,19 +7,19 @@
     android:paddingBottom="56dp" >
 
     <TextView
-        android:id="@+id/successTextView"
+        android:id="@+id/text_payment_success_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="결제 완료!"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnCompletePayment"
+        app:layout_constraintBottom_toTopOf="@id/btn_payment_success_complete"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"/>
 
     <Button
-        android:id="@+id/btnCompletePayment"
+        android:id="@+id/btn_payment_success_complete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btn_completed_payment"

@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
                 if (isAdmin) {
                     R.id.navigation_parkinglist_admin; R.id.navigation_logout_admin
                 } else {
-                    R.id.navigation_map; R.id.navigation_parkinglist; R.id.navigation_payment; R.id.navigation_mypage
+                    R.id.navigation_receipt; R.id.navigation_parkinglist; R.id.navigation_payment; R.id.navigation_mypage
 //                    R.id.navigation_example; R.id.navigation_parkinglist; R.id.navigation_payment; R.id.navigation_mypage // map 대신 example
                 }
             )
@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
             val fragmentsWithoutUpButton = setOf(
-                R.id.navigation_map,
+                R.id.navigation_receipt,
 //                R.id.navigation_example, // map 대신 example
                 R.id.navigation_parkinglist,
                 R.id.navigation_payment,
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             // 기본 사용자 아이콘
-            navView.menu.findItem(R.id.navigation_map)?.setIcon(R.drawable.ic_map_gray)
+            navView.menu.findItem(R.id.navigation_receipt)?.setIcon(R.drawable.ic_map_gray)
 //            navView.menu.findItem(R.id.navigation_example)?.setIcon(R.drawable.ic_map_gray) // map 대신 example
             navView.menu.findItem(R.id.navigation_parkinglist)?.setIcon(R.drawable.ic_parkinglist_gray)
             navView.menu.findItem(R.id.navigation_payment)?.setIcon(R.drawable.ic_payment_gray)
@@ -81,9 +81,9 @@ class MainActivity : AppCompatActivity() {
 
             // 현재 선택된 아이템 아이콘 업데이트
             when (destination.id) {
-                R.id.navigation_map -> {
+                R.id.navigation_receipt -> {
 //                R.id.navigation_example -> { // map 대신 example
-                    navView.menu.findItem(R.id.navigation_map)?.setIcon(R.drawable.ic_map_navy)
+                    navView.menu.findItem(R.id.navigation_receipt)?.setIcon(R.drawable.ic_map_navy)
 //                    navView.menu.findItem(R.id.navigation_example)?.setIcon(R.drawable.ic_map_navy) // map 대신 example
                 }
                 R.id.navigation_parkinglist -> {
