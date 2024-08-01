@@ -29,5 +29,5 @@
         app:layout_constraintTop_toTopOf="@id/text_notifications"
         android:layout_marginTop="40dp"
         android:textColor="@color/parkro_white"
-        android:text="@string/moveToPaymentWebView"/>
+        android:text="@string/title_btn_payment_web"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
