@@ -13,9 +13,10 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.journeyapps.barcodescanner.BarcodeCallback
 import com.journeyapps.barcodescanner.BarcodeResult
 import com.journeyapps.barcodescanner.CaptureManager
+import com.parkro.client.MainActivity
 import com.parkro.client.R
-import com.parkro.client.databinding.FragmentBarcodeScanBinding
 import com.parkro.client.common.data.ErrorRes
+import com.parkro.client.databinding.FragmentBarcodeScanBinding
 
 class BarcodeScanFragment : Fragment() {
 
@@ -37,6 +38,8 @@ class BarcodeScanFragment : Fragment() {
         binding.zxingBarcodeScanner.decodeContinuous(callback)
 
         receiptViewModel.resetReceiptData()
+
+        (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_payment), true, false)
 
         return binding.root
     }
