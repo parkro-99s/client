@@ -4,24 +4,45 @@
     android:layout_height="match_parent"
     android:paddingLeft="18dp"
     android:paddingRight="18dp">
-    <ImageView
-        android:id="@+id/main_logo"
-        android:layout_width="253dp"
-        android:layout_height="113dp"
+
+    <RelativeLayout
+        android:id="@+id/header_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_car"
-        android:layout_marginTop="40dp"/>
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="30dp">
+
+        <!-- Car shadow ImageView -->
+        <ImageView
+            android:id="@+id/car_shadow"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="105dp"
+            android:layout_marginTop="35dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/ic_car_shadow" />
+
+        <!-- Main logo ImageView, placed above car shadow -->
+        <ImageView
+            android:id="@+id/main_logo"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="21dp"
+            android:src="@drawable/toolbar_logo" />
+    </RelativeLayout>
 
     <EditText
         android:id="@+id/edittext_username"
         android:layout_width="280dp"
         android:layout_height="50dp"
-        android:layout_below="@id/main_logo"
-        android:layout_marginTop="27dp"
+        android:layout_below="@+id/header_title"
         android:background="@drawable/edittext_long_background"
         android:hint="아이디"
         android:inputType="text"
-        android:textSize="23sp"
+        android:textSize="16sp"
         android:textStyle="normal" />
 
     <TextView
@@ -29,6 +50,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/edittext_username"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="4dp"
         android:text="@string/fe_error_id"
         android:textColor="@color/parkro_red"
@@ -44,6 +66,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/be_error_id"
         android:textColor="@color/parkro_red"
+        android:layout_marginLeft="10dp"
         android:textSize="14sp"
         android:textStyle="bold"
         android:visibility="invisible" />
@@ -52,15 +75,14 @@
         android:id="@+id/btn_verify_id"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_below="@id/main_logo"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="27dp"
-        android:background="@drawable/btn_background"
-        android:enabled="false"
-        android:text="조회"
-        android:textColor="#FFFFFF"
-        android:textSize="23sp"
-        android:textStyle="bold" />
+        android:layout_below="@+id/header_title"
+    android:layout_alignParentRight="true"
+    android:background="@drawable/btn_small_background"
+    android:enabled="false"
+    android:text="조회"
+    android:textColor="#FFFFFF"
+    android:textSize="16sp"
+    android:textStyle="bold" />
 
     <EditText
         android:id="@+id/edittext_password"
@@ -71,7 +93,7 @@
         android:background="@drawable/edittext_long_background"
         android:hint="비밀번호"
         android:inputType="textPassword"
-        android:textSize="23sp"
+        android:textSize="16sp"
         android:textStyle="normal" />
 
     <TextView
@@ -82,6 +104,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/fe_error_password"
         android:textColor="@color/parkro_red"
+        android:layout_marginLeft="10dp"
         android:textSize="14sp"
         android:textStyle="bold"
         android:visibility="invisible" />
@@ -95,7 +118,7 @@
         android:background="@drawable/edittext_long_background"
         android:hint="비밀번호 확인"
         android:inputType="textPassword"
-        android:textSize="23sp"
+        android:textSize="16sp"
         android:textStyle="normal" />
 
     <TextView
@@ -106,6 +129,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/fe_error_check_password"
         android:textColor="@color/parkro_red"
+        android:layout_marginLeft="10dp"
         android:textSize="14sp"
         android:textStyle="bold"
         android:visibility="invisible" />
@@ -119,7 +143,7 @@
         android:background="@drawable/edittext_long_background"
         android:hint="차량 번호"
         android:inputType="text"
-        android:textSize="23sp"
+        android:textSize="16sp"
         android:textStyle="normal" />
 
     <TextView
@@ -131,6 +155,7 @@
         android:text="@string/be_error_invalid_car_number"
         android:textColor="@color/parkro_red"
         android:textSize="14sp"
+        android:layout_marginLeft="10dp"
         android:textStyle="bold"
         android:visibility="invisible" />
 
@@ -142,6 +167,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/be_error_duplicated_car_number"
         android:textColor="@color/parkro_red"
+        android:layout_marginLeft="10dp"
         android:textSize="14sp"
         android:textStyle="bold"
         android:visibility="invisible" />
@@ -154,6 +180,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/server_error"
         android:textColor="@color/parkro_red"
+        android:layout_marginLeft="10dp"
         android:textSize="14sp"
         android:textStyle="bold"
         android:visibility="invisible" />
@@ -165,11 +192,11 @@
         android:layout_below="@id/edittext_check_password"
         android:layout_alignParentRight="true"
         android:layout_marginTop="18dp"
-        android:background="@drawable/btn_background"
+        android:background="@drawable/btn_small_background"
         android:enabled="false"
         android:text="조회"
         android:textColor="#FFFFFF"
-        android:textSize="23sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <EditText
@@ -181,7 +208,7 @@
         android:background="@drawable/edittext_long_background"
         android:hint="이름"
         android:inputType="text"
-        android:textSize="23sp"
+        android:textSize="16sp"
         android:textStyle="normal" />
 
     <EditText
@@ -193,7 +220,7 @@
         android:background="@drawable/edittext_long_background"
         android:hint="닉네임"
         android:inputType="text"
-        android:textSize="23sp"
+        android:textSize="16sp"
         android:textStyle="normal" />
 
     <TextView
@@ -204,6 +231,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/fe_error_nickname"
         android:textColor="@color/parkro_red"
+        android:layout_marginLeft="10dp"
         android:textSize="14sp"
         android:textStyle="bold"
         android:visibility="invisible" />
@@ -217,7 +245,7 @@
         android:background="@drawable/edittext_long_background"
         android:hint="전화번호"
         android:inputType="phone"
-        android:textSize="23sp"
+        android:textSize="16sp"
         android:textStyle="normal" />
 
     <TextView
@@ -227,6 +255,7 @@
         android:layout_below="@id/edittext_phone_number"
         android:layout_marginTop="4dp"
         android:text="@string/fe_error_phone_number"
+        android:layout_marginLeft="10dp"
         android:textColor="@color/parkro_red"
         android:textSize="14sp"
         android:textStyle="bold"
@@ -240,6 +269,7 @@
         android:layout_marginTop="4dp"
         android:text="@string/be_error_phone_number"
         android:textColor="@color/parkro_red"
+        android:layout_marginLeft="10dp"
         android:textSize="14sp"
         android:textStyle="bold"
         android:visibility="invisible" />
@@ -247,16 +277,15 @@
     <Button
         android:id="@+id/btn_signup"
         android:layout_width="match_parent"
-        android:layout_height="67dp"
+        android:layout_height="48dp"
         android:layout_below="@id/edittext_phone_number"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="18dp"
-        android:background="@drawable/btn_background"
+        android:background="@drawable/btn_large_background"
         android:enabled="false"
         android:text="회원가입"
         android:textColor="#FFFFFF"
-        android:textSize="23sp"
+        android:textSize="16sp"
         android:textStyle="bold" />
-
 
 </RelativeLayout>
