@@ -21,6 +21,7 @@ android {
 
         buildConfigField("String", "PAYMENT_CLIENT_KEY", properties["toss_payment_client_key"])
         buildConfigField("String", "SERVER_BASEURL", properties["server_baseurl"])
+        manifestPlaceholders["KAKAO_APP_KEY"] = properties["kakao_app_key"] as String
     }
 
     buildTypes {
@@ -70,4 +71,11 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.0.3')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
+
+    // Kakao
+    implementation 'com.kakao.maps.open:android:2.6.0'
+//    implementation 'com.kakao.maps.open:android:2.9.5'
+
+    // Google Play - location
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 }
