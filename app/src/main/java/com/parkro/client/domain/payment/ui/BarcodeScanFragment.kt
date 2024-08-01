@@ -122,5 +122,10 @@ class BarcodeScanFragment : Fragment() {
             isProcessingError = false
             resumeScanning()
         }
+
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.9).toInt(), // Change 0.8 to the desired width percentage
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
     }
 }
