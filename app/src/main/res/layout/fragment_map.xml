@@ -33,46 +33,49 @@
                 android:elevation="4dp" />
 
             <RelativeLayout
-                android:id="@+id/btn_map_space1"
+                android:id="@+id/layout_map_space1"
                 android:layout_width="110dp"
                 android:layout_height="60dp"
                 android:layout_below="@+id/toolbar_gradient"
-                android:layout_marginTop="-15dp">
+                android:layout_marginTop="-23dp">
 
-                <ImageView
-                    android:id="@+id/img_map_space1"
+                <ImageButton
+                    android:id="@+id/btn_map_space1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/btn_map_store_white" />
+                    android:src="@drawable/btn_map_store_white"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <TextView
                     android:id="@+id/text_map_space1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@android:color/transparent"
                     android:gravity="center"
                     android:paddingBottom="8dp"
-                    android:text="스페이스원"
-                    android:textColor="@android:color/black"
+                    android:text="@string/btn_store_name_space1"
+                    android:textColor="@color/parkro_black"
                     android:textSize="14sp" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/btn_map_dongdaemoon"
+                android:id="@+id/layout_map_dongdaemoon"
                 android:layout_width="100dp"
                 android:layout_height="60dp"
                 android:layout_below="@+id/toolbar_gradient"
                 android:layout_marginStart="-10dp"
-                android:layout_marginTop="-15dp"
-                android:layout_toEndOf="@id/btn_map_space1">
+                android:layout_marginTop="-23dp"
+                android:layout_toEndOf="@id/layout_map_space1">
 
-                <ImageView
-                    android:id="@+id/img_map_dongdaemoon"
+                <ImageButton
+                    android:id="@+id/btn_map_dongdaemoon"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/btn_map_store_white" />
+                    android:src="@drawable/btn_map_store_white"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <TextView
                     android:id="@+id/text_map_dongdaemoon"
@@ -81,26 +84,28 @@
                     android:background="@android:color/transparent"
                     android:gravity="center"
                     android:paddingBottom="8dp"
-                    android:text="동대문점"
-                    android:textColor="@android:color/black"
+                    android:text="@string/btn_store_name_dongdaemoon"
+                    android:textColor="@color/parkro_black"
                     android:textSize="14sp" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/btn_map_pangyo"
+                android:id="@+id/layout_map_pangyo"
                 android:layout_width="80dp"
                 android:layout_height="60dp"
                 android:layout_below="@+id/toolbar_gradient"
-                android:layout_marginTop="-15dp"
+                android:layout_marginTop="-23dp"
                 android:layout_marginStart="-10dp"
-                android:layout_toEndOf="@id/btn_map_dongdaemoon">
+                android:layout_toEndOf="@id/layout_map_dongdaemoon">
 
-                <ImageView
-                    android:id="@+id/img_map_pangyo"
+                <ImageButton
+                    android:id="@+id/btn_map_pangyo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/btn_map_store_white" />
+                    android:src="@drawable/btn_map_store_white"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <TextView
                     android:id="@+id/text_map_pangyo"
@@ -109,26 +114,28 @@
                     android:background="@android:color/transparent"
                     android:gravity="center"
                     android:paddingBottom="8dp"
-                    android:text="판교점"
-                    android:textColor="@android:color/black"
+                    android:text="@string/btn_store_name_pangyo"
+                    android:textColor="@color/parkro_black"
                     android:textSize="14sp" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/btn_map_daegu"
+                android:id="@+id/layout_map_daegu"
                 android:layout_width="120dp"
                 android:layout_height="60dp"
                 android:layout_below="@+id/toolbar_gradient"
                 android:layout_marginStart="-10dp"
-                android:layout_marginTop="-15dp"
-                android:layout_toEndOf="@id/btn_map_pangyo">
+                android:layout_marginTop="-23dp"
+                android:layout_toEndOf="@id/layout_map_pangyo">
 
-                <ImageView
-                    android:id="@+id/img_map_daegu"
+                <ImageButton
+                    android:id="@+id/btn_map_daegu"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
                     android:scaleType="fitXY"
-                    android:src="@drawable/btn_map_store_white" />
+                    android:src="@drawable/btn_map_store_white"
+                    tools:ignore="SpeakableTextPresentCheck" />
 
                 <TextView
                     android:id="@+id/text_map_daegu"
@@ -137,10 +144,22 @@
                     android:background="@android:color/transparent"
                     android:gravity="center"
                     android:paddingBottom="8dp"
-                    android:text="더현대 대구"
-                    android:textColor="@android:color/black"
+                    android:text="@string/btn_store_name_daegu"
+                    android:textColor="@color/parkro_black"
                     android:textSize="14sp" />
             </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/btn_map_mycar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="66dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/btn_map_mycar" />
 
 
         </RelativeLayout>

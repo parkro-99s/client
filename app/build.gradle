@@ -77,8 +77,11 @@ dependencies {
     
     // Kakao
     implementation 'com.kakao.maps.open:android:2.6.0'
-//    implementation 'com.kakao.maps.open:android:2.9.5'
 
     // Google Play - location
     implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+    // androidx (for ActivityResultLauncher)
+    implementation "androidx.activity:activity-ktx:1.4.0"
+    implementation "androidx.fragment:fragment-ktx:1.4.1"
 }

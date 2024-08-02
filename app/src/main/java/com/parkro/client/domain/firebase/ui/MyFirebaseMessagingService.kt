@@ -1,4 +1,4 @@
-package com.parkro.client.ui.firebase
+package com.parkro.client.domain.firebase.ui
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
