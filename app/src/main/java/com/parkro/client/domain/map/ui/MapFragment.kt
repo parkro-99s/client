@@ -1,29 +1,29 @@
 package com.parkro.client.domain.map.ui
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.AlertDialog
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.content.pm.PackageManager
 import android.location.Location
-import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
+import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.*
 import com.kakao.vectormap.*
-import com.parkro.client.MainActivity
+import com.kakao.vectormap.camera.CameraUpdateFactory
 import com.parkro.client.R
+import com.parkro.client.domain.map.api.GetParkingLotRes
+import com.parkro.client.domain.map.data.ParkingLotRepository
 import com.kakao.vectormap.label.*
 import com.parkro.client.databinding.FragmentMapBinding
+import com.parkro.client.util.PermissionUtil
+import com.parkro.client.util.PreferencesUtil
 
 class MapFragment : Fragment() {
 
@@ -31,13 +31,15 @@ class MapFragment : Fragment() {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
-    private val LOCATION_PERMISSION_REQUEST_CODE = 1001
-    private var zoomlevel = 17
-
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var mapView: MapView
-    private lateinit var kakaoMap: KakaoMap
+    private var zoomlevel = 17
 
+    // 클릭된 버튼 추적
+    private var currentSelectedButton: ImageButton? = null
+    private var currentSelectedTextView: TextView? = null
+
+    private lateinit var kakaoMap: KakaoMap
     private lateinit var layer: LabelLayer
     private lateinit var centerLabel: Label
     private var startPosition: LatLng? = null
@@ -46,10 +48,23 @@ class MapFragment : Fragment() {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
 
-    private val locationPermissions = arrayOf(
-        Manifest.permission.ACCESS_COARSE_LOCATION,
-        Manifest.permission.ACCESS_FINE_LOCATION
-    )
+    private val parkingLotRepository = ParkingLotRepository()
+    private val labels = mutableListOf<Label>()
+
+    private lateinit var permissionUtil: PermissionUtil
+
+    // 권한 요청 결과 처리
+    private val requestPermissionsLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+        if (permissions.all { it.value }) {
+            // 모든 권한이 허용된 경우
+            getStartLocation()
+        } else {
+            // 하나 이상의 권한이 거부된 경우
+            Toast.makeText(requireContext(), "지도를 조회하려면 위치 권한이 필요합니다.", Toast.LENGTH_LONG).show()
+        }
+    }
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
@@ -62,8 +77,8 @@ class MapFragment : Fragment() {
         val root: View = binding.root
         mapView = binding.mapMap
 
-        // toolbar title 수정
-        (activity as? MainActivity)?.updateToolbarTitle("", false, false)
+        // PreferencesUtil 초기화
+        PreferencesUtil.init(requireContext())
 
         // FusedLocationProviderClient 인스턴스를 가져옴
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -83,18 +98,118 @@ class MapFragment : Fragment() {
             }
         }
 
-        if (ContextCompat.checkSelfPermission(requireContext(), locationPermissions[0]) == PackageManager.PERMISSION_GRANTED
-            && ContextCompat.checkSelfPermission(requireContext(), locationPermissions[1]) == PackageManager.PERMISSION_GRANTED) {
+        // 권한 확인 및 요청
+        permissionUtil = PermissionUtil(requireContext(), requestPermissionsLauncher)
+        permissionUtil.checkLocationPermissions {
             getStartLocation()
-        } else {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                locationPermissions,
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
         }
 
+        setupButtons()
+
         return root
+    }
+
+    private fun setupButtons() {
+        binding.btnMapSpace1.setOnClickListener {
+            onStoreButtonClick(it as ImageButton, binding.textMapSpace1, "1")
+        }
+        binding.btnMapDongdaemoon.setOnClickListener {
+            onStoreButtonClick(it as ImageButton, binding.textMapDongdaemoon, "2")
+        }
+        binding.btnMapPangyo.setOnClickListener {
+            onStoreButtonClick(it as ImageButton, binding.textMapPangyo, "3")
+        }
+        binding.btnMapDaegu.setOnClickListener {
+            onStoreButtonClick(it as ImageButton, binding.textMapDaegu, "4")
+        }
+        binding.btnMapMycar.setOnClickListener {
+            trackMyLocation()
+        }
+    }
+
+    private fun onStoreButtonClick(button: ImageButton, textView: TextView, storeId: String) {
+        // 이전에 선택된 버튼 색상 변경
+        currentSelectedButton?.setImageResource(R.drawable.btn_map_store_white)
+        currentSelectedTextView?.setTextColor(ContextCompat.getColor(requireContext(), R.color.parkro_black))
+
+        // 현재 선택된 버튼 색상 변경
+        button.setImageResource(R.drawable.btn_map_store_navy)
+        textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.parkro_white))
+
+        // 현재 선택된 버튼과 텍스트를 업데이트
+        currentSelectedButton = button
+        currentSelectedTextView = textView
+
+        // 주차장 데이터 로드
+        fetchParkingLotData(storeId)
+    }
+
+    private fun fetchParkingLotData(storeId: String) {
+        parkingLotRepository.getParkingLotList(storeId) { result ->
+            result.onSuccess { parkingLots ->
+                // 기존 라벨 제거
+                removeExistingLabels()
+                // 트랙킹 중지
+                kakaoMap.trackingManager?.stopTracking()
+
+                // 새로운 라벨 추가 및 isInternal == "Y" 인 주차장 찾기
+                var internalParkingLot: GetParkingLotRes? = null
+                for (parkingLot in parkingLots) {
+                    addParkingLotLabel(parkingLot)
+                    if (parkingLot.isInternal == "Y" && internalParkingLot == null) {
+                        internalParkingLot = parkingLot
+                    }
+                }
+
+                // isInternal == "Y" 인 주차장이 있으면 화면 중앙으로 이동
+                internalParkingLot?.let {
+                    kakaoMap.moveCamera(CameraUpdateFactory.newCenterPosition(LatLng.from(it.latitude, it.longitude)))
+                }
+            }.onFailure { exception ->
+                Toast.makeText(context, "주차장을 찾을 수 없습니다. 통신 상태를 확인해주세요.", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    private fun trackMyLocation() {
+        if (::centerLabel.isInitialized) {
+            kakaoMap.trackingManager?.startTracking(centerLabel)
+        } else {
+            Toast.makeText(context, "현재 위치를 찾을 수 없습니다.", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun initialSetup() {
+        // 초기 상태에서 btnMapSpace1이 선택된 것처럼 설정
+        currentSelectedButton = binding.btnMapSpace1
+        currentSelectedTextView = binding.textMapSpace1
+        currentSelectedButton?.setImageResource(R.drawable.btn_map_store_navy)
+        currentSelectedTextView?.setTextColor(ContextCompat.getColor(requireContext(), R.color.parkro_white))
+
+        // 주차장 데이터 로드
+        if (::kakaoMap.isInitialized) {
+            fetchParkingLotData("1")
+        }
+    }
+
+    private fun addParkingLotLabel(parkingLot: GetParkingLotRes) {
+        if (!::kakaoMap.isInitialized) {
+            return
+        }
+
+        val position = LatLng.from(parkingLot.latitude, parkingLot.longitude)
+        val options = LabelOptions.from(parkingLot.name, position)
+            .setStyles(LabelStyle.from(R.drawable.marker_red).setAnchorPoint(0.5f, 0.5f))
+            .setRank(1)
+        val label = layer.addLabel(options)
+        labels.add(label)
+    }
+
+    private fun removeExistingLabels() {
+        for (label in labels) {
+            layer.remove(label)
+        }
+        labels.clear()
     }
 
     override fun onResume() {
@@ -109,7 +224,6 @@ class MapFragment : Fragment() {
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
-    // 해당 메서드를 위치 권한 획득한 이후에 실행되도록 하기
     @SuppressLint("MissingPermission")
     private fun getStartLocation() {
         fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
@@ -129,8 +243,18 @@ class MapFragment : Fragment() {
                 layer = kakaoMap.labelManager?.layer!!
 
                 startPosition?.let { position ->
+                    val carProfile = PreferencesUtil.getCarProfile()
+                    val markerDrawable = when (carProfile) {
+                        1 -> R.drawable.marker_car_orange
+                        2 -> R.drawable.marker_car_blue
+                        3 -> R.drawable.marker_car_yellow
+                        4 -> R.drawable.marker_car_red
+                        5 -> R.drawable.marker_car_sky
+                        else -> R.drawable.marker_car_orange
+                    }
+
                     val options = LabelOptions.from("centerLabel", position)
-                        .setStyles(LabelStyle.from(R.drawable.marker_car).setAnchorPoint(0.5f, 0.5f))
+                        .setStyles(LabelStyle.from(markerDrawable).setAnchorPoint(0.5f, 0.5f))
                         .setRank(1)
                     centerLabel = layer.addLabel(options)
 
@@ -138,6 +262,9 @@ class MapFragment : Fragment() {
                     kakaoMap.trackingManager?.startTracking(centerLabel)
                     startLocationUpdates()
                 }
+
+                // 초기 데이터 로드 (예: storeId "1")
+                initialSetup()
             }
 
             override fun getPosition(): LatLng {
@@ -150,47 +277,10 @@ class MapFragment : Fragment() {
         })
     }
 
-    // 위치 업데이트 요청을 시작하는 메서드
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
         requestingLocationUpdates = true
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper())
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<String?>, grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getStartLocation()
-            } else {
-                showPermissionDeniedDialog()
-            }
-        }
-    }
-
-    private fun showPermissionDeniedDialog() {
-        AlertDialog.Builder(requireContext())
-            .setMessage("위치 권한 거부 시 앱을 사용할 수 없습니다.")
-            .setPositiveButton("권한 설정하러 가기") { _, _ ->
-                try {
-                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                        .setData(Uri.parse("package:${requireContext().packageName}"))
-                    startActivity(intent)
-                } catch (e: ActivityNotFoundException) {
-                    e.printStackTrace()
-                    val intent = Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS)
-                    startActivity(intent)
-                } finally {
-                    activity?.finish()
-                }
-            }
-            .setNegativeButton("앱 종료하기") { _, _ ->
-                activity?.finish()
-            }
-            .setCancelable(false)
-            .show()
     }
 
     override fun onDestroyView() {

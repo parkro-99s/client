@@ -31,7 +31,6 @@ class ReceiptViewModel : ViewModel() {
                     _receiptData.postValue(data)
                 },
                 onFailure = { throwable ->
-                    // ErrorRes 객체 생성
                     _errorMessage.postValue(parseErrorResponse(throwable))
                 }
             )
@@ -39,10 +38,7 @@ class ReceiptViewModel : ViewModel() {
     }
 
     private fun parseErrorResponse(throwable: Throwable): ErrorRes {
-        // 서버에서 반환하는 에러 JSON을 파싱하여 ErrorRes 객체로 변환하는 로직
-        // 예를 들어, HttpException 등을 사용할 수 있음
-        // 이 예제는 가상의 로직입니다. 실제 구현은 서버 응답 형식에 맞춰야 함
-        val errorJson = throwable.localizedMessage // 또는 다른 방법으로 JSON을 추출
+        val errorJson = throwable.localizedMessage
         return try {
             val jsonObject = JSONObject(errorJson)
             ErrorRes(
@@ -56,6 +52,16 @@ class ReceiptViewModel : ViewModel() {
                 errorCode = "UNKNOWN_ERROR",
                 message = "An unknown error occurred"
             )
+        }
+    }
+
+    fun calculateDiscountTime(totalPrice: Int): Int {
+        return when {
+            totalPrice >= 60000 -> 5
+            totalPrice >= 40000 -> 3
+            totalPrice >= 30000 -> 2
+            totalPrice >= 20000 -> 1
+            else -> 0
         }
     }
 }

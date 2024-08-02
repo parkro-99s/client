@@ -1,6 +1,7 @@
 package com.parkro.client.domain.network
 
 import android.util.Log
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.parkro.client.BuildConfig
 import com.parkro.client.util.PreferencesUtil
@@ -36,7 +37,6 @@ object RetrofitClient {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(okHttpClient)
-            .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .build()
     }

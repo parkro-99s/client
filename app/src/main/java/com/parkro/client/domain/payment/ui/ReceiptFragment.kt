@@ -18,6 +18,7 @@ class ReceiptFragment : Fragment() {
     private var _binding: FragmentReceiptBinding? = null
     private val binding get() = _binding!!
     private lateinit var receiptViewModel: ReceiptViewModel
+    private lateinit var paymentViewModel: PaymentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,11 +26,17 @@ class ReceiptFragment : Fragment() {
     ): View? {
         _binding = FragmentReceiptBinding.inflate(inflater, container, false)
         receiptViewModel = ViewModelProvider(requireActivity()).get(ReceiptViewModel::class.java)
+        paymentViewModel = ViewModelProvider(requireActivity()).get(PaymentViewModel::class.java)
 
+        // 영수증 데이터 변경되면 (조회 또는 갱신)
         receiptViewModel.receiptData.observe(viewLifecycleOwner, Observer { receiptData ->
             receiptData?.let {
+                val discountHours = receiptViewModel.calculateDiscountTime(it.totalPrice)
                 binding.textReceiptValueTotalPrice.text = getString(R.string.formatted_amount_payment, it.totalPrice)
-                binding.textReceiptValueReceiptDiscount.text = calculateDiscountTime(it.totalPrice)
+                binding.textReceiptValueReceiptDiscount.text = "${discountHours}시간"
+
+                // payment 에서 관리되는 데이터도 업데이트
+                paymentViewModel.setDiscountReceiptHours(discountHours)
             }
         })
 
@@ -42,22 +49,24 @@ class ReceiptFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnReceiptBtnToScanner.setOnClickListener {
-            findNavController(this@ReceiptFragment).navigate(R.id.navigation_barcode_scan, null, NavOptions.Builder().setLaunchSingleTop(true).build())
+            findNavController(this@ReceiptFragment).navigate(
+                R.id.navigation_barcode_scan,
+                null,
+                NavOptions.Builder().setLaunchSingleTop(true).build()
+            )
+        }
+
+        binding.btnReceiptRegister.setOnClickListener {
+            findNavController(this@ReceiptFragment).navigate(
+                R.id.navigation_payment,
+                null,
+                NavOptions.Builder().setLaunchSingleTop(true).build()
+            )
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    private fun calculateDiscountTime(totalPrice: Int): String {
-        return when {
-            totalPrice >= 60000 -> "5시간"
-            totalPrice >= 40000 -> "3시간"
-            totalPrice >= 30000 -> "2시간"
-            totalPrice >= 20000 -> "1시간"
-            else -> "0시간"
-        }
     }
 }

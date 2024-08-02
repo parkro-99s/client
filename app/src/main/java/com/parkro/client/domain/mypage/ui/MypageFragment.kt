@@ -18,6 +18,7 @@ import com.parkro.client.R
 import com.parkro.client.databinding.FragmentMypageBinding
 import com.parkro.client.domain.login.ui.LoginActivity
 import com.parkro.client.domain.logout.data.LogoutRepository
+import com.parkro.client.domain.mypage.data.MypageRepository
 import com.parkro.client.util.PreferencesUtil
 
 class MypageFragment : Fragment() {
@@ -27,6 +28,7 @@ class MypageFragment : Fragment() {
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
     private val logoutRepository = LogoutRepository()
+    private val mypageRepository = MypageRepository()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,7 +67,7 @@ class MypageFragment : Fragment() {
         }
 
         deleteUserBtn.setOnClickListener {
-
+            showDeleteUserDialog(getString(R.string.title_delete_user_modal))
         }
 
         return root
@@ -134,7 +136,7 @@ class MypageFragment : Fragment() {
             .create()
 
         confirmButton.setOnClickListener {
-            logoutRepository.postLogout { result ->
+            mypageRepository.patchUserDetails{ result ->
                 result.fold(
                     onSuccess = {
                         PreferencesUtil.clear()

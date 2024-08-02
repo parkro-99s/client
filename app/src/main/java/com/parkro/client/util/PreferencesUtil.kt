@@ -19,6 +19,10 @@ class PreferencesUtil private constructor(context: Context) {
         fun init(context: Context) {
             if (instance == null) {
                 instance = PreferencesUtil(context.applicationContext)
+                // Set default car profile if not set
+                if (!instance!!.prefs.contains(CAR_PROFILE)) {
+                    instance!!.prefsEditor.putInt(CAR_PROFILE, 1).apply()
+                }
             }
         }
 
@@ -56,14 +60,15 @@ class PreferencesUtil private constructor(context: Context) {
         }
 
         // Get car profile
-        fun getCarProfile(defValue: Int?): Int? {
-            return defValue?.let { getInstance()!!.prefs.getInt(CAR_PROFILE, it) }
+        fun getCarProfile(): Int {
+            return getInstance()!!.prefs.getInt(CAR_PROFILE, 1) ?: 1
         }
 
         // Clear all preferences
         fun clear() {
             getInstance()!!.prefsEditor.clear().apply()
         }
+
     }
 
     // Private constructor to enforce singleton pattern

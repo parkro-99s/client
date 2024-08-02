@@ -327,11 +327,13 @@
         android:id="@+id/layout_payment_btn"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="30dp"
         android:layout_marginHorizontal="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_payment_title_amount_payment"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/parkro_white"
+        android:text="@string/title_btn_payment_web"
         android:visibility="invisible" >
 
         <ImageButton
@@ -385,4 +387,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:visibility="invisible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
