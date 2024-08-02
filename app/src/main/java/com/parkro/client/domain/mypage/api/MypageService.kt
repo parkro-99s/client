@@ -10,4 +10,11 @@ interface MypageService {
 
     @PATCH("/member/{username}")
     fun patchUserDetails(@Path("username") username: String): Call<ResponseBody>
+
+    @PATCH("/member/{username}/car")
+    fun patchCarDetails(@Path("username") username: String): Call<ResponseBody>
+
+    @GET("/member/{username}")
+    fun getUserDetails(@Path("username") username: String): Call<GetUserDetailsRes>
+
 }

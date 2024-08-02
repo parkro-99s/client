@@ -9,6 +9,7 @@
     tools:context=".domain.mypage.ui.MypageFragment">
 
     <TextView
+        android:visibility="invisible"
         android:paddingHorizontal="20dp"
         android:id="@+id/tv_mypage_info_title"
         android:layout_width="wrap_content"
@@ -39,6 +40,7 @@
 
             <ImageView
                 android:id="@+id/img_mypage_car_1"
+                android:visibility="invisible"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/ic_car_1"
@@ -47,6 +49,7 @@
 
             <ImageView
                 android:id="@+id/img_mypage_car_2"
+                android:visibility="invisible"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/ic_car_2"
@@ -55,6 +58,7 @@
 
             <ImageView
                 android:id="@+id/img_mypage_car_3"
+                android:visibility="invisible"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/ic_car_3"
@@ -63,6 +67,7 @@
 
             <ImageView
                 android:id="@+id/img_mypage_car_4"
+                android:visibility="invisible"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/ic_car_4"
@@ -71,6 +76,7 @@
 
             <ImageView
                 android:id="@+id/img_mypage_car_5"
+                android:visibility="invisible"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/ic_car_5"
@@ -92,7 +98,8 @@
                 android:textStyle="normal"
                 android:textSize="16sp"
                 android:textColor="@color/parkro_black"
-                android:text="ads"/>
+                android:visibility="invisible"
+                />
             <TextView
                 android:id="@+id/tv_mypage_username"
                 android:layout_width="wrap_content"
@@ -100,7 +107,8 @@
                 android:textStyle="normal"
                 android:textSize="16sp"
                 android:textColor="@color/parkro_black"
-                android:text="asdad"/>
+                android:visibility="invisible"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -115,6 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
             <Button
+                android:visibility="invisible"
                 android:id="@+id/btn_mypage_user_profile_modify"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
@@ -127,6 +136,7 @@
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
+        android:visibility="invisible"
         android:id="@+id/layout_mypage_line_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -150,7 +160,7 @@
 
         <TextView
             android:paddingHorizontal="20dp"
-
+            android:visibility="invisible"
             android:id="@+id/tv_mypage_car_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -168,12 +178,13 @@
             android:layout_marginTop="25dp">
 
             <LinearLayout
+                android:id="@+id/layout_mypage_add_car_btn"
+                android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="20dp"
                 >
                 <Button
-
                     android:id="@+id/btn_mypage_add_car"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
@@ -187,6 +198,8 @@
             </LinearLayout>
 
             <RelativeLayout
+                android:id="@+id/layout_mypage_car_frame"
+                android:visibility="invisible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -199,6 +212,7 @@
                     android:src="@drawable/ic_car_info_frame" />
 
                 <LinearLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignStart="@id/img_mypage_car_info"
@@ -219,47 +233,47 @@
                             android:layout_height="70dp"
                             android:src="@drawable/ic_car_1"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
                             android:id="@+id/img_mypage_info_car_2"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:src="@drawable/ic_car_2"
-                            app:layout_constraintTop_toTopOf="@id/img_mypage_info_car_1"
-                            app:layout_constraintStart_toStartOf="@id/img_mypage_info_car_1"/>
+                            app:layout_constraintStart_toStartOf="@id/img_mypage_info_car_1"
+                            app:layout_constraintTop_toTopOf="@id/img_mypage_info_car_1" />
 
                         <ImageView
                             android:id="@+id/img_mypage_info_car_3"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:src="@drawable/ic_car_3"
-                            app:layout_constraintTop_toTopOf="@id/img_mypage_info_car_1"
-                            app:layout_constraintStart_toStartOf="@id/img_mypage_info_car_1"/>
+                            app:layout_constraintStart_toStartOf="@id/img_mypage_info_car_1"
+                            app:layout_constraintTop_toTopOf="@id/img_mypage_info_car_1" />
 
                         <ImageView
                             android:id="@+id/img_mypage_info_car_4"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:src="@drawable/ic_car_4"
-                            app:layout_constraintTop_toTopOf="@id/img_mypage_info_car_1"
-                            app:layout_constraintStart_toStartOf="@id/img_mypage_info_car_1"/>
+                            app:layout_constraintStart_toStartOf="@id/img_mypage_info_car_1"
+                            app:layout_constraintTop_toTopOf="@id/img_mypage_info_car_1" />
 
                         <ImageView
                             android:id="@+id/img_mypage_info_car_5"
                             android:layout_width="70dp"
                             android:layout_height="70dp"
                             android:src="@drawable/ic_car_5"
-                            app:layout_constraintTop_toTopOf="@id/img_mypage_info_car_1"
-                            app:layout_constraintStart_toStartOf="@id/img_mypage_info_car_1"/>
+                            app:layout_constraintStart_toStartOf="@id/img_mypage_info_car_1"
+                            app:layout_constraintTop_toTopOf="@id/img_mypage_info_car_1" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-vj
 
                     <TextView
-                        android:layout_marginLeft="30dp"
+                        android:id="@+id/tv_mypage_car_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
+                        android:layout_marginLeft="30dp"
                         android:text="1234"
                         android:textColor="@color/parkro_black"
                         android:textSize="16sp"
@@ -283,6 +297,8 @@ vj
         </FrameLayout>
 
     <LinearLayout
+            android:visibility="invisible"
+            android:id="@+id/layout_mypage_footer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

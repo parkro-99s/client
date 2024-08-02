@@ -17,14 +17,14 @@ class SignUpRepository {
     }
 
     // 중복 아이디 조회
-    fun getUsername(username: String, onResult: (Result<String>) -> Unit) {
+    fun getUsername(username: String, onResult: (Result<ResponseBody>) -> Unit) {
         val call = signUpService.getUsername(username)
 
         // 비동기적으로 API 요청 수행
-        call.enqueue(object : Callback<String> {
+        call.enqueue(object : Callback<ResponseBody> {
 
             // 웅답이 성공적으로 호출되었다면
-            override fun onResponse(call: Call<String>, response: Response<String>) {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
                     onResult(Result.success(response.body()!!))
                 } else {
@@ -33,7 +33,7 @@ class SignUpRepository {
             }
 
             // 응답 실패
-            override fun onFailure(call: Call<String>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 onResult(Result.failure(t))
             }
         })

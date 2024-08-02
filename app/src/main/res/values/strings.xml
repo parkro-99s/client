@@ -79,4 +79,5 @@
 
     <string name="title_logout_modal">로그아웃 하시겠습니까?</string>
     <string name="title_delete_user_modal">회원탈퇴 하시겠습니까?</string>
+    <string name="title_delete_car_modal">차량을 삭제 하시겠습니까?</string>
 </resources>

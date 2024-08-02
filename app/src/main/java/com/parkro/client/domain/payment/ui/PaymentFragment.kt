@@ -129,9 +129,9 @@ class PaymentFragment : Fragment() {
             findNavController(this@PaymentFragment).navigate(R.id.navigation_receipt)
         }
 
-        binding.btnPaymentCoupon.setOnClickListener {
-            findNavController(this@PaymentFragment).navigate(R.id.navigation_coupon)
-        }
+//        binding.btnPaymentCoupon.setOnClickListener {
+//            findNavController(this@PaymentFragment).navigate(R.id.navigation_coupon)
+//        }
     }
 
     private fun observeViewModel() {
