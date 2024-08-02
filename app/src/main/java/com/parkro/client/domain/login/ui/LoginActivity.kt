@@ -6,9 +6,9 @@ import android.util.TypedValue
 import android.view.ViewGroup
 import android.view.animation.Animation
 import androidx.appcompat.app.AppCompatActivity
-import com.parkro.client.AdminActivity
+import com.parkro.client.domain.admin.ui.AdminActivity
 import com.parkro.client.MainActivity
-import com.parkro.client.Utils
+import com.parkro.client.util.PreferencesUtil
 import com.parkro.client.domain.login.api.PostLoginReq
 import com.parkro.client.domain.login.data.LoginRepository
 import com.parkro.client.domain.signup.ui.SignUpActivity
@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.parkro.client.R.layout.activity_login)
-        Utils.init(applicationContext)
+        PreferencesUtil.init(applicationContext)
         val usernameText: EditText = findViewById(com.parkro.client.R.id.edt_login_username)
         val passwordText: EditText = findViewById(com.parkro.client.R.id.edt_login_password)
         val submitButton: Button = findViewById(com.parkro.client.R.id.btn_login)
@@ -32,8 +32,8 @@ class LoginActivity : AppCompatActivity() {
         val loginRepository = LoginRepository()
         val errorText: TextView = findViewById(com.parkro.client.R.id.tv_login_error)
         val car: ImageView = findViewById(com.parkro.client.R.id.img_login_car_shadow)
-
         submitButton.setOnClickListener {
+            submitButton.isEnabled = false
             val username = usernameText.text.toString().trim()
             val password = passwordText.text.toString().trim()
 
@@ -42,18 +42,29 @@ class LoginActivity : AppCompatActivity() {
                 result.fold(
                     onSuccess = { response ->
                         response?.let {
-                            Utils.setAccessToken(it.token)
-                            Utils.setUsername(it.username)
+                            PreferencesUtil.setAccessToken(it.token)
+                            PreferencesUtil.setUsername(it.username)
 
                             val payload = decodeJWT(it.token)
                             val rolesList = extractRolesFromPayload(payload) // Extract roles as a list of strings
                             if (rolesList.contains("ROLE_ADMIN")) {
-                                val intent = Intent(this, AdminActivity::class.java)
-                                startActivity(intent)
-                            } else {
+                                val animCarOut: Animation = AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
+                                car.startAnimation(animCarOut)
+                                animCarOut.setAnimationListener(object : Animation.AnimationListener {
+                                    override fun onAnimationStart(animation: Animation?) {
+                                    }
 
-                                val animCarOut: Animation =
-                                    AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
+                                    override fun onAnimationEnd(animation: Animation?) {
+                                        val intent = Intent(this@LoginActivity, AdminActivity::class.java)
+                                        startActivity(intent)
+                                        finish()
+                                    }
+
+                                    override fun onAnimationRepeat(animation: Animation?) {
+                                    }
+                                })
+                            } else {
+                                val animCarOut: Animation = AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
                                 car.startAnimation(animCarOut)
                                 animCarOut.setAnimationListener(object : Animation.AnimationListener {
                                     override fun onAnimationStart(animation: Animation?) {
@@ -62,21 +73,34 @@ class LoginActivity : AppCompatActivity() {
                                     override fun onAnimationEnd(animation: Animation?) {
                                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                         startActivity(intent)
+                                        finish()
                                     }
 
                                     override fun onAnimationRepeat(animation: Animation?) {
                                     }
                                 })
-
-                                car.startAnimation(animCarOut)
+                                }
                             }
-                        }
-                    },
+                        },
                     onFailure = { error ->
-                        runOnUiThread {
-                            errorText.visibility = TextView.VISIBLE
-                            setButtonMarginTop(submitButton, 60)
-                        }
+                        val animCarOut: Animation = AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
+                        car.startAnimation(animCarOut)
+                        animCarOut.setAnimationListener(object : Animation.AnimationListener {
+                            override fun onAnimationStart(animation: Animation?) {
+                            }
+
+                            override fun onAnimationEnd(animation: Animation?) {
+                                submitButton.isEnabled = true
+                                runOnUiThread {
+                                    errorText.visibility = TextView.VISIBLE
+                                    setButtonMarginTop(submitButton, 60)
+                                }
+                            }
+
+                            override fun onAnimationRepeat(animation: Animation?) {
+                            }
+                        })
+
                     }
                 )
             }
