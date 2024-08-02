@@ -159,41 +159,6 @@
         android:layout_width="match_parent"
         android:layout_height="260dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_payment_title_amount_payment"
-        android:visibility="invisible" >
-
-        <ImageButton
-            android:id="@+id/btn_payment_to_payment"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/parkro_white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:src="@drawable/ic_btn_navy_long"
-            android:scaleType="fitXY"
-            android:adjustViewBounds="true" />
-
-        <TextView
-            android:id="@+id/text_payment_to_payment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_completed_payment"
-            android:textColor="@color/parkro_white"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/btn_payment_to_payment"
-            app:layout_constraintEnd_toEndOf="@id/btn_payment_to_payment"
-            app:layout_constraintTop_toTopOf="@id/btn_payment_to_payment"
-            app:layout_constraintBottom_toBottomOf="@id/btn_payment_to_payment"
-            android:gravity="center" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:id="@+id/img_payment_car"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:layout_marginTop="200dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_payment_btn_coupon"
         android:visibility="invisible" >
@@ -258,7 +223,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:gravity="end"
-            android:text="@string/default_value_time"
+            android:text="@string/default_value_payment"
             android:textColor="@color/parkro_black"
             android:textSize="15sp"
             android:textStyle="bold"
@@ -286,7 +251,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:gravity="end"
-            android:text="@string/default_value_time"
+            android:text="@string/default_value_payment"
             android:textColor="@color/parkro_black"
             android:textSize="15sp"
             android:textStyle="bold"

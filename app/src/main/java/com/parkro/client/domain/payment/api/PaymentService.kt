@@ -13,4 +13,7 @@ interface PaymentService {
 
     @GET("/parking")
     fun getParkingInfoFirst(@Query("username") username: String): Call<GetCurrentParkingInfo>
+
+    @GET("/payment/coupon/{username}")
+    fun getMemberCouponList(@Path("username") username: String): Call<GetMemberCouponList>
 }
