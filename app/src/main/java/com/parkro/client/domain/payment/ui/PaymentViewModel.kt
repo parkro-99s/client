@@ -74,8 +74,6 @@ class PaymentViewModel : ViewModel() {
     }
 
     fun fetchParkingInfo(username: String) {
-        // 처음 한번만 주차 정보 가져오도록
-//        if (_parkingInfoRes.value != null) return
 
         paymentRepository.findParkingInfoFirst(username) { result ->
             result.onSuccess { parkingInfo ->
