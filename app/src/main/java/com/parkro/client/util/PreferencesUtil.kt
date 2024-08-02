@@ -12,6 +12,7 @@ class PreferencesUtil private constructor(context: Context) {
         private const val ACCESS_TOKEN = "ACCESS_TOKEN"
         private const val USER_NAME = "USER_NAME"
         private const val NAME = "NAME"
+        private const val CAR_PROFILE = "car_profile"
         private var instance: PreferencesUtil? = null
 
         // Initialize the Utils instance
@@ -19,6 +20,10 @@ class PreferencesUtil private constructor(context: Context) {
         fun init(context: Context) {
             if (instance == null) {
                 instance = PreferencesUtil(context.applicationContext)
+                // Set default car profile if not set
+                if (!instance!!.prefs.contains(CAR_PROFILE)) {
+                    instance!!.prefsEditor.putInt(CAR_PROFILE, 1).apply()
+                }
             }
         }
 
@@ -48,10 +53,21 @@ class PreferencesUtil private constructor(context: Context) {
             return getInstance()!!.prefs.getString(USER_NAME, defValue)
         }
 
+        // Set car profile
+        fun setCarProfile(value: Int) {
+            getInstance()!!.prefsEditor.putInt(CAR_PROFILE, value).apply()
+        }
+
+        // Get car profile
+        fun getCarProfile(): Int {
+            return getInstance()!!.prefs.getInt(CAR_PROFILE, 1) ?: 1
+        }
+
         // Clear all preferences
         fun clear() {
             getInstance()!!.prefsEditor.clear().apply()
         }
+
     }
 
     // Private constructor to enforce singleton pattern

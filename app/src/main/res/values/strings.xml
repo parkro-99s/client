@@ -65,5 +65,11 @@
     <string name="title_discount_hours">차감 시간</string>
     <string name="title_btn_register">등록하기</string>
 
+    <!-- store -->
+    <string name="btn_store_name_space1">스페이스원</string>
+    <string name="btn_store_name_dongdaemoon">동대문점</string>
+    <string name="btn_store_name_pangyo">판교점</string>
+    <string name="btn_store_name_daegu">더현대 대구</string>
+
     <string name="title_logout_modal">로그아웃 하시겠습니까?</string>
 </resources>
