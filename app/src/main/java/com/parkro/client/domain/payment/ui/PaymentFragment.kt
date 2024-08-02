@@ -37,6 +37,7 @@ class PaymentFragment : Fragment() {
             showAlertAndRefreshPage()
         }
     }
+    private var isDialogVisible = false // 팝업 상태를 관리하는 변수
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -71,6 +72,8 @@ class PaymentFragment : Fragment() {
     }
 
     private fun showAlertAndRefreshPage() {
+        if (isDialogVisible) return
+
         context?.let {
             val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.custom_dialog, null)
             val messageTextView = dialogView.findViewById<TextView>(R.id.text_dialog_message)
@@ -86,6 +89,7 @@ class PaymentFragment : Fragment() {
             confirmBtn.setOnClickListener {
                 dialog.dismiss()
                 paymentViewModel.resetDiscounted()
+                isDialogVisible = false
                 resetIdleTimer()
                 refreshPage()
             }
