@@ -3,6 +3,7 @@
     <color name="parkro_navy">#00154E</color>
     <color name="parkro_orange">#F7A12C</color>
     <color name="parkro_black">#1A1A1A</color>
+    <color name="default_black">#000000</color>
     <color name="parkro_gray">#969495</color>
     <color name="parkro_light_gray">#C5C5C7</color>
     <color name="parkro_white_gray">#F1F1F1</color>
