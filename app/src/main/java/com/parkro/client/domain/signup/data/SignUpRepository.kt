@@ -48,7 +48,6 @@ class SignUpRepository {
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {
-                    Log.d("responsebody", "response+${response.body()}")
                     val responseBody = response.body()?.string()
                     if (responseBody != null) {
                         onResult(Result.success(responseBody))

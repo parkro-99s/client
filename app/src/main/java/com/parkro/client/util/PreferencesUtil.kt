@@ -9,9 +9,9 @@ class PreferencesUtil private constructor(context: Context) {
 
     companion object {
         private const val PREFS = "prefs"
-        private const val ACCESS_TOKEN = "ACCESS_TOKEN"
-        private const val USER_NAME = "USER_NAME"
-        private const val NAME = "NAME"
+        private const val ACCESS_TOKEN = "access_token"
+        private const val USER_NAME = "user_name"
+        private const val CAR_PROFILE = "car_profile"
         private var instance: PreferencesUtil? = null
 
         // Initialize the Utils instance
@@ -38,6 +38,13 @@ class PreferencesUtil private constructor(context: Context) {
             getInstance()!!.prefsEditor.putString(USER_NAME, value).apply()
         }
 
+        // Set car profile
+        fun setCarProfile(value: Int?){
+            if (value != null) {
+                getInstance()!!.prefsEditor.putInt(CAR_PROFILE, value).apply()
+            }
+        }
+
         // Get access token
         fun getAccessToken(defValue: String?): String? {
             return getInstance()!!.prefs.getString(ACCESS_TOKEN, defValue)
@@ -46,6 +53,11 @@ class PreferencesUtil private constructor(context: Context) {
         // Get username
         fun getUsername(defValue: String?): String? {
             return getInstance()!!.prefs.getString(USER_NAME, defValue)
+        }
+
+        // Get car profile
+        fun getCarProfile(defValue: Int?): Int? {
+            return defValue?.let { getInstance()!!.prefs.getInt(CAR_PROFILE, it) }
         }
 
         // Clear all preferences

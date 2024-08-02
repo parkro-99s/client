@@ -1,5 +1,6 @@
 package com.parkro.client.domain.login.data
 
+import android.util.Log
 import com.google.firebase.messaging.FirebaseMessaging
 import com.parkro.client.domain.login.api.PostLoginReq
 import com.parkro.client.domain.login.api.LoginService
@@ -28,13 +29,16 @@ class LoginRepository {
 
             // Proceed with login request
             val call = loginService.postLogin(fcmToken, postLoginReq)
-            call.enqueue(object : Callback<String> {
-                override fun onResponse(call: Call<String>, response: Response<String>) {
+            call.enqueue(object : Callback<PostLoginRes> {
+                override fun onResponse(call: Call<PostLoginRes>, response: Response<PostLoginRes>) {
                     if (response.isSuccessful) {
                         val token = response.headers()["Authorization"]
-                        val username = response.body()
-                        if (token != null && username != null) {
-                            onResult(Result.success(PostLoginRes(token, username)))
+                        val username = response.body()?.username
+                        val carProfile = response.body()?.carProfile
+                        if (token != null && username != null && carProfile != null) {
+                            val postLoginRes = PostLoginRes(token, username, carProfile)
+                            // Return the result with success
+                            onResult(Result.success(postLoginRes))
                         } else {
                             onResult(Result.failure(Throwable("Authorization header or response body is missing")))
                         }
@@ -43,7 +47,7 @@ class LoginRepository {
                     }
                 }
 
-                override fun onFailure(call: Call<String>, t: Throwable) {
+                override fun onFailure(call: Call<PostLoginRes>, t: Throwable) {
                     onResult(Result.failure(t))
                 }
             })
