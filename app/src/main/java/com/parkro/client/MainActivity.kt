@@ -1,7 +1,6 @@
 package com.parkro.client
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -13,11 +12,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
-import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.parkro.client.databinding.ActivityMainBinding
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -56,6 +53,8 @@ class MainActivity : AppCompatActivity() {
 
             val fragmentsWithoutUpButton = setOf(
                 R.id.navigation_map,
+                R.id.navigation_receipt,
+                R.id.navigation_barcode_scan,
 //                R.id.navigation_example, // map 대신 example
                 R.id.navigation_coupon,
                 R.id.navigation_receipt,

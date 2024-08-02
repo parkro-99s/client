@@ -1,15 +1,20 @@
 package com.parkro.client.domain.signup.ui
 
+import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
@@ -27,6 +32,7 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.util.concurrent.Executors
 import java.util.regex.Pattern
+import kotlin.properties.Delegates
 
 class SignUpActivity : AppCompatActivity() {
     private val executor = Executors.newSingleThreadExecutor()
@@ -51,14 +57,17 @@ class SignUpActivity : AppCompatActivity() {
 
     private lateinit var serverError: TextView
 
+    private var verifyIdLoading = -1
+    private var verifyCarNumberLoading = -1
+
     private lateinit var verifyIdBtn: Button
     private lateinit var verifyCarBtn: Button
     private lateinit var signUpBtn: Button
+    private val signUpRepository = SignUpRepository()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
-        val signUpRepository = SignUpRepository()
         usernameText = findViewById(R.id.edt_signup_username)
         passwordText = findViewById(R.id.edt_signup_password)
         checkPasswordText = findViewById(R.id.edt_signup_check_password)
@@ -123,17 +132,20 @@ class SignUpActivity : AppCompatActivity() {
                 if(checkPassword.length == 0){
                     feCheckPasswordError.visibility = TextView.GONE
                     setEditTextMarginTop(carNumberText, 18)
-                    setButtonMarginTop(verifyCarBtn, 18);
+                    setEditTextMarginTop(nameText, 18)
+                    setButtonMarginTop(verifyCarBtn, 18)
                 }
                 else{
                     if (isValidCheckPassword(password, checkPassword)) {
                         feCheckPasswordError.visibility = TextView.GONE
                         setEditTextMarginTop(carNumberText, 18)
+                        setEditTextMarginTop(nameText, 18)
                         setButtonMarginTop(verifyCarBtn, 18);
                     } else {
                         feCheckPasswordError.visibility = TextView.VISIBLE
                         setEditTextMarginTop(carNumberText, 35)
-                        setButtonMarginTop(verifyCarBtn, 18)
+                        setEditTextMarginTop(nameText, 35)
+                        setButtonMarginTop(verifyCarBtn, 35)
                     }
                 }
                 if (isValidPassword(password)) {
@@ -157,17 +169,20 @@ class SignUpActivity : AppCompatActivity() {
                 if(checkPassword.length == 0){
                     feCheckPasswordError.visibility = TextView.GONE
                     setEditTextMarginTop(carNumberText, 18)
+                    setEditTextMarginTop(nameText, 18)
                     setButtonMarginTop(verifyCarBtn, 18);
                 }
                 else{
                     if (isValidCheckPassword(password, checkPassword)) {
                         feCheckPasswordError.visibility = TextView.GONE
                         setEditTextMarginTop(carNumberText, 18)
+                        setEditTextMarginTop(nameText, 18)
                         setButtonMarginTop(verifyCarBtn, 18);
                     } else {
                         feCheckPasswordError.visibility = TextView.VISIBLE
                         setEditTextMarginTop(carNumberText, 35)
-                        setButtonMarginTop(verifyCarBtn, 18)
+                        setEditTextMarginTop(nameText, 35)
+                        setButtonMarginTop(verifyCarBtn, 35)
                     }
                 }
 
@@ -187,8 +202,8 @@ class SignUpActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable) {
                 beInvalidCarError.visibility = TextView.GONE
                 serverError.visibility = TextView.GONE
-                setEditTextMarginTop(nameText, 18)
                 beDuplicatedCarError.visibility = TextView.GONE
+                setEditTextMarginTop(nicknameText, 18)
             }
         })
 
@@ -201,10 +216,18 @@ class SignUpActivity : AppCompatActivity() {
                 else if(name.length > 0 && carNum.length > 0) verifyCarBtn.isEnabled = true
 
             }
-            override fun afterTextChanged(s: Editable) {}
+            override fun afterTextChanged(s: Editable) {
+                beInvalidCarError.visibility = TextView.GONE
+                serverError.visibility = TextView.GONE
+                beDuplicatedCarError.visibility = TextView.GONE
+                setEditTextMarginTop(nicknameText, 18)
+            }
         })
 
         verifyIdBtn.setOnClickListener({
+            verifyIdLoading++
+            verifyIdBtn.isEnabled = false
+            usernameText.isEnabled = false
             val username = usernameText.text.toString().trim()
             signUpRepository.getUsername(username) { result ->
                 result.fold(
@@ -214,12 +237,17 @@ class SignUpActivity : AppCompatActivity() {
                             verifyIdBtn.isEnabled = false
                             usernameText.isEnabled = false
                         }
+                        verifyIdLoading--
                     },
                     onFailure = { error ->
+                        verifyIdBtn.isEnabled = true
+                        usernameText.isEnabled = true
                         runOnUiThread {
                             beIdError.visibility = TextView.VISIBLE
                             setEditTextMarginTop(passwordText, 35)
+
                         }
+                        verifyIdLoading--
                     }
                 )
             }
@@ -227,45 +255,59 @@ class SignUpActivity : AppCompatActivity() {
         })
 
         signUpBtn.setOnClickListener {
+            signUpBtn.isEnabled=false
             val username = usernameText.text.toString()
             val password = passwordText.text.toString()
             val nickname = nicknameText.text.toString()
             val phoneNumber = phoneNumberText.text.toString()
             val carNumber =
-                if (!carNumberText.isEnabled && carNumberText.visibility == View.VISIBLE) {
+                if (!carNumberText.isEnabled && verifyCarNumberLoading == -1 && !verifyCarBtn.isEnabled) {
                     carNumberText.text.toString()
                 } else {
                     null
                 }
+            Log.d("verifyLoading","verifyLoading: $verifyCarNumberLoading")
             Log.d("SignUp", "Username: $username")
             Log.d("SignUp", "Password: $password")
             Log.d("SignUp", "Nickname: $nickname")
             Log.d("SignUp", "PhoneNumber: $phoneNumber")
             Log.d("SignUp", "CarNumber: $carNumber")
-            signUpRepository.postSignUp(
-                PostSignUpReq(username, password, carNumber, nickname, phoneNumber)
-            ) { result ->
-                Log.d("result", "result+$result ")
-                result.fold(
-                    onSuccess = { response ->
-                        // Navigate to LoginActivity on successful sign-up
-                        response?.let {
-                            Intent(this, LoginActivity::class.java).also {
-                                startActivity(it)
+        if((carNumberText.isEnabled && nameText.isEnabled) || verifyCarNumberLoading == 0){
+                showCustomDialog("차량이 등록되지 않았습니다. \n회원가입 하시겠습니까?")
+            }
+            else{
+                signUpRepository.postSignUp(
+                    PostSignUpReq(username, password, carNumber, nickname, phoneNumber)
+                ) { result ->
+                    Log.d("result", "result+$result ")
+                    result.fold(
+                        onSuccess = { response ->
+                            // Navigate to LoginActivity on successful sign-up
+                            response?.let {
+                                Intent(this, LoginActivity::class.java).also {
+                                    startActivity(it)
+                                    finish()
+                                }
                             }
-                        }
-                                 },
+                        },
                         onFailure = { error ->
+                            signUpBtn.isEnabled=true
                             runOnUiThread {
                                 handleSignUpError(error)
                             }
                         }
                     )
                 }
+            }
+
         }
 
 
         verifyCarBtn.setOnClickListener {
+            verifyCarNumberLoading++
+            verifyCarBtn.isEnabled=false
+            nameText.isEnabled=false
+            carNumberText.isEnabled=false
             val carNumber = carNumberText.text.toString().trim()
             val name = nameText.text.toString().trim()
             val carToken = BuildConfig.VERIFY_CAR_TOKEN
@@ -305,19 +347,40 @@ class SignUpActivity : AppCompatActivity() {
                             nameText.isEnabled = false
                             verifyCarBtn.isEnabled = false
                             beInvalidCarError.visibility = TextView.GONE
+                            serverError.visibility = TextView.GONE
                         } else if(errCode.equals("6112") || errCode.equals("6114")){
+                            verifyCarBtn.isEnabled=true
+                            nameText.isEnabled=true
+                            carNumberText.isEnabled=true
                             beInvalidCarError.visibility = TextView.VISIBLE
-                            setEditTextMarginTop(nameText, 35)
+                            serverError.visibility = TextView.GONE
+//                            setEditTextMarginTop(nameText, 35)
+//                            setEditTextMarginTop(carNumberText, 35)
+                            setEditTextMarginTop(nicknameText, 35)
                         } else{
+                            verifyCarBtn.isEnabled=true
+                            nameText.isEnabled=true
+                            carNumberText.isEnabled=true
                             serverError.visibility = View.VISIBLE
-                            setEditTextMarginTop(nameText, 35)
+                            beInvalidCarError.visibility = TextView.GONE
+//                            setEditTextMarginTop(nameText, 35)
+//                            setEditTextMarginTop(carNumberText, 35)
+                            setEditTextMarginTop(nicknameText, 35)
+
                         }
                     }
+                    verifyCarNumberLoading--
                 } catch (e: Exception) {
+                    serverError.visibility = View.VISIBLE
                     runOnUiThread {
-                        serverError.visibility = View.VISIBLE
-                        setEditTextMarginTop(nameText, 35)
+                        verifyCarBtn.isEnabled=true
+                        nameText.isEnabled=true
+                        carNumberText.isEnabled=true
+//                        setEditTextMarginTop(nameText, 35)
+//                        setEditTextMarginTop(carNumberText, 35)
+                        setEditTextMarginTop(nicknameText, 35)
                     }
+                    verifyCarNumberLoading--
                 }
             }
         }
@@ -360,7 +423,6 @@ class SignUpActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable) {
                 bePhoneNumberError.visibility = TextView.GONE
-                serverError.visibility = TextView.GONE
             }
         })
 
@@ -464,7 +526,8 @@ class SignUpActivity : AppCompatActivity() {
 //                isbeInvalidCarErrorValid &&
 //                isbeDuplicatedCarErrorValid &&
                 isbePhoneNumberErrorValid &&
-                isServerErrorValid
+                isServerErrorValid &&
+                !verifyIdBtn.isEnabled
 
         signUpBtn.isEnabled = allFieldsValid
     }
@@ -542,7 +605,8 @@ class SignUpActivity : AppCompatActivity() {
                         carNumberText.isEnabled = true
                         nameText.isEnabled = true
                         verifyCarBtn.isEnabled = true
-                        setEditTextMarginTop(nameText, 35)
+                        setEditTextMarginTop(nicknameText, 35)
+
                     }
                     "CAR_NUMBER_AND_PHONE_NUMBER_ALREADY_EXISTS" -> {
                         bePhoneNumberError.apply {
@@ -552,7 +616,7 @@ class SignUpActivity : AppCompatActivity() {
                         beDuplicatedCarError.apply {
                             visibility = TextView.VISIBLE
                         }
-                        setEditTextMarginTop(nameText, 35)
+                        setEditTextMarginTop(nicknameText, 35)
                     }
                     else -> {
                         Log.d("UnknownErrorCode", "Unknown error code: $errorCode")
@@ -566,5 +630,57 @@ class SignUpActivity : AppCompatActivity() {
         } catch (e: Exception) {
             Log.e("GeneralError", "An unexpected error occurred: ${e.message}", e)
         }
+    }
+    private fun showCustomDialog(message: String) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog_two_btns, null)
+        val messageTextView = dialogView.findViewById<TextView>(R.id.text_dialog_message)
+        val confirmButton = dialogView.findViewById<ImageButton>(R.id.btn_dialog_check)
+        val cancelButton = dialogView.findViewById<ImageButton>(R.id.btn_dialog_cancel)
+
+        messageTextView.text = message
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        confirmButton.setOnClickListener {
+            signUpRepository.postSignUp(
+                PostSignUpReq(usernameText.text.toString(), passwordText.text.toString(), null, nicknameText.text.toString(), phoneNumberText.text.toString())
+            ) { result ->
+                Log.d("result", "result+$result ")
+                result.fold(
+                    onSuccess = { response ->
+                        // Navigate to LoginActivity on successful sign-up
+                        response?.let {
+                            Intent(this, LoginActivity::class.java).also {
+                                startActivity(it)
+                                finish()
+                            }
+                        }
+                    },
+                    onFailure = { error ->
+                        runOnUiThread {
+                            handleSignUpError(error)
+                        }
+                        signUpBtn.isEnabled=true
+                        dialog.dismiss()
+                    }
+                )
+            }
+        }
+
+        cancelButton.setOnClickListener {
+            signUpBtn.isEnabled=true
+            dialog.dismiss()
+        }
+
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+
+        dialog.window?.setLayout(
+            (resources.displayMetrics.widthPixels * 0.8).toInt(),
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
     }
 }
