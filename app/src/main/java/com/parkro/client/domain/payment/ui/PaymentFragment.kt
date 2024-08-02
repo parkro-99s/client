@@ -57,7 +57,6 @@ class PaymentFragment : Fragment() {
 
         return binding.root
     }
-
     private fun setupToolbar() {
         (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_payment), true, false)
     }
@@ -115,6 +114,7 @@ class PaymentFragment : Fragment() {
                 val orderId = "order_" + parkingInfo.parkingId
                 val orderName = "${parkingInfo.parkingLotName} 주차 정산"
                 val customerName = "here12314"
+              
                 val intent = Intent(activity, PaymentWebViewActivity::class.java).apply {
                     putExtra("amount", amount)
                     putExtra("orderId", orderId)

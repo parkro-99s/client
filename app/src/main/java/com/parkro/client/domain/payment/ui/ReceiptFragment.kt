@@ -51,10 +51,9 @@ class ReceiptFragment : Fragment() {
         binding.btnReceiptBtnToScanner.setOnClickListener {
             findNavController(this@ReceiptFragment).navigate(R.id.navigation_barcode_scan, null, NavOptions.Builder().setLaunchSingleTop(true).build())
         }
-
+        
         binding.btnReceiptRegister.setOnClickListener {
             findNavController(this@ReceiptFragment).navigate(R.id.navigation_payment, null, NavOptions.Builder().setLaunchSingleTop(true).build())
-        }
     }
 
     override fun onDestroyView() {
