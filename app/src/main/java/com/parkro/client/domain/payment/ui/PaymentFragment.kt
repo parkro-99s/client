@@ -41,7 +41,7 @@ class PaymentFragment : Fragment() {
     }
 
     private fun setupToolbar() {
-        (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_payment), true, false)
+        (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_payment), false, false)
     }
 
     private fun setupListeners() {
@@ -65,6 +65,10 @@ class PaymentFragment : Fragment() {
 
         binding.btnPaymentReceipt.setOnClickListener {
             findNavController(this@PaymentFragment).navigate(R.id.navigation_receipt)
+        }
+
+        binding.btnPaymentCoupon.setOnClickListener {
+            findNavController(this@PaymentFragment).navigate(R.id.navigation_coupon)
         }
     }
 

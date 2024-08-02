@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity() {
             val fragmentsWithoutUpButton = setOf(
                 R.id.navigation_map,
 //                R.id.navigation_example, // map 대신 example
-                R.id.navigation_map,
+                R.id.navigation_coupon,
                 R.id.navigation_receipt,
                 R.id.navigation_barcode_scan,
                 R.id.navigation_parkinglist,
