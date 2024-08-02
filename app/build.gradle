@@ -83,7 +83,10 @@ dependencies {
 
     // Google Play - location
     implementation 'com.google.android.gms:play-services-location:21.0.1'
-
+    
+    // for barcode scanner
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    
     // androidx (for ActivityResultLauncher)
     implementation "androidx.activity:activity-ktx:1.4.0"
     implementation "androidx.fragment:fragment-ktx:1.4.1"

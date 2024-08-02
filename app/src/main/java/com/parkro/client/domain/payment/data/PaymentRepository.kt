@@ -15,7 +15,7 @@ class PaymentRepository {
     }
 
     fun findParkingInfoFirst(username: String, onResult: (Result<GetCurrentParkingInfo>) -> Unit) {
-        val call = paymentService.findParkingInfoFirst(username)
+        val call = paymentService.getParkingInfoFirst(username)
 
         // 비동기적으로 API 요청 수행
         call.enqueue(object : Callback<GetCurrentParkingInfo> {
