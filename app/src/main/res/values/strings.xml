@@ -29,7 +29,9 @@
 
     <string name="title_amount_payment">결제 금액</string>
     <string name="formatted_payment_time">%1$d시간 %2$d분</string>
+    <string name="formatted_discount_time">-%1$d시간 %2$d분</string>
     <string name="formatted_amount_payment">%1$,d원</string>
+    <string name="default_value_time">-0시간 0분</string>
 
     <string name="btn_completed_payment">결제 완료</string>
 
