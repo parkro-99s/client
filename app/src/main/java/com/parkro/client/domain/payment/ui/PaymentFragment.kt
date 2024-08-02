@@ -87,7 +87,7 @@ class PaymentFragment : Fragment() {
                 dialog.dismiss()
                 paymentViewModel.resetDiscounted()
                 resetIdleTimer()
-                paymentViewModel.fetchParkingInfo("here12314")
+                refreshPage()
             }
 
             dialog.window?.setLayout(
@@ -97,7 +97,6 @@ class PaymentFragment : Fragment() {
 
             dialog.show()
 
-            refreshPage()
         }
     }
 
@@ -129,12 +128,12 @@ class PaymentFragment : Fragment() {
 
     private fun observeViewModel() {
         paymentViewModel.currentParkingInfo.observe(viewLifecycleOwner, Observer { parking ->
-            paymentViewModel.calculatePaymentTotalTime()
             if (parking != null) {
                 updateUI(parking) // UI 업데이트
             } else {
                 showEmptyState()
             }
+            paymentViewModel.calculatePaymentTotalTime()
             resetIdleTimer()
         })
 
