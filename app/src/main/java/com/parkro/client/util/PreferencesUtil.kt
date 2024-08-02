@@ -22,7 +22,7 @@ class PreferencesUtil private constructor(context: Context) {
                 instance = PreferencesUtil(context.applicationContext)
                 // Set default car profile if not set
                 if (!instance!!.prefs.contains(CAR_PROFILE)) {
-                    instance!!.prefsEditor.putString(CAR_PROFILE, "1").apply()
+                    instance!!.prefsEditor.putInt(CAR_PROFILE, 1).apply()
                 }
             }
         }
@@ -54,20 +54,13 @@ class PreferencesUtil private constructor(context: Context) {
         }
 
         // Set car profile
-        fun setCarProfile(value: String) {
-            getInstance()!!.prefsEditor.putString(CAR_PROFILE, value).apply()
+        fun setCarProfile(value: Int) {
+            getInstance()!!.prefsEditor.putInt(CAR_PROFILE, value).apply()
         }
 
         // Get car profile
-        fun getCarProfile(): String {
-            return getInstance()!!.prefs.getString(CAR_PROFILE, "1") ?: "1"
-        }
-
-        // Set default car profile if not set
-        private fun setDefaultCarProfileIfNeeded() {
-            if ( getInstance()!!.prefs.contains(CAR_PROFILE)) {
-                setCarProfile("orange")
-            }
+        fun getCarProfile(): Int {
+            return getInstance()!!.prefs.getInt(CAR_PROFILE, 1) ?: 1
         }
 
         // Clear all preferences

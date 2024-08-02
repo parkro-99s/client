@@ -245,11 +245,11 @@ class MapFragment : Fragment() {
                 startPosition?.let { position ->
                     val carProfile = PreferencesUtil.getCarProfile()
                     val markerDrawable = when (carProfile) {
-                        "1" -> R.drawable.marker_car_orange
-                        "2" -> R.drawable.marker_car_blue
-                        "3" -> R.drawable.marker_car_yellow
-                        "4" -> R.drawable.marker_car_red
-                        "5" -> R.drawable.marker_car_sky
+                        1 -> R.drawable.marker_car_orange
+                        2 -> R.drawable.marker_car_blue
+                        3 -> R.drawable.marker_car_yellow
+                        4 -> R.drawable.marker_car_red
+                        5 -> R.drawable.marker_car_sky
                         else -> R.drawable.marker_car_orange
                     }
 
