@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+
+    <RelativeLayout
+        android:id="@+id/layout_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="30dp">
+
+        <!-- Car shadow ImageView -->
+        <ImageView
+            android:id="@+id/img_signup_car_shadow"
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="105dp"
+            android:layout_marginTop="35dp"
+            android:scaleType="fitEnd"
+            android:src="@drawable/ic_car_shadow" />
+
+        <!-- Main logo ImageView, placed above car shadow -->
+        <ImageView
+            android:id="@+id/img_signup_logo"
+            android:layout_width="150dp"
+            android:layout_height="80dp"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="21dp"
+            android:src="@drawable/toolbar_logo" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/edt_signup_username"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/layout_signup"
+        android:layout_toLeftOf="@id/btn_signup_verify_username"
+        android:background="@drawable/edt_background"
+        android:hint="아이디"
+        android:inputType="text"
+        android:textSize="16sp"
+        android:layout_marginEnd="7dp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/tv_signup_login_error_fe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_signup_username"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/error_signup_username_fe"
+        android:textColor="@color/parkro_red"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_signup_login_error_be"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_signup_username"
+        android:layout_marginTop="4dp"
+        android:text="@string/error_signup_username_be"
+        android:textColor="@color/parkro_red"
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/btn_signup_verify_username"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@+id/layout_signup"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/btn_small_background"
+        android:enabled="false"
+        android:text="조회"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_signup_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/edt_signup_username"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/edt_background"
+        android:hint="비밀번호"
+        android:inputType="textPassword"
+        android:textSize="16sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/tv_signup_password_error_fe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_signup_password"
+        android:layout_marginTop="4dp"
+        android:text="@string/error_signup_password_fe"
+        android:textColor="@color/parkro_red"
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <EditText
+        android:id="@+id/edt_signup_check_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/edt_signup_password"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/edt_background"
+        android:hint="비밀번호 확인"
+        android:inputType="textPassword"
+        android:textSize="16sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/tv_signup_check_password_error_fe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_signup_check_password"
+        android:layout_marginTop="4dp"
+        android:text="@string/error_signup_check_password_fe"
+        android:textColor="@color/parkro_red"
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <EditText
+        android:id="@+id/edt_signup_car_number"
+        android:layout_width="170dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/edt_signup_check_password"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/edt_background"
+        android:hint="123가4567"
+        android:inputType="text"
+        android:layout_marginEnd="7dp"
+        android:textSize="16sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/tv_signup_invalid_car_number_error_be"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_signup_car_number"
+        android:layout_marginTop="4dp"
+        android:text="@string/error_signup_invalid_car_number_be"
+        android:textColor="@color/parkro_red"
+        android:textSize="14sp"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_signup_duplicated_car_number_error_be"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_signup_car_number"
+        android:layout_marginTop="4dp"
+        android:text="@string/error_signup_duplicated_car_number_be"
+        android:textColor="@color/parkro_red"
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_signup_server_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_signup_car_number"
+        android:layout_marginTop="4dp"
+        android:text="@string/error_signup_server"
+        android:textColor="@color/parkro_red"
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <EditText
+        android:id="@+id/edt_signup_name"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/edt_signup_check_password"
+        android:layout_marginTop="18dp"
+        android:layout_toLeftOf="@id/btn_signup_verify_car_number"        android:layout_toRightOf="@+id/edt_signup_car_number"
+        android:background="@drawable/edt_background"
+        android:hint="이름"
+        android:inputType="text"
+        android:textSize="16sp"
+        android:layout_marginEnd="7dp"
+        android:textStyle="normal" />
+
+    <Button
+        android:id="@+id/btn_signup_verify_car_number"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@id/edt_signup_check_password"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/btn_small_background"
+        android:enabled="false"
+        android:text="조회"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_signup_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/edt_signup_name"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/edt_background"
+        android:hint="닉네임"
+        android:inputType="text"
+        android:textSize="16sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/tv_signup_nickname_error_fe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_signup_nickname"
+        android:layout_marginTop="4dp"
+        android:text="@string/error_signup_nickname_fe"
+        android:textColor="@color/parkro_red"
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <EditText
+        android:id="@+id/edt_signup_phone_number"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/edt_signup_nickname"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/edt_background"
+        android:hint="전화번호"
+        android:inputType="phone"
+        android:textSize="16sp"
+        android:textStyle="normal" />
+
+    <TextView
+        android:id="@+id/tv_signup_phone_number_error_fe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_signup_phone_number"
+        android:layout_marginTop="4dp"
+        android:text="@string/error_signup_phone_number_fe"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/parkro_red"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_signup_phone_number_error_be"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_signup_phone_number"
+        android:layout_marginTop="4dp"
+        android:text="@string/error_signup_phone_number_be"
+        android:textColor="@color/parkro_red"
+        android:layout_marginLeft="10dp"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/btn_signup"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/edt_signup_phone_number"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:background="@drawable/btn_large_background"
+        android:enabled="false"
+        android:text="회원가입"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>

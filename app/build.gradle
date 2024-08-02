@@ -21,6 +21,7 @@ android {
 
         buildConfigField("String", "PAYMENT_CLIENT_KEY", properties["toss_payment_client_key"])
         buildConfigField("String", "SERVER_BASEURL", properties["server_baseurl"])
+        buildConfigField("String", "VERIFY_CAR_TOKEN", properties["verify_car_token"])
         manifestPlaceholders["KAKAO_APP_KEY"] = properties["kakao_app_key"] as String
     }
 
@@ -71,6 +72,8 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.0.3')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
+
+    implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
 
     // for barcode scanner
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
