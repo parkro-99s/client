@@ -3,20 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="62dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".domain.mypage.ui.MypageFragment">
 
     <TextView
-        android:id="@+id/text_mypage"
-        android:layout_width="match_parent"
+        android:id="@+id/tv_mypage_info_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textAlignment="center"
+        android:textAlignment="textStart"
+        android:textColor="@color/parkro_black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="나의 정보"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/img_mypage_car_1"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_car_1"
+
+
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,12 +1,10 @@
 package com.parkro.client.domain.network
 
 import android.util.Log
-import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.parkro.client.BuildConfig
-import com.parkro.client.Utils
+import com.parkro.client.Util.PreferencesUtil
 import okhttp3.OkHttpClient
-import okhttp3.Interceptor
 import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -22,7 +20,7 @@ object RetrofitClient {
     private val okHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
             .addInterceptor { chain ->
-                val token = Utils.getAccessToken(null)
+                val token = PreferencesUtil.getAccessToken(null)
                 Log.d("token","token+$token")
 
                 val request: Request = chain.request().newBuilder()

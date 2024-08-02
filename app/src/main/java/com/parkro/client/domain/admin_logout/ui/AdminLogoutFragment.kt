@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import com.parkro.client.R
-import com.parkro.client.Utils
+import com.parkro.client.Util.PreferencesUtil
 import com.parkro.client.databinding.FragmentAdminLogoutBinding
 import com.parkro.client.domain.login.ui.LoginActivity
 import com.parkro.client.domain.logout.data.LogoutRepository
@@ -59,7 +59,7 @@ class AdminLogoutFragment : Fragment() {
             logoutRepository.postLogout { result ->
                 result.fold(
                     onSuccess = {
-                        Utils.clear()
+                        PreferencesUtil.clear()
                         activity?.let { ctx ->
                             val intent = Intent(ctx, LoginActivity::class.java)
                             dialog.dismiss()
