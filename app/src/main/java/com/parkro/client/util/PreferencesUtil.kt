@@ -1,4 +1,4 @@
-package com.parkro.client.Util
+package com.parkro.client.util
 
 import android.content.Context
 import android.content.SharedPreferences

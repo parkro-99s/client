@@ -8,29 +8,89 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".domain.mypage.ui.MypageFragment">
 
-    <TextView
-        android:id="@+id/tv_mypage_info_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="textStart"
-        android:textColor="@color/parkro_black"
-        android:textSize="20sp"
-        android:text="나의 정보"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/img_mypage_car_1"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/ic_car_1"
+        <TextView
+            android:id="@+id/tv_mypage_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/parkro_black"
+            android:textSize="20sp"
+            android:text="나의 정보"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <ImageView
+            android:id="@+id/img_mypage_car_1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_car_1"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_info_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"/>
+        <ImageView
+            android:id="@+id/img_mypage_car_2"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_car_2"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_info_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"/>
+        <ImageView
+            android:id="@+id/img_mypage_car_3"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_car_3"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_info_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"/>
+        <ImageView
+            android:id="@+id/img_mypage_car_4"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_car_4"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_info_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"/>
+        <ImageView
+            android:id="@+id/img_mypage_car_5"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_car_5"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_info_title"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="MissingConstraints">
 
 
-        />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

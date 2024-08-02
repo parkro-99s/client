@@ -2,14 +2,13 @@ package com.parkro.client.domain.login.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.ViewGroup
 import android.view.animation.Animation
 import androidx.appcompat.app.AppCompatActivity
 import com.parkro.client.domain.admin.ui.AdminActivity
 import com.parkro.client.MainActivity
-import com.parkro.client.Util.PreferencesUtil
+import com.parkro.client.util.PreferencesUtil
 import com.parkro.client.domain.login.api.PostLoginReq
 import com.parkro.client.domain.login.data.LoginRepository
 import com.parkro.client.domain.signup.ui.SignUpActivity
@@ -33,8 +32,6 @@ class LoginActivity : AppCompatActivity() {
         val loginRepository = LoginRepository()
         val errorText: TextView = findViewById(com.parkro.client.R.id.tv_login_error)
         val car: ImageView = findViewById(com.parkro.client.R.id.img_login_car_shadow)
-        Log.d("loginlogin","accesstoken+${PreferencesUtil.getAccessToken(null)}")
-        Log.d("loginlogin","username+${PreferencesUtil.getUsername(null)}")
         submitButton.setOnClickListener {
             submitButton.isEnabled = false
             val username = usernameText.text.toString().trim()

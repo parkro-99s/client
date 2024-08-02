@@ -3,7 +3,7 @@ package com.parkro.client.domain.network
 import android.util.Log
 import com.google.gson.GsonBuilder
 import com.parkro.client.BuildConfig
-import com.parkro.client.Util.PreferencesUtil
+import com.parkro.client.util.PreferencesUtil
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import retrofit2.Retrofit

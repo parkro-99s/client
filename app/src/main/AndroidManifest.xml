@@ -3,9 +3,12 @@
     package="com.parkro.client">
     <!-- 인터넷 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 카메라 권한 -->
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- 정확한 위치 -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 대략적인 위치 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 카메라 권한 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 정확한 위치 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- 대략적인 위치 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <queries>
