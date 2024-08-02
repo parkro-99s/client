@@ -34,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
         val car: ImageView = findViewById(com.parkro.client.R.id.img_login_car_shadow)
 
         submitButton.setOnClickListener {
+            submitButton.isEnabled = false
             val username = usernameText.text.toString().trim()
             val password = passwordText.text.toString().trim()
 
@@ -83,10 +84,24 @@ class LoginActivity : AppCompatActivity() {
                             }
                         },
                     onFailure = { error ->
-                        runOnUiThread {
-                            errorText.visibility = TextView.VISIBLE
-                            setButtonMarginTop(submitButton, 60)
-                        }
+                        val animCarOut: Animation = AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
+                        car.startAnimation(animCarOut)
+                        animCarOut.setAnimationListener(object : Animation.AnimationListener {
+                            override fun onAnimationStart(animation: Animation?) {
+                            }
+
+                            override fun onAnimationEnd(animation: Animation?) {
+                                submitButton.isEnabled = true
+                                runOnUiThread {
+                                    errorText.visibility = TextView.VISIBLE
+                                    setButtonMarginTop(submitButton, 60)
+                                }
+                            }
+
+                            override fun onAnimationRepeat(animation: Animation?) {
+                            }
+                        })
+
                     }
                 )
             }

@@ -51,7 +51,7 @@
                     android:adjustViewBounds="true"
                     android:background="@color/parkro_white"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/btn_shadow"
+                    android:src="@drawable/ic_btn_shadow_short"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
