@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.parkro.client">
-
     <!-- 인터넷 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-  
-    <!--    카메라 권한    -->
+    <!-- 카메라 권한 -->
     <uses-permission android:name="android.permission.CAMERA" />
-    <!--    정확한 위치    -->
+    <!-- 정확한 위치 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!--    대략적인 위치    -->
+    <!-- 대략적인 위치 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <queries>
@@ -55,18 +53,26 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_car"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_car_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Client"
-        android:networkSecurityConfig="@xml/network_security_config">
+        android:usesCleartextTraffic="true">
         <activity
-            android:name=".domain.payment.ui.PaymentSuccessActivity"
+            android:name=".domain.mypage.ui.MypageModifyUserActivity"
             android:exported="false" />
         <activity
-            android:name=".domain.payment.ui.PaymentWebViewActivity"
+            android:name=".domain.mypage.ui.MypageAddCarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".domain.signup.ui.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".domain.admin.ui.AdminActivity"
+            android:exported="true"
+            android:label="@string/title_activity_admin" />
+        <activity
+            android:name=".domain.login.ui.LoginActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>
@@ -85,18 +91,27 @@
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".domain.payment.ui.PaymentSuccessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".domain.payment.ui.PaymentWebViewActivity"
+            android:exported="true" />
 
         <service
             android:name=".domain.firebase.ui.MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
         <meta-data
             android:name="com.kakao.vectormap.APP_KEY"
-            android:value="${KAKAO_APP_KEY}"/>
+            android:value="${KAKAO_APP_KEY}" />
     </application>
 
 </manifest>

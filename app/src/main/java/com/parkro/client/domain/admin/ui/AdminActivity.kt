@@ -1,4 +1,4 @@
-package com.parkro.client
+package com.parkro.client.domain.admin.ui
 
 import android.os.Bundle
 import android.view.View
@@ -14,16 +14,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.parkro.client.databinding.ActivityMainBinding
+import com.parkro.client.R
+import com.parkro.client.databinding.ActivityAdminBinding
 
-class MainActivity : AppCompatActivity() {
+class AdminActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityAdminBinding
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Custom toolbar setup
@@ -34,16 +35,14 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 //
-        navController = findNavController(R.id.nav_host_fragment_activity_main)
+        navController = findNavController(R.id.nav_host_fragment_activity_admin)
+
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_example, // map 대신 example
-                R.id.navigation_parkinglist,
-                R.id.navigation_payment,
-                R.id.navigation_mypage
+                R.id.navigation_parkinglist_admin,
+                R.id.navigation_logout_admin
             )
         )
-
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
         navView.labelVisibilityMode = LabelVisibilityMode.LABEL_VISIBILITY_LABELED
@@ -52,11 +51,8 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
             val fragmentsWithoutUpButton = setOf(
-                R.id.navigation_map,
-//                R.id.navigation_example, // map 대신 example
-                R.id.navigation_map,
-                R.id.navigation_receipt,
-                R.id.navigation_barcode_scan,
+//                R.id.navigation_map,
+                R.id.navigation_example, // map 대신 example
                 R.id.navigation_parkinglist,
                 R.id.navigation_payment,
                 R.id.navigation_mypage,
@@ -71,18 +67,18 @@ class MainActivity : AppCompatActivity() {
             }
 
             // 기본 사용자 아이콘
-            navView.menu.findItem(R.id.navigation_map)?.setIcon(R.drawable.ic_map_gray)
-//            navView.menu.findItem(R.id.navigation_example)?.setIcon(R.drawable.ic_map_gray) // map 대신 example
+//            navView.menu.findItem(R.id.navigation_map)?.setIcon(R.drawable.ic_map_gray)
+            navView.menu.findItem(R.id.navigation_example)?.setIcon(R.drawable.ic_map_gray) // map 대신 example
             navView.menu.findItem(R.id.navigation_parkinglist)?.setIcon(R.drawable.ic_parkinglist_gray)
             navView.menu.findItem(R.id.navigation_payment)?.setIcon(R.drawable.ic_payment_gray)
             navView.menu.findItem(R.id.navigation_mypage)?.setIcon(R.drawable.ic_mypage_gray)
 
             // 현재 선택된 아이템 아이콘 업데이트
             when (destination.id) {
-                R.id.navigation_map -> {
-//                R.id.navigation_example -> { // map 대신 example
-                    navView.menu.findItem(R.id.navigation_map)?.setIcon(R.drawable.ic_map_navy)
-//                    navView.menu.findItem(R.id.navigation_example)?.setIcon(R.drawable.ic_map_navy) // map 대신 example
+//                R.id.navigation_map -> {
+                R.id.navigation_example -> { // map 대신 example
+//                    navView.menu.findItem(R.id.navigation_map)?.setIcon(R.drawable.ic_map_navy)
+                    navView.menu.findItem(R.id.navigation_example)?.setIcon(R.drawable.ic_map_navy) // map 대신 example
                 }
                 R.id.navigation_parkinglist -> {
                     navView.menu.findItem(R.id.navigation_parkinglist)?.setIcon(R.drawable.ic_parkinglist_navy)

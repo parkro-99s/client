@@ -3,7 +3,7 @@
     <string name="title_map">지도</string>
     <string name="title_parkinglist">주차 내역</string>
     <string name="title_payment">정산</string>
-    <string name="title_mypage">마이</string>
+    <string name="title_mypage">마이페이지</string>
     <string name="title_receipt">영수증</string>
     <string name="title_barcode_scan">바코드 스캔</string>
     <string name="title_logout">로그아웃</string>
@@ -13,7 +13,26 @@
     <string name="title_btn_payment_web">결제창 이동</string>
 
     <string name="title_example">테스트</string>
-  
+    <string name="title_activity_admin">AdminActivity</string>
+    <string name="error_login_login_fe">아이디 혹은 비밀번호가 일치하지 않습니다.</string>
+
+    <!-- 프론트엔드 회원가입 유효성 검사 에러 메시지-->
+    <string name="error_signup_username_fe">영문 숫자 포함 6 ~ 12자이어야 합니다.</string>
+    <string name="error_signup_password_fe">영문 대소문자, 숫자, 특수문자 포함 8 ~ 12자이어야 합니다.</string>
+    <string name="error_signup_check_password_fe">비밀번호가 일치하지 않습니다.</string>
+    <string name="error_signup_nickname_fe">닉네임은 필수 입력 값입니다.</string>
+    <string name="error_signup_phone_number_fe">전화번호 형식은 "xxx-xxxx-xxxx"입니다.</string>
+
+
+    <!-- 백엔드 회원가입 에러 메시지 -->
+    <string name="error_signup_username_be">중복된 아이디 입니다.</string>
+    <string name="error_signup_invalid_car_number_be">없는 차량 번호입니다.</string>
+    <string name="error_signup_duplicated_car_number_be">이미 등록된 차량 번호입니다.</string>
+    <string name="error_signup_phone_number_be">이미 등록된 전화 번호입니다.</string>
+
+    <!-- 외부 api 에러 메시지 -->
+    <string name="error_signup_server">잠시 후 다시 시도해 주세요.</string>
+
     <!-- payment -->
     <string name="formatted_parking_entrance_date">입차 yyyy.MM.dd HH:mm</string>
     <string name="btn_use_coupon">쿠폰 사용</string>
@@ -35,8 +54,8 @@
 
     <string name="title_empty_payment">정산할 차량 없음</string>
     <string name="content_empty_payment">현재 주차된 차량이 없습니다.</string>
-  
-  
+
+
     <string name="title_parking_price_info">상품금액별 무료 주차 안내</string>
     <string name="content_parking_price_info">- 2만원 이상 구매 : 1시간\n- 3만원 이상 구매 : 2시간\n- 4만원 이상 구매 : 3시간\n- 6만원 이상 구매 : 5시간</string>
 
@@ -52,4 +71,5 @@
     <string name="btn_store_name_pangyo">판교점</string>
     <string name="btn_store_name_daegu">더현대 대구</string>
 
+    <string name="title_logout_modal">로그아웃 하시겠습니까?</string>
 </resources>

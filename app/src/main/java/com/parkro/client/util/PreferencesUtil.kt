@@ -63,18 +63,10 @@ class PreferencesUtil private constructor(context: Context) {
             return getInstance()!!.prefs.getString(CAR_PROFILE, "1") ?: "1"
         }
 
-        // Set default car profile if not set
-        private fun setDefaultCarProfileIfNeeded() {
-            if ( getInstance()!!.prefs.contains(CAR_PROFILE)) {
-                setCarProfile("orange")
-            }
-        }
-
         // Clear all preferences
         fun clear() {
             getInstance()!!.prefsEditor.clear().apply()
         }
-
     }
 
     // Private constructor to enforce singleton pattern
