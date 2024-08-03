@@ -2,7 +2,6 @@ package com.parkro.client.domain.payment.ui
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.icu.number.IntegerWidth
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -20,7 +19,7 @@ import java.net.URISyntaxException
 class PaymentWebViewActivity : AppCompatActivity() {
     private lateinit var webView: WebView
     private lateinit var paymentData: PaymentData
-    private lateinit var paymentRepository: PaymentRepository
+    private lateinit var paymentViewModel: PaymentViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,6 +122,8 @@ class PaymentWebViewActivity : AppCompatActivity() {
 
         // 웹뷰 로드
         webView.loadUrl("file:///android_asset/payment.html")
+
+        paymentViewModel.resetAllData()
     }
 
     private fun sendPaymentSuccessToServer(paymentKey: String) {
