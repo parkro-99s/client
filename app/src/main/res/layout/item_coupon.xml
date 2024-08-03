@@ -31,9 +31,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:fontFamily="@font/pretendard_semibold"
                 android:text="@string/default_free_coupon"
+                android:textColor="@android:color/black"
                 android:textSize="16sp"
-                android:textColor="@android:color/black" />
+                android:textStyle="" />
 
             <TextView
                 android:id="@+id/endDate"

@@ -27,6 +27,7 @@ import java.util.*
 class PaymentFragment : Fragment() {
 
     private lateinit var paymentViewModel: PaymentViewModel
+    private lateinit var receiptViewModel: ReceiptViewModel
     private var _binding: FragmentPaymentBinding? = null
     private val binding get() = _binding!!
 
@@ -46,12 +47,13 @@ class PaymentFragment : Fragment() {
     ): View? {
         _binding = FragmentPaymentBinding.inflate(inflater, container, false)
         paymentViewModel = ViewModelProvider(requireActivity()).get(PaymentViewModel::class.java)
+        receiptViewModel = ViewModelProvider(requireActivity()).get(ReceiptViewModel::class.java)
 
         setupToolbar()
         setupListeners()
         observeViewModel()
 
-        paymentViewModel.fetchParkingInfo("here12314")
+        refreshPage()
 
         startIdleTimer()
 
@@ -127,6 +129,7 @@ class PaymentFragment : Fragment() {
 
         binding.btnPaymentReceipt.setOnClickListener {
             findNavController(this@PaymentFragment).navigate(R.id.navigation_receipt)
+            receiptViewModel.resetReceiptData()
         }
 
         binding.btnPaymentCoupon.setOnClickListener {
@@ -147,6 +150,11 @@ class PaymentFragment : Fragment() {
 
         paymentViewModel.discountReceiptHours.observe(viewLifecycleOwner, Observer { hours ->
             updateDiscountReceiptHours(hours ?: 0)
+            resetIdleTimer()
+        })
+
+        paymentViewModel.discountCouponHours.observe(viewLifecycleOwner, Observer { hours ->
+            updateDiscountCouponHours(hours ?: 0)
             resetIdleTimer()
         })
 
@@ -227,6 +235,10 @@ class PaymentFragment : Fragment() {
 
     private fun updateDiscountReceiptHours(hours: Int) {
         binding.textPaymentValueDiscountReceipt.text = getString(R.string.formatted_discount_time, hours, 0)
+    }
+
+    private fun updateDiscountCouponHours(hours: Int) {
+        binding.textPaymentValueDiscountCoupon.text = getString(R.string.formatted_discount_time, hours, 0)
     }
 
     private fun updatePaymentTime(totalTime: Int?) {
