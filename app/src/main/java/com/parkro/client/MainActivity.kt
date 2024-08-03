@@ -1,6 +1,7 @@
 package com.parkro.client
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -12,14 +13,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.google.firebase.messaging.FirebaseMessaging
 import com.parkro.client.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private var isAdmin = true     // 관리자 여부 확인 플래그
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,13 +35,16 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 //
+        // 권한 여부에 따른 네비게이션 바 요소 지정
         navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_example, // map 대신 example
-                R.id.navigation_parkinglist,
-                R.id.navigation_payment,
-                R.id.navigation_mypage
+                if (isAdmin) {
+                    R.id.navigation_parkinglist_admin; R.id.navigation_logout_admin
+                } else {
+                    R.id.navigation_map; R.id.navigation_parkinglist; R.id.navigation_payment; R.id.navigation_mypage
+//                    R.id.navigation_example; R.id.navigation_parkinglist; R.id.navigation_payment; R.id.navigation_mypage // map 대신 example
+                }
             )
         )
 
@@ -56,7 +60,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_receipt,
                 R.id.navigation_barcode_scan,
 //                R.id.navigation_example, // map 대신 example
-                R.id.navigation_map,
+                R.id.navigation_coupon,
                 R.id.navigation_receipt,
                 R.id.navigation_barcode_scan,
                 R.id.navigation_parkinglist,
@@ -101,15 +105,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         // TODO: 로그인 시, FCM Token 헤더에 함께 전달
-//        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-//            if (!task.isSuccessful) {
-//                Log.w("FCM", "Fetching FCM registration token failed", task.exception)
-//                return@addOnCompleteListener
-//            }
-//            // 새로운 FCM Token 발급
-//            val token = task.result
-//            Log.d("FCM-Token", token)
-//        }
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("FCM", "Fetching FCM registration token failed", task.exception)
+                return@addOnCompleteListener
+            }
+            // 새로운 FCM Token 발급
+            val token = task.result
+            Log.d("FCM-Token", token)
+        }
     }
 
     // Update toolbar title
