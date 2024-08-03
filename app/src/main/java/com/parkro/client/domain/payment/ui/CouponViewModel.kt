@@ -32,18 +32,14 @@ class CouponViewModel : ViewModel() {
     }
 
     fun selectCoupon(coupon: GetMemberCouponListItem) {
-        _selectedCoupon.postValue(coupon)
-    }
-
-    fun useSelectedCoupon() {
-        _selectedCoupon.value?.let { coupon ->
-            Log.d("CouponViewModel", "쿠폰 사용: $coupon")
-            // 서버로 사용된 쿠폰 정보를 전송하는 로직을 추가하세요
-            // 예: paymentRepository.useCoupon(coupon)
+        _selectedCoupon.value?.let {
+            // 이미 선택된 쿠폰이 현재 클릭된 쿠폰과 같으면 해제
+            if (it == coupon) {
+                _selectedCoupon.postValue(null)
+                return
+            }
         }
-    }
-
-    fun unselectedCoupon() {
-        _selectedCoupon.postValue(null)
+        // 클릭된 쿠폰이 선택된 쿠폰이 아닌 경우
+        _selectedCoupon.postValue(coupon)
     }
 }
