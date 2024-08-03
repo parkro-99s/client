@@ -3,6 +3,8 @@ package com.parkro.client.domain.payment.ui
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -36,7 +38,8 @@ class PaymentFragment : Fragment() {
     private val idleTimeLimit = 60000L // 1분
     private val handler = Handler(Looper.getMainLooper())
     private val idleRunnable = Runnable {
-        if (isAdded) {
+        // 정산할 주차 내역 없다면 타이머 실행하지 않음
+        if (isAdded && paymentViewModel.currentParkingInfo.value != null) {
             showAlertAndRefreshPage()
         }
     }
@@ -85,7 +88,7 @@ class PaymentFragment : Fragment() {
             val messageTextView = dialogView.findViewById<TextView>(R.id.text_dialog_message)
             val confirmBtn = dialogView.findViewById<ImageButton>(R.id.btn_dialog_check)
 
-            messageTextView.text = "1분 이상 동작이 없어 새로고침합니다." // 수정 필요
+            messageTextView.text = "1분 이상 동작이 없어 새로고침합니다."
 
             val dialog = AlertDialog.Builder(it)
                 .setView(dialogView)
@@ -100,13 +103,18 @@ class PaymentFragment : Fragment() {
                 refreshPage()
             }
 
-            dialog.window?.setLayout(
-                (resources.displayMetrics.widthPixels * 0.9).toInt(),
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
+            dialog.setOnShowListener {
+                dialog.window?.let { window ->
+                    window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    window.setLayout(
+                        (resources.displayMetrics.widthPixels * 0.8).toInt(), // 다이얼로그의 너비를 80%로 설정
+                        ViewGroup.LayoutParams.WRAP_CONTENT // 높이는 내용에 맞춰 조정
+                    )
+                }
+            }
 
             dialog.show()
-
+            isDialogVisible = true
         }
     }
 
@@ -162,12 +170,14 @@ class PaymentFragment : Fragment() {
     private fun observeViewModel() {
         paymentViewModel.currentParkingInfo.observe(viewLifecycleOwner, Observer { parking ->
             if (parking != null) {
+                Log.d("PaymentFragment", "정산 페이지 타이머 시작")
                 updateUI(parking) // UI 업데이트
+                startIdleTimer()
             } else {
+                Log.d("PaymentFragment", "정산 페이지 타이머 멈춤")
                 showEmptyState()
             }
             paymentViewModel.calculatePaymentTotalTime()
-            resetIdleTimer()
         })
 
         paymentViewModel.discountReceiptHours.observe(viewLifecycleOwner, Observer { hours ->
