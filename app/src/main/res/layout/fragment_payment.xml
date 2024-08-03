@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         app:layout_constraintTop_toTopOf="@id/text_payment_store_name"
-        app:layout_constraintStart_toEndOf="@id/text_payment_parking_lot_name"
+        app:layout_constraintEnd_toEndOf="parent"
         android:visibility="invisible" >
 
         <ImageView

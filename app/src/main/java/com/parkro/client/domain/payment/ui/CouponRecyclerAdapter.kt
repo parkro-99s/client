@@ -65,7 +65,7 @@ class CouponRecyclerAdapter(
             val context = itemView.context
             binding.discountHour.text = context.getString(R.string.formatted_free_coupon_hour, coupon.discountHour)
             val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-            val targetFormat = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault())
+            val targetFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
             binding.endDate.text = "유효 기간: ${targetFormat.format(originalFormat.parse(coupon.endDate))}"
 
             if (isSelected) {
