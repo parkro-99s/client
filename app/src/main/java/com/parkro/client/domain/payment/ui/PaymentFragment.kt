@@ -20,6 +20,7 @@ import com.parkro.client.MainActivity
 import com.parkro.client.R
 import com.parkro.client.databinding.FragmentPaymentBinding
 import com.parkro.client.domain.payment.api.GetCurrentParkingInfo
+import com.parkro.client.util.PreferencesUtil
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -28,6 +29,7 @@ class PaymentFragment : Fragment() {
 
     private lateinit var paymentViewModel: PaymentViewModel
     private lateinit var receiptViewModel: ReceiptViewModel
+    private lateinit var couponViewModel: CouponViewModel
     private var _binding: FragmentPaymentBinding? = null
     private val binding get() = _binding!!
 
@@ -48,6 +50,7 @@ class PaymentFragment : Fragment() {
         _binding = FragmentPaymentBinding.inflate(inflater, container, false)
         paymentViewModel = ViewModelProvider(requireActivity()).get(PaymentViewModel::class.java)
         receiptViewModel = ViewModelProvider(requireActivity()).get(ReceiptViewModel::class.java)
+        couponViewModel = ViewModelProvider(requireActivity()).get(CouponViewModel::class.java)
 
         setupToolbar()
         setupListeners()
@@ -56,6 +59,8 @@ class PaymentFragment : Fragment() {
         refreshPage()
 
         startIdleTimer()
+
+        PreferencesUtil.init(requireContext())
 
         return binding.root
     }
@@ -106,7 +111,7 @@ class PaymentFragment : Fragment() {
     }
 
     private fun refreshPage() {
-        paymentViewModel.fetchParkingInfo("here12314")
+        PreferencesUtil.getUsername("here12314")?.let { paymentViewModel.fetchParkingInfo(it) }
     }
 
     private fun setupListeners() {
@@ -114,14 +119,31 @@ class PaymentFragment : Fragment() {
             paymentViewModel.currentParkingInfo.value?.let { parkingInfo ->
                 val amount = paymentViewModel.totalAmountToPay.value.toString()
                 val orderId = "order_" + parkingInfo.parkingId
+                val username = PreferencesUtil.getUsername("here12314")
                 val orderName = "${parkingInfo.parkingLotName} 주차 정산"
-                val customerName = "here12314"
-              
+                val customerName = PreferencesUtil.getUsername("here12314")
+                val memberCouponId = couponViewModel.selectedCoupon.value?.memberCouponId
+                val receiptId = receiptViewModel.receiptData.value?.receiptId
+                val couponDiscountTime = paymentViewModel.discountCouponHours.value.toString()
+                val receiptDiscountTime = paymentViewModel.discountReceiptHours.value.toString()
+                val totalParkingTime = paymentViewModel.totalTimeToPay.value.toString()
+                val totalPrice = paymentViewModel.totalAmountToPay.value.toString()
+                val card = "토스 페이먼츠"
+
                 val intent = Intent(activity, PaymentWebViewActivity::class.java).apply {
                     putExtra("amount", amount)
                     putExtra("orderId", orderId)
+                    putExtra("username", username)
                     putExtra("orderName", orderName)
                     putExtra("customerName", customerName)
+                    putExtra("parkingId", parkingInfo.parkingId.toString())
+                    putExtra("memberCouponId", memberCouponId.toString())
+                    putExtra("receiptId", receiptId.toString())
+                    putExtra("couponDiscountTime", couponDiscountTime)
+                    putExtra("receiptDiscountTime", receiptDiscountTime)
+                    putExtra("totalParkingTime", totalParkingTime)
+                    putExtra("totalPrice", totalPrice)
+                    putExtra("card", card)
                 }
                 startActivity(intent)
             }

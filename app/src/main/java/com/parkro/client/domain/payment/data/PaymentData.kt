@@ -3,9 +3,9 @@ package com.parkro.client.domain.payment.data
 data class PaymentData(
     val amount: String,
     val orderId: String,
+    val username: String,
     val orderName: String,
     val customerName: String,
-    val memberId: String,
     val parkingId: String,
     val memberCouponId: String,
     val receiptId: String,

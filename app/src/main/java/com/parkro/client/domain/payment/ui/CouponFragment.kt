@@ -18,6 +18,7 @@ import com.parkro.client.R
 import com.parkro.client.databinding.FragmentCouponBinding
 import com.parkro.client.databinding.FragmentReceiptBinding
 import com.parkro.client.domain.payment.api.GetMemberCouponListItem
+import com.parkro.client.util.PreferencesUtil
 
 class CouponFragment : Fragment() {
 
@@ -41,7 +42,7 @@ class CouponFragment : Fragment() {
         setupListeners()
         observeViewModel()
 
-        couponViewModel.fetchMemberCouponList("here12314")
+        PreferencesUtil.getUsername("here12314")?.let { couponViewModel.fetchMemberCouponList(it) }
 
         (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_coupon), true, false)
 
