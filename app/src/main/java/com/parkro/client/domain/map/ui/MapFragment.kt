@@ -14,6 +14,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
 import com.kakao.vectormap.*
 import com.kakao.vectormap.camera.CameraUpdateFactory
@@ -105,6 +106,7 @@ class MapFragment : Fragment() {
         }
 
         setupButtons()
+        binding.recyclerviewMapList.layoutManager = LinearLayoutManager(requireContext())  // 리사이클러뷰
 
         return root
     }
@@ -160,6 +162,16 @@ class MapFragment : Fragment() {
                         internalParkingLot = parkingLot
                     }
                 }
+
+                // 첫번째 주차장 표시
+                val firstParkingLot = parkingLots[0]
+                binding.textMapFirstItemParkingLotName.text = firstParkingLot.name
+                binding.textMapFirstItemAddress.text = firstParkingLot.address
+                binding.textMapFirstItemSpaces.text = "${firstParkingLot.usedSpaces}/${firstParkingLot.totalSpaces}"
+
+                // RecyclerView에 데이터 표시
+                val otherParkingLots = parkingLots.subList(1, parkingLots.size)
+                binding.recyclerviewMapList.adapter = ParkingLotRecyclerAdapter(otherParkingLots)
 
                 // isInternal == "Y" 인 주차장이 있으면 화면 중앙으로 이동
                 internalParkingLot?.let {
