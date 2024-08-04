@@ -1,9 +1,9 @@
 package com.parkro.client.domain.mypage.data
 
-import android.util.Log
 import com.parkro.client.domain.mypage.api.GetUserDetailsRes
 import com.parkro.client.domain.mypage.api.MypageService
 import com.parkro.client.domain.mypage.api.PostCarReq
+import com.parkro.client.domain.mypage.api.PutModifiedUserDetailsReq
 import com.parkro.client.domain.network.RetrofitClient
 import com.parkro.client.util.PreferencesUtil
 import okhttp3.ResponseBody
@@ -109,6 +109,30 @@ class MypageRepository {
 
     fun postCarDetails(memberId: Int, carNumber: String, onResult: (Result<ResponseBody>) -> Unit) {
         val call = mypageService.postCarDetails(PostCarReq(memberId, carNumber))
+        call.enqueue(object : Callback<ResponseBody> {
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        onResult(Result.success(responseBody))
+                    } else {
+                        onResult(Result.failure(Throwable("Received an empty response body")))
+                    }
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    val errorMessage = "Error: ${response.message()}"
+                    onResult(Result.failure(Throwable("$errorMessage, Body: $errorBody")))
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                onResult(Result.failure(t))
+            }
+        })
+    }
+
+    fun putModifiedUserDetails(username: String, password: String, nickname: String, phoneNumber: String, carProfile: Int, onResult: (Result<ResponseBody>) -> Unit) {
+        val call = mypageService.putUserDetails(username, PutModifiedUserDetailsReq(username, password, nickname, phoneNumber, carProfile))
         call.enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.isSuccessful) {

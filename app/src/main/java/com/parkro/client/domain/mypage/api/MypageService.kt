@@ -20,4 +20,9 @@ interface MypageService {
     @PATCH("/member/car")
     fun postCarDetails(@Body postCarReq: PostCarReq): Call<ResponseBody>
 
+    @PUT("/member/{username}")
+    fun putUserDetails(
+        @Path("username") username: String,
+        @Body request: PutModifiedUserDetailsReq
+    ): Call<ResponseBody>
 }

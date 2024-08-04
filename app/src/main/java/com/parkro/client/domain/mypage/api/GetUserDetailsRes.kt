@@ -14,5 +14,8 @@ data class GetUserDetailsRes(
     val username: String,
 
     @SerializedName("carNumber")
-    val carNumber: String
+    val carNumber: String,
+
+    @SerializedName("carProfile")
+    val carProfile: Int
 )
