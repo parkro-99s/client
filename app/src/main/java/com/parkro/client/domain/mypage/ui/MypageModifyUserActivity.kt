@@ -218,8 +218,9 @@ class MypageModifyUserActivity : AppCompatActivity() {
             Log.d("username","nickname+$nickname")
             Log.d("username","phoneNumber+$phoneNumber")
             Log.d("username","carProfile+$carProfile")
+            val currentCarProfile = PreferencesUtil.getCarProfile()
             if (username != null) {
-                mypageRepository.putModifiedUserDetails(username, password, nickname, phoneNumber, carProfile) { result ->
+                mypageRepository.putModifiedUserDetails(username, password, nickname, phoneNumber, currentCarProfile) { result ->
                     Log.d("result", "result+$result ")
                     result.fold(
                         onSuccess = { response ->
