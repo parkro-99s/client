@@ -147,15 +147,4 @@ class MainActivity : AppCompatActivity() {
         params.marginStart = marginPx
         view.layoutParams = params
     }
-
-    private fun extractRoleFromJsonArray(jsonArray: String): String? {
-        return try {
-            val type = object : TypeToken<List<String>>() {}.type
-            val roles: List<String> = Gson().fromJson(jsonArray, type)
-            roles.firstOrNull()  // Return the first role if available
-        } catch (e: Exception) {
-            // Handle potential parsing errors or malformed JSON
-            null
-        }
-    }
 }

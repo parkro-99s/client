@@ -1,9 +1,11 @@
 package com.parkro.client.domain.payment.data
 
+import android.util.Log
 import com.parkro.client.domain.network.RetrofitClient
 import com.parkro.client.domain.payment.api.GetCurrentParkingInfo
 import com.parkro.client.domain.payment.api.GetMemberCouponList
 import com.parkro.client.domain.payment.api.PaymentService
+import com.parkro.client.domain.payment.api.PostPaymentReq
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +26,7 @@ class PaymentRepository {
             override fun onResponse(call: Call<GetCurrentParkingInfo>, response: Response<GetCurrentParkingInfo>) {
                 if (response.isSuccessful) {
                     val responseBody = response.body()
+                    Log.d("PaymentRepository", "주차 정보: $responseBody")
                     if (responseBody != null) {
                         onResult(Result.success(responseBody))
                     } else {
@@ -64,6 +67,29 @@ class PaymentRepository {
 
             // 응답 실패
             override fun onFailure(call: Call<GetMemberCouponList>, t: Throwable) {
+                onResult(Result.failure(t))
+            }
+        })
+    }
+
+    fun addPayment(paymentRequest: PostPaymentReq, onResult: (Result<Int>) -> Unit) {
+        val call = paymentService.addPayment(paymentRequest)
+
+        call.enqueue(object : Callback<Int> {
+            override fun onResponse(call: Call<Int>, response: Response<Int>) {
+                if (response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        onResult(Result.success(responseBody))
+                    } else {
+                        onResult(Result.failure(Throwable("응답 바디가 null입니다.")))
+                    }
+                } else {
+                    onResult(Result.failure(Throwable(response.message())))
+                }
+            }
+
+            override fun onFailure(call: Call<Int>, t: Throwable) {
                 onResult(Result.failure(t))
             }
         })

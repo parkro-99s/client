@@ -1,6 +1,8 @@
 package com.parkro.client.domain.payment.ui
 
 import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -119,16 +121,21 @@ class BarcodeScanFragment : Fragment() {
             dialog.dismiss()
         }
 
-        dialog.show()
-
         dialog.setOnDismissListener {
             isProcessingError = false
             resumeScanning()
         }
 
-        dialog.window?.setLayout(
-            (resources.displayMetrics.widthPixels * 0.9).toInt(), // Change 0.8 to the desired width percentage
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
+        dialog.setOnShowListener {
+            dialog.window?.let { window ->
+                window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                window.setLayout(
+                    (resources.displayMetrics.widthPixels * 0.8).toInt(),
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+            }
+        }
+
+        dialog.show()
     }
 }

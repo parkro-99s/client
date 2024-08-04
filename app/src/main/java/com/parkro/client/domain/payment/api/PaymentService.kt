@@ -1,9 +1,7 @@
 package com.parkro.client.domain.payment.api
 
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface PaymentService {
 
@@ -16,4 +14,7 @@ interface PaymentService {
 
     @GET("/payment/coupon/{username}")
     fun getMemberCouponList(@Path("username") username: String): Call<GetMemberCouponList>
+
+    @POST("/payment")
+    fun addPayment(@Body paymentRequest: PostPaymentReq): Call<Int>
 }

@@ -5,27 +5,47 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.parkro.client.BuildConfig
 import com.parkro.client.R
+import com.parkro.client.domain.payment.api.PostPaymentReq
+import com.parkro.client.domain.payment.data.PaymentData
+import com.parkro.client.domain.payment.data.PaymentRepository
 import java.net.URISyntaxException
 
 // 결제창 웹뷰로 띄울 Activity
 class PaymentWebViewActivity : AppCompatActivity() {
     private lateinit var webView: WebView
-    private val paymentData = mutableMapOf<String, String>()
+    private lateinit var paymentData: PaymentData
+    private lateinit var paymentViewModel: PaymentViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment_web_view)
+        paymentViewModel = ViewModelProvider(this).get(PaymentViewModel::class.java)
 
         // Intent로부터 데이터 가져오기
         val intent = intent
-        paymentData["amount"] = intent.getStringExtra("amount") ?: "0"
-        paymentData["orderId"] = intent.getStringExtra("orderId") ?: "ORDER_ID"
-        paymentData["orderName"] = intent.getStringExtra("orderName") ?: "주차장 사전 결제"
-        paymentData["customerName"] = intent.getStringExtra("customerName") ?: ""
+        paymentData = PaymentData(
+            amount = intent.getStringExtra("amount") ?: "0",
+            orderId = intent.getStringExtra("orderId") ?: "ORDER_ID",
+            username = intent.getStringExtra("username") ?: "here12314",
+            orderName = intent.getStringExtra("orderName") ?: "주차장 사전 결제",
+            customerName = intent.getStringExtra("customerName") ?: "",
+            parkingId = intent.getStringExtra("parkingId") ?: "",
+            memberCouponId = intent.getStringExtra("memberCouponId") ?: "",
+            receiptId = intent.getStringExtra("receiptId") ?: "",
+            couponDiscountTime = intent.getStringExtra("couponDiscountTime") ?: "0",
+            receiptDiscountTime = intent.getStringExtra("receiptDiscountTime") ?: "0",
+            totalParkingTime = intent.getStringExtra("totalParkingTime") ?: "0",
+            totalPrice = intent.getStringExtra("totalPrice") ?: "0",
+            card = intent.getStringExtra("card") ?: ""
+        )
+
+        Log.d("PaymentWebViewActivity", "페이먼츠 결제 내역: $paymentData")
 
         webView = findViewById(R.id.webview)
 
@@ -58,9 +78,18 @@ class PaymentWebViewActivity : AppCompatActivity() {
                 return if (!URLUtil.isNetworkUrl(url) && !URLUtil.isJavaScriptUrl(url)) {
                     val uri = Uri.parse(url)
                     if ("parkro" == uri.scheme) {
+
+                        val orderId = uri.getQueryParameter("orderId")
+                        val amount = uri.getQueryParameter("amount")
+                        val paymentKey = uri.getQueryParameter("paymentKey")
+
+                        paymentKey?.let {
+                            sendPaymentSuccessToServer(paymentKey)
+                        }
                         val intent = Intent(this@PaymentWebViewActivity, PaymentSuccessActivity::class.java)
-                        intent.putExtra("orderId", paymentData["orderId"])
-                        intent.putExtra("amount", paymentData["amount"])
+                        intent.putExtra("orderId", orderId)
+                        intent.putExtra("amount", amount)
+                        // 여기에서 결제 내역 삽입을 서버로 요청보내는 로직 추가
                         startActivity(intent)
                         finish() // 현재 Activity 종료
                         true
@@ -95,6 +124,38 @@ class PaymentWebViewActivity : AppCompatActivity() {
 
         // 웹뷰 로드
         webView.loadUrl("file:///android_asset/payment.html")
+
+        paymentViewModel.resetAllData()
+    }
+
+    private fun sendPaymentSuccessToServer(paymentKey: String) {
+        val paymentRepository = PaymentRepository()
+
+        val paymentRequest = PostPaymentReq(
+            username = paymentData.username,
+            parkingId = paymentData.parkingId?.toIntOrNull() ?: 0,  // null일 경우 기본값 0
+            memberCouponId = paymentData.memberCouponId?.toIntOrNull(),  // null일 경우 기본값 0
+            receiptId = paymentData.receiptId?.toIntOrNull(),  // null일 경우 기본값 0
+            couponDiscountTime = paymentData.couponDiscountTime?.toIntOrNull() ?: 0,  // null 허용
+            receiptDiscountTime = paymentData.receiptDiscountTime?.toIntOrNull() ?: 0,  // null 허용
+            paymentKey = paymentKey,
+            totalParkingTime = paymentData.totalParkingTime?.toIntOrNull() ?: 0,  // null일 경우 기본값 0
+            totalPrice = paymentData.totalPrice?.toIntOrNull() ?: 0,  // null일 경우 기본값 0
+            card = paymentData.card.orEmpty(),  // null일 경우 빈 문자열
+        )
+
+        paymentRepository.addPayment(paymentRequest) { result ->
+            result.fold(
+                onSuccess = { paymentId ->
+                    // 결제 내역이 성공적으로 추가되었을 때 처리
+                    Log.d("PaymentWebViewActivity", "결제 내역 추가 성공: $paymentId")
+                },
+                onFailure = { error ->
+                    // 결제 내역 추가 실패 시 처리
+                    Log.d("PaymentWebViewActivity", "결제 내역 추가 실패: ${error.message}")
+                }
+            )
+        }
     }
 
     private inner class WebAppInterface {
@@ -110,8 +171,21 @@ class PaymentWebViewActivity : AppCompatActivity() {
 
         @JavascriptInterface
         fun getPaymentData(key: String): String {
-            println("getpaymentdata: " + key + " " + paymentData[key])
-            return paymentData[key] ?: ""
+            return when (key) {
+                "amount" -> paymentData.amount
+                "orderId" -> paymentData.orderId
+                "orderName" -> paymentData.orderName
+                "customerName" -> paymentData.customerName
+                "parkingId" -> paymentData.parkingId
+                "memberCouponId" -> paymentData.memberCouponId
+                "receiptId" -> paymentData.receiptId
+                "couponDiscountTime" -> paymentData.couponDiscountTime
+                "receiptDiscountTime" -> paymentData.receiptDiscountTime
+                "totalParkingTime" -> paymentData.totalParkingTime
+                "totalPrice" -> paymentData.totalPrice
+                "card" -> paymentData.card
+                else -> ""
+            }
         }
     }
 }
