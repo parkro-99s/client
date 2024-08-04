@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.parkro.client.BuildConfig
 import com.parkro.client.R
 import com.parkro.client.domain.payment.api.PostPaymentReq
@@ -24,6 +25,7 @@ class PaymentWebViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_payment_web_view)
+        paymentViewModel = ViewModelProvider(this).get(PaymentViewModel::class.java)
 
         // Intent로부터 데이터 가져오기
         val intent = intent

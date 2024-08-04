@@ -17,6 +17,7 @@ import com.parkro.client.MainActivity
 import com.parkro.client.R
 import com.parkro.client.databinding.FragmentCouponBinding
 import com.parkro.client.databinding.FragmentReceiptBinding
+import com.parkro.client.domain.payment.api.GetMemberCouponList
 import com.parkro.client.domain.payment.api.GetMemberCouponListItem
 import com.parkro.client.util.PreferencesUtil
 
@@ -81,15 +82,35 @@ class CouponFragment : Fragment() {
 
     private fun observeViewModel() {
         couponViewModel.couponList.observe(viewLifecycleOwner, Observer { couponList ->
-            couponList?.let {
-                adapter.updateCouponList(it)
-                adapter.updateSelectedCoupon(couponViewModel.selectedCoupon.value)
+            adapter.updateCouponList(couponList)
+            adapter.updateSelectedCoupon(couponViewModel.selectedCoupon.value)
+            if (couponList.isNullOrEmpty()) {
+                Log.d("CouponFragment", "쿠폰 없음")
+                showEmptyState()
+            } else {
+                Log.d("CouponFragment", "쿠폰 있음 $couponList")
+                updateUI(couponList.size)
             }
         })
 
         couponViewModel.selectedCoupon.observe(viewLifecycleOwner, Observer { selectedCoupon ->
             adapter.updateSelectedCoupon(selectedCoupon)
         })
+    }
+
+    private fun updateUI(size: Int) {
+        binding.textCouponValueCount.text = getString(R.string.formatted_coupon_count, size)
+        binding.textCouponValueCount.visibility = View.VISIBLE
+        binding.recyclerviewCouponList.visibility = View.VISIBLE
+        binding.btnCouponUse.visibility = View.VISIBLE
+        binding.layoutCouponEmptyContent.visibility = View.GONE
+    }
+
+    private fun showEmptyState() {
+        binding.textCouponValueCount.visibility = View.GONE
+        binding.recyclerviewCouponList.visibility = View.GONE
+        binding.btnCouponUse.visibility = View.GONE
+        binding.layoutCouponEmptyContent.visibility = View.VISIBLE
     }
 
     // position: recycler view 에서의 순서
