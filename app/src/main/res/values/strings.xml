@@ -79,5 +79,17 @@
     <string name="btn_store_name_pangyo">판교점</string>
     <string name="btn_store_name_daegu">더현대 대구</string>
 
+    <!-- parkinglot -->
+    <string name="label_parkinglot_outside">외부</string>
+
+    <!-- parkinglist -->
+    <string name="label_parkinglist_pay_done">정산완료</string>
+    <string name="label_parkinglist_exit_done">출차완료</string>
+    <string name="error_parkinglist_not_found">주차 내역이 없습니다.</string>
+
+    <!-- common -->
+    <string name="error_service_unavailable">현재 서비스 점검 중입니다.</string>
+    <string name="error_user_not_found">존재하지 않는 유저입니다.</string>
+
     <string name="title_logout_modal">로그아웃 하시겠습니까?</string>
 </resources>
