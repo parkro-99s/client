@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.CAMERA" /> <!-- 정확한 위치 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 대략적인 위치 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <queries>
         <package android:name="com.kakao.talk" />
@@ -73,51 +74,31 @@
             android:name=".common.ui.SplashActivity"
             android:exported="true">
             <intent-filter>
-                <!-- 진입점 설정 -->
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <!-- 홈 화면의 앱 아이콘을 클릭할 때 실행되는 액티비티로 설정 -->
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
-            android:launchMode="singleTop"
-            android:exported="true">
+            android:name=".domain.login.ui.LoginActivity"
+            android:exported="true"
+            android:label="@string/app_name">
             <intent-filter>
-                <!-- URL의 경로가 parkro/payment/success 일 때 이 액티비티가 호출 -->
                 <data
-                    android:scheme="parkro"
                     android:host="payment"
-                    android:path="/success" />
+                    android:scheme="parkro" />
+
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".domain.payment.ui.PaymentFailureActivity"
-            android:exported="true">
-            <intent-filter>
-                <!-- URL의 경로가 parkro/payment/fail 일 때 이 액티비티가 호출 -->
-                <data
-                    android:scheme="parkro"
-                    android:host="payment"
-                    android:path="/fail" />
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-            </intent-filter>
-        </activity>
+            android:name=".MainActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".domain.payment.ui.PaymentWebViewActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
 
         <service
             android:name=".domain.firebase.ui.MyFirebaseMessagingService"
