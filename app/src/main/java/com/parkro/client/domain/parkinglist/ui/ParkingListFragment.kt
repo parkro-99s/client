@@ -52,7 +52,6 @@ class ParkingListFragment : Fragment() {
         adapter = ParkingRecyclerAdapter(mutableListOf()) { parkingId ->
             openParkingDetailFragment(parkingId)
         }
-        adapter = ParkingRecyclerAdapter(mutableListOf())
         binding.recyclerviewParkingList.adapter = adapter
 
         // 레이아웃 매니저 - 수직 스크롤
