@@ -72,6 +72,8 @@
     <string name="formatted_coupon_expired_date">유효기간: yyyy.MM.dd 까지</string>
     <string name="default_free_coupon">시간 무료 주차권</string>
     <string name="default_expired_date">유효기간: 2999.12.31까지</string>
+    <string name="formatted_coupon_count">총 %1d장</string>
+    <string name="content_empty_coupon">조회된 쿠폰이 없습니다.</string>
 
     <!-- store -->
     <string name="btn_store_name_space1">스페이스원</string>
