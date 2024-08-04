@@ -207,7 +207,7 @@ class MypageAddCarActivity : AppCompatActivity() {
         }
 
 
-//        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
 
         dialog.window?.setLayout(
@@ -234,7 +234,7 @@ class MypageAddCarActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-//        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog.show()
 
         dialog.window?.setLayout(

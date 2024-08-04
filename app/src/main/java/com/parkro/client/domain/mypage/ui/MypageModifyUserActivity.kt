@@ -263,6 +263,10 @@ class MypageModifyUserActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+
         // Customize the dialog window
         dialog.window?.setLayout(
             (resources.displayMetrics.widthPixels * 0.8).toInt(),
