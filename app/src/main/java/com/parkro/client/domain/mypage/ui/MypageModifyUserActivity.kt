@@ -46,7 +46,7 @@ class MypageModifyUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage_modify_user)
 
-        val carProfile = PreferencesUtil.getCarProfile()
+        var carProfile = PreferencesUtil.getCarProfile()
 
         val checkedCar1:ImageView = findViewById(R.id.img_modify_user_checked_car_1)
         val checkedCar2:ImageView = findViewById(R.id.img_modify_user_checked_car_2)
@@ -75,7 +75,7 @@ class MypageModifyUserActivity : AppCompatActivity() {
         fun setCheckedCarVisibility(index: Int) {
             allCheckedCars.forEachIndexed { i, imageView ->
                 imageView.visibility = if (i == index) View.VISIBLE else View.INVISIBLE
-                PreferencesUtil.setCarProfile(i+1)
+                PreferencesUtil.setCarProfile(index + 1)
             }
         }
 
@@ -211,6 +211,13 @@ class MypageModifyUserActivity : AppCompatActivity() {
             val nickname = nicknameText.text.toString()
             val phoneNumber = phoneNumberText.text.toString()
 
+            carProfile = PreferencesUtil.getCarProfile()
+
+            Log.d("username","username+$username")
+            Log.d("username","password+$password")
+            Log.d("username","nickname+$nickname")
+            Log.d("username","phoneNumber+$phoneNumber")
+            Log.d("username","carProfile+$carProfile")
             if (username != null) {
                 mypageRepository.putModifiedUserDetails(username, password, nickname, phoneNumber, carProfile) { result ->
                     Log.d("result", "result+$result ")
