@@ -22,8 +22,4 @@ interface ParkingService {
     @DELETE("/parking/{parkingId}")
     fun deleteParkingDetail(@Path("parkingId") parkingId: Int): Call<Int>
 
-    // API 경로 지정 및 응답 데이터 지정
-    @GET("/parking/list")
-    fun getParkingList(@Query("username") username: String,
-                        @Query("page") page:Int) : Call<List<GetParkingRes>>
 }
