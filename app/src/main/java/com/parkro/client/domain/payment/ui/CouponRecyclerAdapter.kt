@@ -3,7 +3,6 @@ package com.parkro.client.domain.payment.ui
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.parkro.client.R
@@ -21,7 +20,8 @@ class CouponRecyclerAdapter(
         fun onItemClick(coupon: GetMemberCouponListItem, position: Int)
     }
 
-    private var selectedPosition: Int = RecyclerView.NO_POSITION
+    // 현재 선택된 쿠폰 관리
+    private var selectedCoupon: GetMemberCouponListItem? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CouponViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -30,10 +30,31 @@ class CouponRecyclerAdapter(
     }
 
     override fun onBindViewHolder(holder: CouponViewHolder, position: Int) {
-        holder.bind(couponList[position], position == selectedPosition)
+        holder.bind(couponList[position], couponList[position] == selectedCoupon)
     }
 
     override fun getItemCount(): Int = couponList.size
+
+    // 쿠폰 리스트 변경
+    fun updateCouponList(newCouponList: List<GetMemberCouponListItem>) {
+        couponList = newCouponList
+        notifyDataSetChanged()
+    }
+
+    // 선택된 쿠폰 변경
+    fun updateSelectedCoupon(newSelectedCoupon: GetMemberCouponListItem?) {
+        val previousSelectedCoupon = selectedCoupon
+        selectedCoupon = newSelectedCoupon
+        val previousPosition = couponList.indexOf(previousSelectedCoupon)
+        val newPosition = couponList.indexOf(selectedCoupon)
+
+        if (previousPosition != RecyclerView.NO_POSITION) {
+            notifyItemChanged(previousPosition)
+        }
+        if (newPosition != RecyclerView.NO_POSITION) {
+            notifyItemChanged(newPosition)
+        }
+    }
 
     inner class CouponViewHolder(
         private val binding: ItemCouponBinding,
@@ -43,10 +64,8 @@ class CouponRecyclerAdapter(
         fun bind(coupon: GetMemberCouponListItem, isSelected: Boolean) {
             val context = itemView.context
             binding.discountHour.text = context.getString(R.string.formatted_free_coupon_hour, coupon.discountHour)
-            // 포맷된 날짜 문자열 생성
             val originalFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
-            val targetFormat = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault())
-
+            val targetFormat = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault())
             binding.endDate.text = "유효 기간: ${targetFormat.format(originalFormat.parse(coupon.endDate))}"
 
             if (isSelected) {
@@ -59,12 +78,12 @@ class CouponRecyclerAdapter(
                 binding.imgCouponCardBackground.setImageResource(R.drawable.card_blank_coupon)
             }
 
+            // 아이템 선택했을 때
             itemView.setOnClickListener {
-                val previousPosition = selectedPosition
-                selectedPosition = adapterPosition
-                notifyItemChanged(previousPosition)
-                notifyItemChanged(selectedPosition)
-                onItemClickListener.onItemClick(coupon, selectedPosition)
+                val clickedCoupon = couponList[adapterPosition]
+                val newSelectedCoupon = if (selectedCoupon == clickedCoupon) null else clickedCoupon
+                updateSelectedCoupon(newSelectedCoupon)
+                onItemClickListener.onItemClick(clickedCoupon, adapterPosition)
             }
         }
     }

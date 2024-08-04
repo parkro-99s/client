@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardElevation="0dp">
+
+    <LinearLayout
+        android:id="@+id/layout_map_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@android:color/transparent"
+        android:paddingBottom="20dp">
+
+        <View
+            android:id="@+id/divider_map"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/parkro_white_gray"
+            android:visibility="visible"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:elevation="5dp"
+                android:layout_weight="7">
+
+                <TextView
+                    android:id="@+id/text_map_item_parking_lot_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:text="현대 아울렛 스페이스원"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/text_map_item_outlabel"
+                    android:layout_width="40dp"
+                    android:layout_height="23dp"
+                    android:layout_alignTop="@id/text_map_item_parking_lot_name"
+                    android:layout_alignBottom="@id/text_map_item_parking_lot_name"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:layout_toEndOf="@+id/text_map_item_parking_lot_name"
+                    android:background="@drawable/label_orange"
+                    android:fontFamily="@font/pretendard_semibold"
+                    android:gravity="center"
+                    android:text="@string/label_parkinglot_outside"
+                    android:textColor="@color/parkro_white"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/text_map_item_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_map_item_parking_lot_name"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="서울시 노원구 공릉로 00길 00, 00adfdafa0"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/text_map_item_spaces"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.2"
+                android:fontFamily="@font/pretendard_semibold"
+                android:gravity="center_vertical|end"
+                android:text="1800/2254"
+                android:textColor="@android:color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

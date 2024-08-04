@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
 import com.kakao.vectormap.*
 import com.kakao.vectormap.camera.CameraUpdateFactory
@@ -105,6 +107,7 @@ class MapFragment : Fragment() {
         }
 
         setupButtons()
+        binding.recyclerviewMapList.layoutManager = LinearLayoutManager(requireContext())  // 리사이클러뷰
 
         return root
     }
@@ -161,11 +164,22 @@ class MapFragment : Fragment() {
                     }
                 }
 
+                // 첫번째 주차장 표시
+                val firstParkingLot = parkingLots[0]
+                binding.textMapFirstItemParkingLotName.text = firstParkingLot.name
+                binding.textMapFirstItemAddress.text = firstParkingLot.address
+                binding.textMapFirstItemSpaces.text = "${firstParkingLot.usedSpaces}/${firstParkingLot.totalSpaces}"
+
+                // RecyclerView에 데이터 표시
+                val otherParkingLots = parkingLots.subList(1, parkingLots.size)
+                binding.recyclerviewMapList.adapter = ParkingLotRecyclerAdapter(otherParkingLots)
+
                 // isInternal == "Y" 인 주차장이 있으면 화면 중앙으로 이동
                 internalParkingLot?.let {
                     kakaoMap.moveCamera(CameraUpdateFactory.newCenterPosition(LatLng.from(it.latitude, it.longitude)))
                 }
             }.onFailure { exception ->
+                Log.e("ParkingListViewModel", "aaaaaaaaaaaaaa", exception)
                 Toast.makeText(context, "주차장을 찾을 수 없습니다. 통신 상태를 확인해주세요.", Toast.LENGTH_LONG).show()
             }
         }

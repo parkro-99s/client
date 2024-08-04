@@ -12,11 +12,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.parkro.client.MainActivity
 import com.parkro.client.R
 import com.parkro.client.databinding.FragmentCouponBinding
 import com.parkro.client.databinding.FragmentReceiptBinding
+import com.parkro.client.domain.payment.api.GetMemberCouponList
 import com.parkro.client.domain.payment.api.GetMemberCouponListItem
+import com.parkro.client.util.PreferencesUtil
 
 class CouponFragment : Fragment() {
 
@@ -32,6 +35,7 @@ class CouponFragment : Fragment() {
     ): View? {
         _binding = FragmentCouponBinding.inflate(inflater, container, false)
         couponViewModel = ViewModelProvider(requireActivity()).get(CouponViewModel::class.java)
+        paymentViewModel = ViewModelProvider(requireActivity()).get(PaymentViewModel::class.java)
 
         binding.recyclerviewCouponList.layoutManager = LinearLayoutManager(context)
 
@@ -39,8 +43,7 @@ class CouponFragment : Fragment() {
         setupListeners()
         observeViewModel()
 
-        couponViewModel.fetchMemberCouponList("here12314")
-        couponViewModel.unselectedCoupon()
+        PreferencesUtil.getUsername("here12314")?.let { couponViewModel.fetchMemberCouponList(it) }
 
         (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_coupon), true, false)
 
@@ -64,20 +67,50 @@ class CouponFragment : Fragment() {
             onCouponUseClicked()
             NavHostFragment.findNavController(this@CouponFragment)
                 .navigate(R.id.navigation_payment, null, NavOptions.Builder().setLaunchSingleTop(true).build())
+
+            // 정산 페이지로 이동할 때 선택된 쿠폰이 없다면 쿠폰으로 인한 할인 시간 0으로 초기화
+            if (couponViewModel.selectedCoupon.value == null) {
+                paymentViewModel.setDiscountCouponHours(0)
+            }
+            else {
+                couponViewModel.selectedCoupon.value?.discountHour?.let { hours ->
+                    paymentViewModel.setDiscountCouponHours(hours)
+                }
+            }
         }
     }
 
     private fun observeViewModel() {
         couponViewModel.couponList.observe(viewLifecycleOwner, Observer { couponList ->
-            couponList?.let {
-                adapter = CouponRecyclerAdapter(it, object : CouponRecyclerAdapter.OnItemClickListener {
-                    override fun onItemClick(coupon: GetMemberCouponListItem, position: Int) {
-                        onCouponClicked(coupon, position)
-                    }
-                })
-                binding.recyclerviewCouponList.adapter = adapter
+            adapter.updateCouponList(couponList)
+            adapter.updateSelectedCoupon(couponViewModel.selectedCoupon.value)
+            if (couponList.isNullOrEmpty()) {
+                Log.d("CouponFragment", "쿠폰 없음")
+                showEmptyState()
+            } else {
+                Log.d("CouponFragment", "쿠폰 있음 $couponList")
+                updateUI(couponList.size)
             }
         })
+
+        couponViewModel.selectedCoupon.observe(viewLifecycleOwner, Observer { selectedCoupon ->
+            adapter.updateSelectedCoupon(selectedCoupon)
+        })
+    }
+
+    private fun updateUI(size: Int) {
+        binding.textCouponValueCount.text = getString(R.string.formatted_coupon_count, size)
+        binding.textCouponValueCount.visibility = View.VISIBLE
+        binding.recyclerviewCouponList.visibility = View.VISIBLE
+        binding.btnCouponUse.visibility = View.VISIBLE
+        binding.layoutCouponEmptyContent.visibility = View.GONE
+    }
+
+    private fun showEmptyState() {
+        binding.textCouponValueCount.visibility = View.GONE
+        binding.recyclerviewCouponList.visibility = View.GONE
+        binding.btnCouponUse.visibility = View.GONE
+        binding.layoutCouponEmptyContent.visibility = View.VISIBLE
     }
 
     // position: recycler view 에서의 순서
@@ -88,8 +121,6 @@ class CouponFragment : Fragment() {
     }
 
     private fun onCouponUseClicked() {
-//        couponViewModel.useSelectedCoupon()
-
         couponViewModel.selectedCoupon.observe(viewLifecycleOwner, Observer { selectedCoupon ->
             selectedCoupon?.let {
 //                Toast.makeText(requireContext(), "사용할 쿠폰: ${it.discountHour}시간 무료 주차권", Toast.LENGTH_SHORT).show()

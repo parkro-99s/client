@@ -74,20 +74,29 @@ class PaymentViewModel : ViewModel() {
     }
 
     fun fetchParkingInfo(username: String) {
-
         paymentRepository.findParkingInfoFirst(username) { result ->
             result.onSuccess { parkingInfo ->
                 _parkingInfoRes.postValue(parkingInfo)
             }.onFailure {
-                _parkingInfoRes.postValue(null)
-                _totalTimeToPay.postValue(0)
-                _totalAmountToPay.postValue(0)
+                resetAllData()
             }
         }
     }
 
     fun resetDiscounted() {
-        _discountReceiptHours.postValue(null)
-        _discountReceiptHours.postValue(null)
+        _discountReceiptHours.postValue(0)
+        _discountCouponHours.postValue(0)
+    }
+
+    fun resetDiscountReceipt() {
+        _discountReceiptHours.postValue(0)
+    }
+
+    fun resetAllData() {
+        _parkingInfoRes.postValue(null)
+        _discountReceiptHours.postValue(0)
+        _discountCouponHours.postValue(0)
+        _totalTimeToPay.postValue(0)
+        _totalAmountToPay.postValue(0)
     }
 }

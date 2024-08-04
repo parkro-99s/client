@@ -40,6 +40,8 @@ class ReceiptFragment : Fragment() {
             }
         })
 
+
+
         (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_payment), true, false)
 
         return binding.root
@@ -57,6 +59,9 @@ class ReceiptFragment : Fragment() {
         }
 
         binding.btnReceiptRegister.setOnClickListener {
+            if (receiptViewModel.receiptData.value == null) {
+                paymentViewModel.resetDiscountReceipt()
+            }
             findNavController(this@ReceiptFragment).navigate(
                 R.id.navigation_payment,
                 null,

@@ -5,3 +5,5 @@ data class ErrorRes(
     val errorCode: String,
     val message: String
 )
+
+class ErrorResponseException(val errorRes: ErrorRes) : Throwable(errorRes.message)

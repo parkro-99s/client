@@ -61,7 +61,7 @@ class PreferencesUtil private constructor(context: Context) {
 
         // Get car profile
         fun getCarProfile(): Int {
-            return getInstance()!!.prefs.getInt(CAR_PROFILE, 1) ?: 1
+            return getInstance()!!.prefs.getInt(CAR_PROFILE, 1)
         }
 
         // Clear all preferences

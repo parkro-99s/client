@@ -3,6 +3,8 @@ package com.parkro.client.domain.payment.ui
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -20,6 +22,7 @@ import com.parkro.client.MainActivity
 import com.parkro.client.R
 import com.parkro.client.databinding.FragmentPaymentBinding
 import com.parkro.client.domain.payment.api.GetCurrentParkingInfo
+import com.parkro.client.util.PreferencesUtil
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -27,13 +30,16 @@ import java.util.*
 class PaymentFragment : Fragment() {
 
     private lateinit var paymentViewModel: PaymentViewModel
+    private lateinit var receiptViewModel: ReceiptViewModel
+    private lateinit var couponViewModel: CouponViewModel
     private var _binding: FragmentPaymentBinding? = null
     private val binding get() = _binding!!
 
     private val idleTimeLimit = 60000L // 1분
     private val handler = Handler(Looper.getMainLooper())
     private val idleRunnable = Runnable {
-        if (isAdded) {
+        // 정산할 주차 내역 없다면 타이머 실행하지 않음
+        if (isAdded && paymentViewModel.currentParkingInfo.value != null) {
             showAlertAndRefreshPage()
         }
     }
@@ -46,14 +52,18 @@ class PaymentFragment : Fragment() {
     ): View? {
         _binding = FragmentPaymentBinding.inflate(inflater, container, false)
         paymentViewModel = ViewModelProvider(requireActivity()).get(PaymentViewModel::class.java)
+        receiptViewModel = ViewModelProvider(requireActivity()).get(ReceiptViewModel::class.java)
+        couponViewModel = ViewModelProvider(requireActivity()).get(CouponViewModel::class.java)
 
         setupToolbar()
         setupListeners()
         observeViewModel()
 
-        paymentViewModel.fetchParkingInfo("here12314")
+        refreshPage()
 
         startIdleTimer()
+
+        PreferencesUtil.init(requireContext())
 
         return binding.root
     }
@@ -78,7 +88,7 @@ class PaymentFragment : Fragment() {
             val messageTextView = dialogView.findViewById<TextView>(R.id.text_dialog_message)
             val confirmBtn = dialogView.findViewById<ImageButton>(R.id.btn_dialog_check)
 
-            messageTextView.text = "1분 이상 동작이 없어 새로고침합니다." // 수정 필요
+            messageTextView.text = "1분 이상 동작이 없어 새로고침합니다."
 
             val dialog = AlertDialog.Builder(it)
                 .setView(dialogView)
@@ -93,18 +103,23 @@ class PaymentFragment : Fragment() {
                 refreshPage()
             }
 
-            dialog.window?.setLayout(
-                (resources.displayMetrics.widthPixels * 0.9).toInt(),
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
+            dialog.setOnShowListener {
+                dialog.window?.let { window ->
+                    window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                    window.setLayout(
+                        (resources.displayMetrics.widthPixels * 0.8).toInt(), // 다이얼로그의 너비를 80%로 설정
+                        ViewGroup.LayoutParams.WRAP_CONTENT // 높이는 내용에 맞춰 조정
+                    )
+                }
+            }
 
             dialog.show()
-
+            isDialogVisible = true
         }
     }
 
     private fun refreshPage() {
-        paymentViewModel.fetchParkingInfo("here12314")
+        PreferencesUtil.getUsername("here12314")?.let { paymentViewModel.fetchParkingInfo(it) }
     }
 
     private fun setupListeners() {
@@ -112,14 +127,31 @@ class PaymentFragment : Fragment() {
             paymentViewModel.currentParkingInfo.value?.let { parkingInfo ->
                 val amount = paymentViewModel.totalAmountToPay.value.toString()
                 val orderId = "order_" + parkingInfo.parkingId
+                val username = PreferencesUtil.getUsername("here12314")
                 val orderName = "${parkingInfo.parkingLotName} 주차 정산"
-                val customerName = "here12314"
-              
+                val customerName = PreferencesUtil.getUsername("here12314")
+                val memberCouponId = couponViewModel.selectedCoupon.value?.memberCouponId
+                val receiptId = receiptViewModel.receiptData.value?.receiptId
+                val couponDiscountTime = paymentViewModel.discountCouponHours.value.toString()
+                val receiptDiscountTime = paymentViewModel.discountReceiptHours.value.toString()
+                val totalParkingTime = paymentViewModel.totalTimeToPay.value.toString()
+                val totalPrice = paymentViewModel.totalAmountToPay.value.toString()
+                val card = "토스 페이먼츠"
+
                 val intent = Intent(activity, PaymentWebViewActivity::class.java).apply {
                     putExtra("amount", amount)
                     putExtra("orderId", orderId)
+                    putExtra("username", username)
                     putExtra("orderName", orderName)
                     putExtra("customerName", customerName)
+                    putExtra("parkingId", parkingInfo.parkingId.toString())
+                    putExtra("memberCouponId", memberCouponId.toString())
+                    putExtra("receiptId", receiptId.toString())
+                    putExtra("couponDiscountTime", couponDiscountTime)
+                    putExtra("receiptDiscountTime", receiptDiscountTime)
+                    putExtra("totalParkingTime", totalParkingTime)
+                    putExtra("totalPrice", totalPrice)
+                    putExtra("card", card)
                 }
                 startActivity(intent)
             }
@@ -127,6 +159,7 @@ class PaymentFragment : Fragment() {
 
         binding.btnPaymentReceipt.setOnClickListener {
             findNavController(this@PaymentFragment).navigate(R.id.navigation_receipt)
+            receiptViewModel.resetReceiptData()
         }
 
 //        binding.btnPaymentCoupon.setOnClickListener {
@@ -137,16 +170,23 @@ class PaymentFragment : Fragment() {
     private fun observeViewModel() {
         paymentViewModel.currentParkingInfo.observe(viewLifecycleOwner, Observer { parking ->
             if (parking != null) {
+                Log.d("PaymentFragment", "정산 페이지 타이머 시작")
                 updateUI(parking) // UI 업데이트
+                startIdleTimer()
             } else {
+                Log.d("PaymentFragment", "정산 페이지 타이머 멈춤")
                 showEmptyState()
             }
             paymentViewModel.calculatePaymentTotalTime()
-            resetIdleTimer()
         })
 
         paymentViewModel.discountReceiptHours.observe(viewLifecycleOwner, Observer { hours ->
             updateDiscountReceiptHours(hours ?: 0)
+            resetIdleTimer()
+        })
+
+        paymentViewModel.discountCouponHours.observe(viewLifecycleOwner, Observer { hours ->
+            updateDiscountCouponHours(hours ?: 0)
             resetIdleTimer()
         })
 
@@ -227,6 +267,10 @@ class PaymentFragment : Fragment() {
 
     private fun updateDiscountReceiptHours(hours: Int) {
         binding.textPaymentValueDiscountReceipt.text = getString(R.string.formatted_discount_time, hours, 0)
+    }
+
+    private fun updateDiscountCouponHours(hours: Int) {
+        binding.textPaymentValueDiscountCoupon.text = getString(R.string.formatted_discount_time, hours, 0)
     }
 
     private fun updatePaymentTime(totalTime: Int?) {
