@@ -40,7 +40,11 @@ class PaymentFragment : Fragment() {
     private val idleRunnable = Runnable {
         // 정산할 주차 내역 없다면 타이머 실행하지 않음
         if (isAdded && paymentViewModel.currentParkingInfo.value != null) {
-            showAlertAndRefreshPage()
+            showCustomDialog(getString(R.string.content_dialog_refresh)) {
+                paymentViewModel.resetDiscounted()
+                resetIdleTimer()
+                refreshPage()
+            }
         }
     }
     private var isDialogVisible = false // 팝업 상태를 관리하는 변수
@@ -80,7 +84,7 @@ class PaymentFragment : Fragment() {
         startIdleTimer()
     }
 
-    private fun showAlertAndRefreshPage() {
+    private fun showCustomDialog(message: String, onConfirm: () -> Unit) {
         if (isDialogVisible) return
 
         context?.let {
@@ -88,7 +92,7 @@ class PaymentFragment : Fragment() {
             val messageTextView = dialogView.findViewById<TextView>(R.id.text_dialog_message)
             val confirmBtn = dialogView.findViewById<ImageButton>(R.id.btn_dialog_check)
 
-            messageTextView.text = "1분 이상 동작이 없어 새로고침합니다."
+            messageTextView.text = message
 
             val dialog = AlertDialog.Builder(it)
                 .setView(dialogView)
@@ -97,10 +101,8 @@ class PaymentFragment : Fragment() {
 
             confirmBtn.setOnClickListener {
                 dialog.dismiss()
-                paymentViewModel.resetDiscounted()
                 isDialogVisible = false
-                resetIdleTimer()
-                refreshPage()
+                onConfirm()
             }
 
             dialog.setOnShowListener {
@@ -124,36 +126,8 @@ class PaymentFragment : Fragment() {
 
     private fun setupListeners() {
         binding.btnPaymentToPayment.setOnClickListener {
-            paymentViewModel.currentParkingInfo.value?.let { parkingInfo ->
-                val amount = paymentViewModel.totalAmountToPay.value.toString()
-                val orderId = "order_" + parkingInfo.parkingId
-                val username = PreferencesUtil.getUsername("here12314")
-                val orderName = "${parkingInfo.parkingLotName} 주차 정산"
-                val customerName = PreferencesUtil.getUsername("here12314")
-                val memberCouponId = couponViewModel.selectedCoupon.value?.memberCouponId
-                val receiptId = receiptViewModel.receiptData.value?.receiptId
-                val couponDiscountTime = paymentViewModel.discountCouponHours.value.toString()
-                val receiptDiscountTime = paymentViewModel.discountReceiptHours.value.toString()
-                val totalParkingTime = paymentViewModel.totalTimeToPay.value.toString()
-                val totalPrice = paymentViewModel.totalAmountToPay.value.toString()
-                val card = "토스 페이먼츠"
-
-                val intent = Intent(activity, PaymentWebViewActivity::class.java).apply {
-                    putExtra("amount", amount)
-                    putExtra("orderId", orderId)
-                    putExtra("username", username)
-                    putExtra("orderName", orderName)
-                    putExtra("customerName", customerName)
-                    putExtra("parkingId", parkingInfo.parkingId.toString())
-                    putExtra("memberCouponId", memberCouponId.toString())
-                    putExtra("receiptId", receiptId.toString())
-                    putExtra("couponDiscountTime", couponDiscountTime)
-                    putExtra("receiptDiscountTime", receiptDiscountTime)
-                    putExtra("totalParkingTime", totalParkingTime)
-                    putExtra("totalPrice", totalPrice)
-                    putExtra("card", card)
-                }
-                startActivity(intent)
+            showCustomDialog(getString(R.string.content_dialog_payment)) {
+                startPaymentWebViewActivity()
             }
         }
 
@@ -278,6 +252,40 @@ class PaymentFragment : Fragment() {
         val resultHours = totalMinutes / 60
         val resultMinutes = totalMinutes % 60
         binding.textPaymentValuePaymentTime.text = getString(R.string.formatted_payment_time, resultHours, resultMinutes)
+    }
+
+    private fun startPaymentWebViewActivity() {
+        paymentViewModel.currentParkingInfo.value?.let { parkingInfo ->
+            val amount = paymentViewModel.totalAmountToPay.value.toString()
+            val orderId = "order_" + parkingInfo.parkingId
+            val username = PreferencesUtil.getUsername("here12314")
+            val orderName = "${parkingInfo.parkingLotName} 주차 정산"
+            val customerName = PreferencesUtil.getUsername("here12314")
+            val memberCouponId = couponViewModel.selectedCoupon.value?.memberCouponId
+            val receiptId = receiptViewModel.receiptData.value?.receiptId
+            val couponDiscountTime = paymentViewModel.discountCouponHours.value.toString()
+            val receiptDiscountTime = paymentViewModel.discountReceiptHours.value.toString()
+            val totalParkingTime = paymentViewModel.totalTimeToPay.value.toString()
+            val totalPrice = paymentViewModel.totalAmountToPay.value.toString()
+            val card = "토스 페이먼츠"
+
+            val intent = Intent(activity, PaymentWebViewActivity::class.java).apply {
+                putExtra("amount", amount)
+                putExtra("orderId", orderId)
+                putExtra("username", username)
+                putExtra("orderName", orderName)
+                putExtra("customerName", customerName)
+                putExtra("parkingId", parkingInfo.parkingId.toString())
+                putExtra("memberCouponId", memberCouponId.toString())
+                putExtra("receiptId", receiptId.toString())
+                putExtra("couponDiscountTime", couponDiscountTime)
+                putExtra("receiptDiscountTime", receiptDiscountTime)
+                putExtra("totalParkingTime", totalParkingTime)
+                putExtra("totalPrice", totalPrice)
+                putExtra("card", card)
+            }
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {

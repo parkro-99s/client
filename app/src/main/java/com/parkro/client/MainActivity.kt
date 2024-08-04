@@ -1,12 +1,15 @@
 package com.parkro.client
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
@@ -146,5 +149,16 @@ class MainActivity : AppCompatActivity() {
         val marginPx = (marginDp * resources.displayMetrics.density).toInt()
         params.marginStart = marginPx
         view.layoutParams = params
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        intent?.let {
+            Log.d("MainActivity", "onNewIntent ${it.getStringExtra("navigate_to")}")
+            val destination = it.getStringExtra("navigate_to")
+            if (destination.equals("payment_fragment")) {
+                navController.navigate(R.id.navigation_payment)
+            }
+        }
     }
 }

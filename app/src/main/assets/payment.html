@@ -28,7 +28,7 @@
                 orderName: orderName,
                 customerName: customerName,
                 successUrl: serverBaseUrl + "/payment/success",
-                failUrl: "file:///android_asset/fail.html",
+                failUrl: serverBaseUrl + "/payment/fail?amount=" + amount,
             })
             .catch(function (error) {
                 if (error.code === "USER_CANCEL") {
