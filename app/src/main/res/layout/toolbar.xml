@@ -17,14 +17,15 @@
     <!-- 뒤로가기 버튼 -->
     <include
         layout="@layout/btn_back"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"/>
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true" />
 
     <!-- 툴바 로고 -->
     <include
         layout="@layout/logo"
+        android:id="@+id/toolbar_logo_top"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 

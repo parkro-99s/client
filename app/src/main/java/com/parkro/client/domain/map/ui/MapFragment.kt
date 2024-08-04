@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -178,6 +179,7 @@ class MapFragment : Fragment() {
                     kakaoMap.moveCamera(CameraUpdateFactory.newCenterPosition(LatLng.from(it.latitude, it.longitude)))
                 }
             }.onFailure { exception ->
+                Log.e("ParkingListViewModel", "aaaaaaaaaaaaaa", exception)
                 Toast.makeText(context, "주차장을 찾을 수 없습니다. 통신 상태를 확인해주세요.", Toast.LENGTH_LONG).show()
             }
         }

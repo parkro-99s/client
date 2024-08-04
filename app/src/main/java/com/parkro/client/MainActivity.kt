@@ -150,7 +150,6 @@ class MainActivity : AppCompatActivity() {
         params.marginStart = marginPx
         view.layoutParams = params
     }
-
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         intent?.let {

@@ -24,6 +24,7 @@
     <string name="title_btn_register">등록하기</string>
 
     <string name="title_activity_admin">AdminActivity</string>
+    <string name="title_activity_add_car">차량 등록</string>
     <string name="error_login_login_fe">아이디 혹은 비밀번호가 일치하지 않습니다.</string>
 
     <!-- 프론트엔드 회원가입 유효성 검사 에러 메시지-->
@@ -85,5 +86,23 @@
     <string name="btn_store_name_pangyo">판교점</string>
     <string name="btn_store_name_daegu">더현대 대구</string>
 
+    <!-- parkinglot -->
+    <string name="label_parkinglot_outside">외부</string>
+
+    <!-- parkinglist -->
+    <string name="label_parkinglist_pay_done">정산완료</string>
+    <string name="label_parkinglist_exit_done">출차완료</string>
+    <string name="error_parkinglist_not_found">주차 내역이 없습니다.</string>
+
+    <!-- common -->
+    <string name="error_service_unavailable">현재 서비스 점검 중입니다.</string>
+    <string name="error_user_not_found">존재하지 않는 유저입니다.</string>
+
     <string name="title_logout_modal">로그아웃 하시겠습니까?</string>
+    <string name="title_delete_user_modal">회원탈퇴 하시겠습니까?</string>
+    <string name="title_delete_car_modal">차량을 삭제 하시겠습니까?</string>
+    
+    <!-- mypage -->
+    <string name="contents_mypage_1">차량 번호를 잘못 등록할 경우 주차 정산이 정상적으로 진행되지 않을 수 있습니다.</string>
+    <string name="contents_mypage_2">차량은 1대 등록 가능합니다.</string>
 </resources>
