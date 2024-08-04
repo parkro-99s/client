@@ -10,6 +10,7 @@ import android.webkit.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.parkro.client.BuildConfig
+import com.parkro.client.MainActivity
 import com.parkro.client.R
 import com.parkro.client.domain.payment.api.PostPaymentReq
 import com.parkro.client.domain.payment.data.PaymentData
@@ -78,19 +79,39 @@ class PaymentWebViewActivity : AppCompatActivity() {
                 return if (!URLUtil.isNetworkUrl(url) && !URLUtil.isJavaScriptUrl(url)) {
                     val uri = Uri.parse(url)
                     if ("parkro" == uri.scheme) {
-
                         val orderId = uri.getQueryParameter("orderId")
                         val amount = uri.getQueryParameter("amount")
                         val paymentKey = uri.getQueryParameter("paymentKey")
 
-                        paymentKey?.let {
-                            sendPaymentSuccessToServer(paymentKey)
+                        Log.d("PaymentWebViewActivity", "uri host !!!!: ${uri.path}")
+
+                        when (uri.host + uri.path) {
+                            "payment/success" -> {
+                                Log.d("PaymentWebViewActivity", "payment key: $paymentKey")
+                                paymentKey?.let {
+                                    sendPaymentSuccessToServer(paymentKey)
+                                }
+                                startActivity(
+                                    Intent(this@PaymentWebViewActivity, MainActivity::class.java).apply {
+                                        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                                        putExtra("navigate_to", "payment_fragment")
+                                        putExtra("orderId", orderId)
+                                        putExtra("amount", amount)
+                                    }
+                                )
+                            }
+                            "payment/fail" -> {
+                                startActivity(
+                                    Intent(this@PaymentWebViewActivity, PaymentFailureActivity::class.java).apply {
+                                        putExtra("orderId", orderId)
+                                        putExtra("amount", amount)
+                                    }
+                                )
+                            }
+                            else -> {
+                                return handleScheme(url)
+                            }
                         }
-                        val intent = Intent(this@PaymentWebViewActivity, PaymentSuccessActivity::class.java)
-                        intent.putExtra("orderId", orderId)
-                        intent.putExtra("amount", amount)
-                        // 여기에서 결제 내역 삽입을 서버로 요청보내는 로직 추가
-                        startActivity(intent)
                         finish() // 현재 Activity 종료
                         true
                     } else {
@@ -100,6 +121,7 @@ class PaymentWebViewActivity : AppCompatActivity() {
                     false
                 }
             }
+
 
             private fun handleScheme(url: String): Boolean {
                 val schemeIntent: Intent = try {
@@ -129,6 +151,7 @@ class PaymentWebViewActivity : AppCompatActivity() {
     }
 
     private fun sendPaymentSuccessToServer(paymentKey: String) {
+        Log.d("PaymentWebViewActivity", "success to server : $paymentKey")
         val paymentRepository = PaymentRepository()
 
         val paymentRequest = PostPaymentReq(

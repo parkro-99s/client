@@ -65,6 +65,12 @@
     <string name="content_empty_payment">현재 주차된 차량이 없습니다.</string>
 
     <string name="title_btn_use_coupon">사용하기</string>
+    
+    <string name="content_dialog_refresh">1분 이상 동작이 없어 새로고침합니다.</string>
+    <string name="content_dialog_payment">정산 후 10분 내 미출차시\n 결제가 취소됩니다.</string>
+
+    <string name="btn_move_to_payment">정산 페이지로 이동</string>
+    <string name="title_payment_failure">앗, 결제에 실패했습니다.</string>
 
     <!-- coupon -->
     <string name="formatted_free_coupon_hour">%1$d시간 무료 주차권</string>
