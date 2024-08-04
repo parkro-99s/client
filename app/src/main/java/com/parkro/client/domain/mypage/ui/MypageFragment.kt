@@ -75,7 +75,6 @@ class MypageFragment : Fragment() {
                         setNickName(nickname)
                         setCarNumber(carNumber)
 
-                        // Make UI elements visible
                         binding.tvMypageInfoTitle.visibility = View.VISIBLE
                         binding.tvMypageCarTitle.visibility = View.VISIBLE
                         binding.btnMypageUserProfileModify.visibility = View.VISIBLE
@@ -85,9 +84,7 @@ class MypageFragment : Fragment() {
                 },
                 onFailure = { error ->
                     Log.e("MypageFragment", "Error fetching user details: $error")
-                    // Optional: Show an error message to the user
                     activity?.runOnUiThread {
-                        // Show a Toast or AlertDialog with the error message
                         Toast.makeText(requireContext(), "Failed to fetch user details", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -132,11 +129,50 @@ class MypageFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        refreshData()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
+    private fun refreshData() {
+        val carProfile = PreferencesUtil.getCarProfile()
+
+        setCarProfile(carProfile)
+        setFrameCarProfile(carProfile)
+
+        mypageRepository.getUserDetails { result ->
+            result.fold(
+                onSuccess = { userDetails ->
+                    activity?.runOnUiThread {
+                        username = userDetails.username
+                        nickname = userDetails.nickname
+                        carNumber = userDetails.carNumber
+
+                        setUsername(username)
+                        setNickName(nickname)
+                        setCarNumber(carNumber)
+
+                        binding.tvMypageInfoTitle.visibility = View.VISIBLE
+                        binding.tvMypageCarTitle.visibility = View.VISIBLE
+                        binding.btnMypageUserProfileModify.visibility = View.VISIBLE
+                        binding.layoutMypageLine1.visibility = View.VISIBLE
+                        binding.layoutMypageFooter.visibility = View.VISIBLE
+                    }
+                },
+                onFailure = { error ->
+                    Log.e("MypageFragment", "Error fetching user details: $error")
+                    activity?.runOnUiThread {
+                        Toast.makeText(requireContext(), "Failed to fetch user details", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            )
+        }
+    }
     private fun showLogoutDialog(message: String) {
         val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.custom_dialog_two_btns, null)
         val messageTextView = dialogView.findViewById<TextView>(R.id.text_dialog_message)

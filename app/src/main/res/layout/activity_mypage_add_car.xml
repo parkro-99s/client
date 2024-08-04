@@ -6,4 +6,235 @@
     android:layout_height="match_parent"
     tools:context=".domain.mypage.ui.MypageAddCarActivity">
 
+    <include layout="@layout/toolbar"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingHorizontal="20dp"
+        android:paddingTop="62dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/tv_mypage_add_car_number_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/parkro_black"
+            android:textSize="20sp"
+            android:text="차량 번호"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <EditText
+            android:id="@+id/edt_mypage_add_car_car_number"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edt_background"
+            android:hint="123가4567"
+            android:inputType="text"
+            android:paddingRight="20dp"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_add_car_number_title"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_mypage_add_car_owner_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/parkro_black"
+            android:textSize="20sp"
+            android:text="차량 소유자명"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edt_mypage_add_car_car_number"
+            />
+
+        <EditText
+            android:id="@+id/edt_mypage_add_car_car_owner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/edt_background"
+            android:hint="이름"
+            android:inputType="text"
+            android:paddingRight="20dp"
+            android:textSize="16sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_add_car_owner_title"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_mypage_add_car_contents_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/edt_mypage_add_car_car_owner"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/parkro_red"
+            android:lineSpacingExtra="5dp"
+            android:text="@string/contents_mypage_1" />
+
+        <TextView
+            android:id="@+id/tv_mypage_add_car_contents_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/parkro_red"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_add_car_contents_1"
+            android:text="@string/contents_mypage_2"/>
+
+        <LinearLayout
+            android:id="@+id/layout_mypage_add_car_total_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/tv_mypage_add_car_contents_2"
+            android:layout_marginTop="40dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="315dp">
+
+                <ImageView
+                    android:id="@+id/img_add_car_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/img_mypage_add_car_frame"
+                    android:scaleType="fitXY" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- 첫 번째 레이아웃 -->
+                        <LinearLayout
+                            android:id="@+id/layout_mypage_add_car_frame_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <CheckBox
+                                android:id="@+id/cb_mypage_add_car"
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                />
+
+                            <TextView
+                                android:id="@+id/tv_mypage_add_car_frame_1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="개인정보 수집·이용 동의 (필수)"
+                                android:textColor="@color/parkro_black"
+                                android:textSize="14sp"
+                                android:layout_marginStart="8dp"
+                                android:layout_gravity="center_vertical" />
+                        </LinearLayout>
+
+                        <!-- 두 번째 레이아웃 -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_mypage_add_car_frame_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textColor="@color/parkro_black"
+                                android:textStyle="normal"
+                                android:lineSpacingExtra="2dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginLeft="7dp"
+                                android:text="- 수집·이용 목적 : 차량 이용 서비스(주차 정산, 주차 위치 찾기 등) 제공 및 고객 응대"/>
+
+                            <TextView
+                                android:id="@+id/tv_mypage_add_car_frame_3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textColor="@color/parkro_black"
+                                android:textStyle="normal"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginLeft="7dp"
+                                android:text="- 수집·이용 항목 : 차량번호"/>
+                            <TextView
+                                android:id="@+id/tv_mypage_add_car_frame_4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textColor="@color/parkro_black"
+                                android:textStyle="normal"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginLeft="7dp"
+                                android:text="- 보유·이용 기간 : 회원의 삭제 요청이 있거나, 회원 탈퇴 시 즉시 파기"/>
+                            <TextView
+                                android:id="@+id/tv_mypage_add_car_frame_5"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textColor="@color/parkro_black"
+                                android:textStyle="normal"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginLeft="7dp"
+                                android:text="(다만, 관계법령​에 의해 보존할 필요가 있는 경우 관계법령에서 정한 일정한 기간 동안 회원정보 보관)"/>
+                            <TextView
+                                android:id="@+id/tv_mypage_add_car_frame_6"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textColor="@color/parkro_black"
+                                android:textStyle="normal"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginLeft="7dp"
+                                android:text="※ 동의를 거부할 권리가 있으나, 미동의시 관련 서비스를 이용할 수 없습니다."/>
+                            <TextView
+                                android:id="@+id/tv_mypage_add_car_frame_7"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                android:textColor="@color/parkro_black"
+                                android:textStyle="normal"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginLeft="7dp"
+                                android:text="※ 본인 명의의 현대백화점카드로 결제 시 자동 주차 정산 서비스 이용이 가능하며, 그외 수단으로 결제 시 영수증 등록을 통해 주차 정산 서비스 이용이 가능합니다."/>
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+            <Button
+                android:enabled="false"
+                android:id="@+id/btn_mypage_add_car"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@id/layout_mypage_add_car_total_frame"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/btn_large_background"
+                android:text="등록하기"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,4 +17,7 @@ interface MypageService {
     @GET("/member/{username}")
     fun getUserDetails(@Path("username") username: String): Call<GetUserDetailsRes>
 
+    @PATCH("/member/car")
+    fun postCarDetails(@Body postCarReq: PostCarReq): Call<ResponseBody>
+
 }

@@ -7,11 +7,11 @@
     <!-- Fragment 시작 위치 -->
 <!--    app:startDestination="@+id/navigation_example">-->
 
-<!--    <fragment-->
-<!--        android:id="@+id/navigation_coupon"-->
-<!--        android:name="com.parkro.client.domain.payment.ui.CouponFragment"-->
-<!--        android:label="@string/title_coupon"-->
-<!--        tools:layout="@layout/fragment_coupon" />-->
+    <fragment
+        android:id="@+id/navigation_coupon"
+        android:name="com.parkro.client.domain.payment.ui.CouponFragment"
+        android:label="@string/title_coupon"
+        tools:layout="@layout/fragment_coupon" />
 
     <fragment
         android:id="@+id/navigation_barcode_scan"
