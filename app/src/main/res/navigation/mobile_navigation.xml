@@ -41,7 +41,17 @@
         android:id="@+id/navigation_parkinglist"
         android:name="com.parkro.client.domain.parkinglist.ui.ParkingListFragment"
         android:label="@string/title_parkinglist"
-        tools:layout="@layout/fragment_parkinglist" />
+        tools:layout="@layout/fragment_parkinglist">
+        <action
+            android:id="@+id/action_parkingListFragment_to_parkingDetailFragment"
+            app:destination="@id/navigation_parkingdetail" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_parkingdetail"
+        android:name="com.parkro.client.domain.parkinglist.ui.ParkingDetailFragment"
+        android:label="@string/title_parking_detail"
+        tools:layout="@layout/fragment_parking_detail" />
 
     <fragment
         android:id="@+id/navigation_payment"
@@ -54,4 +64,5 @@
         android:name="com.parkro.client.domain.mypage.ui.MypageFragment"
         android:label="@string/title_mypage"
         tools:layout="@layout/fragment_mypage" />
+
 </navigation>

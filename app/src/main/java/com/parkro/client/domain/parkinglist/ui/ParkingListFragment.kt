@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.parkro.client.MainActivity
@@ -46,6 +47,11 @@ class ParkingListFragment : Fragment() {
 
     // RecyclerView 설정
     private fun setupRecyclerView() {
+
+        // 카드 아이템 터치 시, 상세 페이지로 이동
+        adapter = ParkingRecyclerAdapter(mutableListOf()) { parkingId ->
+            openParkingDetailFragment(parkingId)
+        }
         adapter = ParkingRecyclerAdapter(mutableListOf())
         binding.recyclerviewParkingList.adapter = adapter
 
@@ -99,6 +105,14 @@ class ParkingListFragment : Fragment() {
         binding.recyclerviewParkingList.visibility = View.GONE
         binding.layoutParkinglistNotfound.visibility = View.VISIBLE
         binding.textParkinglistNotfound.text = errorMessage
+    }
+
+    // 주차 내역 상세 페이지
+    private fun openParkingDetailFragment(parkingId: Int) {
+        val bundle = Bundle().apply {
+            putInt("parkingId", parkingId)
+        }
+        NavHostFragment.findNavController(this).navigate(R.id.action_parkingListFragment_to_parkingDetailFragment, bundle)
     }
 
     override fun onDestroyView() {
