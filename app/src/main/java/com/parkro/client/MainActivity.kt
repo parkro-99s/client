@@ -63,7 +63,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_payment,
                 R.id.navigation_mypage,
                 R.id.navigation_parkinglist_admin,
-                R.id.navigation_logout_admin
+                R.id.navigation_logout_admin,
+                R.id.navigation_parkingdetail
             )
 
             // 기본 네비게이션 아이콘(Back Button) 제거
@@ -113,10 +114,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Update toolbar title
-    fun updateToolbarTitle(title: String, showBackBtn: Boolean = false, showLogo: Boolean = false) {
+    fun updateToolbarTitle(title: String,
+                           showBackBtn: Boolean = false,
+                           showLogo: Boolean = false,
+                           showDeleteBtn: Boolean = false) {
         val toolbarTitle: TextView = findViewById(R.id.toolbar_title)
         val toolbarBackBtn : ImageButton = findViewById(R.id.toolbar_back)
         val toolbarLogo: ImageView = findViewById(R.id.toolbar_logo)
+        val toolbarDelete : ImageButton = findViewById(R.id.toolbar_delete)
 
         toolbarTitle.text = title
         if (title.isEmpty()) {
@@ -124,6 +129,7 @@ class MainActivity : AppCompatActivity() {
             toolbarTitle.visibility = View.GONE
             toolbarLogo.visibility = View.VISIBLE
             toolbarLogo.setImageResource(R.drawable.ic_toolbar_logo)
+            toolbarDelete.visibility = View.GONE
         } else {
             toolbarTitle.visibility = View.VISIBLE
             toolbarLogo.visibility = View.GONE
@@ -133,6 +139,10 @@ class MainActivity : AppCompatActivity() {
                 setMargins(toolbarTitle, 54.0f)
                 toolbarBackBtn.setOnClickListener {
                     onBackPressed()
+                }
+
+                if (showDeleteBtn) {
+                    toolbarDelete.visibility = View.VISIBLE
                 }
             } else {
                 toolbarBackBtn.visibility = View.GONE

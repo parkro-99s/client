@@ -2,6 +2,7 @@
     <string name="app_name">Parkro</string>
     <string name="title_map">지도</string>
     <string name="title_parkinglist">주차 내역</string>
+    <string name="title_parking_detail">주차 상세 내역</string>
     <string name="title_payment">정산</string>
     <string name="title_mypage">마이페이지</string>
     <string name="title_receipt">영수증</string>
@@ -53,6 +54,7 @@
 
     <string name="title_payment_time">정산 필요 시간</string>
     <string name="title_amount_payment">결제 금액</string>
+    <string name="title_paymentby">결제 수단</string>
     <string name="formatted_payment_time">%1$d시간 %2$d분</string>
     <string name="formatted_discount_time">-%1$d시간 %2$d분</string>
     <string name="formatted_amount_payment">%1$,d원</string>

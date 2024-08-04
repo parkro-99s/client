@@ -1,6 +1,5 @@
 package com.parkro.client.domain.parkinglist.ui
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.parkro.client.R
 import com.parkro.client.databinding.ItemParkinglistBinding
 import com.parkro.client.domain.parkinglist.api.GetParkingRes
+import com.parkro.client.util.DateFormatUtil
 
-class ParkingRecyclerAdapter(private val parkingList: MutableList<GetParkingRes>) :
-    RecyclerView.Adapter<ParkingRecyclerAdapter.ParkingRecyclerViewHolder>() {
+class ParkingRecyclerAdapter(
+    private val parkingList: MutableList<GetParkingRes>,
+    private val onItemClicked: (Int) -> Unit
+) : RecyclerView.Adapter<ParkingRecyclerAdapter.ParkingRecyclerViewHolder>() {
 
     inner class ParkingRecyclerViewHolder(private val binding: ItemParkinglistBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -18,7 +20,7 @@ class ParkingRecyclerAdapter(private val parkingList: MutableList<GetParkingRes>
             binding.textParkinglistStoreName.text = parking.storeName
             binding.textParkinglistParkingLotName.text = parking.parkingLotName
             binding.textParkinglistCarNumber.text = parking.carNumber
-            binding.btnParkinglistEntranceDate.text = parking.entranceDate
+            binding.btnParkinglistEntranceDate.text = DateFormatUtil.formatDate(parking.entranceDate)
 
             when (parking.status) {
                 "PAY" -> {
@@ -45,10 +47,7 @@ class ParkingRecyclerAdapter(private val parkingList: MutableList<GetParkingRes>
 
             binding.root.setOnClickListener {
                 if (parking.status != "ENTRANCE") {
-                    val context = binding.root.context
-                    val intent = Intent(context, ParkingDetailActivity::class.java)
-                    intent.putExtra("parkingId", parking.parkingId)
-                    context.startActivity(intent)
+                    onItemClicked(parking.parkingId)
                 }
             }
         }
