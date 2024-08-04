@@ -8,7 +8,7 @@ interface SignUpService {
 
     // API 경로 지정 및 응답 데이터 지정
     @GET("/member")
-    fun getUsername(@Query("user") username: String): Call<String>
+    fun getUsername(@Query("user") username: String): Call<ResponseBody>
 
     @POST("/member/sign-up")
     fun postSignUp(@Body postSignUpReq: PostSignUpReq): Call<ResponseBody>

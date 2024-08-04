@@ -2,6 +2,7 @@ package com.parkro.client.domain.login.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.ViewGroup
 import android.view.animation.Animation
@@ -44,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
                         response?.let {
                             PreferencesUtil.setAccessToken(it.token)
                             PreferencesUtil.setUsername(it.username)
-
+                            PreferencesUtil.setCarProfile(it.carProfile)
                             val payload = decodeJWT(it.token)
                             val rolesList = extractRolesFromPayload(payload) // Extract roles as a list of strings
                             if (rolesList.contains("ROLE_ADMIN")) {
