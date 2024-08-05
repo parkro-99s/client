@@ -237,4 +237,10 @@
                 android:textStyle="bold" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/img_mypage_add_car_gif"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:visibility="invisible"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

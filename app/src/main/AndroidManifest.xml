@@ -57,6 +57,9 @@
         android:theme="@style/Theme.Client"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".common.ui.LoadingActivity"
+            android:exported="false" />
+        <activity
             android:name=".domain.mypage.ui.MypageModifyUserActivity"
             android:exported="false" />
         <activity
@@ -69,12 +72,12 @@
             android:name=".domain.admin.ui.AdminActivity"
             android:exported="true"
             android:label="@string/title_activity_admin" />
-
         <activity
             android:name=".common.ui.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -95,10 +98,11 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".domain.payment.ui.PaymentWebViewActivity"
             android:exported="true" />
+
 
         <service
             android:name=".domain.firebase.ui.MyFirebaseMessagingService"
