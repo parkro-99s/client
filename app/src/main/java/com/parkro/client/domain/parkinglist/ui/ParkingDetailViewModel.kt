@@ -1,5 +1,6 @@
 package com.parkro.client.domain.parkinglist.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,10 +43,10 @@ class ParkingDetailViewModel : ViewModel() {
                     if (deletedCount > 0) {
                         _deleteState.postValue(true)
                     } else {
-                        _errorState.postValue("Failed to delete parking detail.")
+                        _errorState.postValue("주차 내역 삭제에 실패했습니다.")
                     }
                 }.onFailure { error ->
-                    _errorState.postValue("An error occurred: ${error.message}")
+                    _errorState.value = error.message
                 }
             }
         }

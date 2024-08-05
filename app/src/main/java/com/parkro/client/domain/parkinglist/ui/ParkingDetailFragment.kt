@@ -42,7 +42,7 @@ class ParkingDetailFragment : Fragment() {
         if (parkingId != -1) {
             viewModel.fetchParkingDetail(parkingId)
         } else {
-            Toast.makeText(requireContext(), "주차 상세 내역이 없습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.error_empty_parking_detail), Toast.LENGTH_SHORT).show()
             parentFragmentManager.popBackStack()
         }
 
@@ -86,13 +86,13 @@ class ParkingDetailFragment : Fragment() {
 
         viewModel.errorState.observe(viewLifecycleOwner, Observer { errorMessage ->
             errorMessage?.let {
-                Toast.makeText(requireContext(), "해당 주차ID의 상세 내역이 여러 개입니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.error_empty_parking_detail), Toast.LENGTH_SHORT).show()
             }
         })
 
         viewModel.deleteState.observe(viewLifecycleOwner, Observer { isDeleted ->
             if (isDeleted) {
-                Toast.makeText(requireContext(), "주차 내역이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.content_completed_parking_delete), Toast.LENGTH_SHORT).show()
                 val navController = NavHostFragment.findNavController(this@ParkingDetailFragment)
                 navController.popBackStack()
                 navController.navigate(R.id.navigation_parkinglist)  // parkingListFragment로 네비게이트
@@ -108,7 +108,7 @@ class ParkingDetailFragment : Fragment() {
         val cancelBtn = dialogView.findViewById<ImageButton>(R.id.btn_dialog_cancel)
         val confirmBtn = dialogView.findViewById<ImageButton>(R.id.btn_dialog_check)
 
-        messageTextView.text = "주차 내역을 삭제하시겠습니까?"
+        messageTextView.text = getString(R.string.content_dialog_parking_delete)
 
         val dialog = AlertDialog.Builder(requireContext())
             .setView(dialogView)
