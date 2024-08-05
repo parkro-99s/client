@@ -1,11 +1,13 @@
 package com.parkro.client.domain.admin_parkinglist.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -75,6 +77,11 @@ class AdminParkingListFragment : Fragment() {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 Log.d("AdminParkingListFragment", "text: ${v.text.toString().trim()}")
                 adminParkingListViewModel.updateSelectedCarNumber(v.text.toString().trim())
+
+                // Hide the keyboard
+                val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(v.windowToken, 0)
+
                 handled = true
             }
             handled
