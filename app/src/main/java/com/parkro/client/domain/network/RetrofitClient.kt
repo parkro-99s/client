@@ -20,16 +20,16 @@ object RetrofitClient {
 
     private val okHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val token = PreferencesUtil.getAccessToken(null)
-                Log.d("token","token+$token")
-
-                val request: Request = chain.request().newBuilder()
-                    .addHeader(AUTH_HEADER, "$token")
-                    .build()
-
-                chain.proceed(request)
-            }
+//            .addInterceptor { chain ->
+//                val token = PreferencesUtil.getAccessToken(null)
+//                Log.d("token","token+$token")
+//
+//                val request: Request = chain.request().newBuilder()
+//                    .addHeader(AUTH_HEADER, "$token")
+//                    .build()
+//
+//                chain.proceed(request)
+//            }
             .build()
     }
 

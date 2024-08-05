@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="62dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_admin_parking_detail_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="20dp"
+            android:paddingHorizontal="20dp">
+
+            <TextView
+                android:id="@+id/text_admin_parking_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="@string/title_parking_detail"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_admin_parking_store_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_title"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="5dp" />
+
+            <TextView
+                android:id="@+id/text_admin_parking_parkinglot_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_store_name"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="5dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_admin_parking_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/layout_admin_parking_detail_1"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/text_admin_parking_title_car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="차 번호" />
+
+            <TextView
+                android:id="@+id/text_admin_parking_title_entrance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_title_car"
+                android:text="입차 시간" />
+
+            <TextView
+                android:id="@+id/text_admin_parking_title_exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_title_entrance"
+                android:text="출차 시간" />
+
+            <TextView
+                android:id="@+id/text_admin_parking_title_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_title_exit"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="주차 상태" />
+
+            <TextView
+                android:id="@+id/text_admin_parking_value_car"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                 />
+
+            <TextView
+                android:id="@+id/text_admin_parking_value_entrance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_value_car"
+                app:layout_constraintEnd_toEndOf="parent"
+                 />
+
+            <TextView
+                android:id="@+id/text_admin_parking_value_exit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_value_entrance"
+                app:layout_constraintEnd_toEndOf="parent"
+                 />
+
+            <TextView
+                android:id="@+id/text_admin_parking_value_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_value_exit"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/layout_parking_detail_divider_1"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/parkro_white_gray"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_admin_parking_status" />
+
+
+        <TextView
+            android:id="@+id/text_admin_parking_payment_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/layout_parking_detail_divider_1"
+            android:text="결제 정보" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_admin_parking_payment_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/text_admin_parking_payment_title"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/text_admin_parking_title_payment_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="결제 시간" />
+
+            <TextView
+                android:id="@+id/text_admin_parking_title_payment_coupon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_title_payment_date"
+                android:text="쿠폰 할인" />
+
+            <TextView
+                android:id="@+id/text_admin_parking_title_payment_receipt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_title_payment_coupon"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="영수증 할인" />
+
+            <TextView
+                android:id="@+id/text_admin_parking_title_payment_payment_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_title_payment_receipt"
+                android:text="정산 시간" />
+
+            <TextView
+                android:id="@+id/text_admin_parking_title_payment_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_title_payment_payment_time"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="결제 금액" />
+
+            <TextView
+                android:id="@+id/text_admin_parking_value_payment_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                 />
+
+            <TextView
+                android:id="@+id/text_admin_parking_value_payment_coupon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_value_payment_date"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/text_admin_parking_value_payment_receipt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_value_payment_coupon"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/text_admin_parking_value_payment_payment_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_value_payment_receipt"
+                app:layout_constraintEnd_toEndOf="parent"
+                 />
+
+            <TextView
+                android:id="@+id/text_admin_parking_value_payment_total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/black"
+                app:layout_constraintTop_toBottomOf="@id/text_admin_parking_value_payment_payment_time"
+                app:layout_constraintEnd_toEndOf="parent"
+                 />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/btn_admin_parking_complete_payment"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/ic_btn_navy_long"
+            android:text="@string/btn_completed_payment_admin"
+            android:textColor="@color/parkro_white"
+            android:fontFamily="@font/pretendard_semibold"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@id/layout_admin_parking_payment_status"
+            android:textSize="16sp"
+            android:visibility="invisible" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_admin_parking_complete_payment_disabled"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/ic_btn_white_grey_long"
+            android:text="@string/btn_completed_payment_admin"
+            android:textColor="#C1C1C1"
+            android:fontFamily="@font/pretendard_semibold"
+            android:layout_marginTop="30dp"
+            app:layout_constraintTop_toBottomOf="@id/layout_admin_parking_payment_status"
+            android:textSize="16sp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
