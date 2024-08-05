@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.google.gson.Gson
 import com.parkro.client.BuildConfig
 import com.parkro.client.R
@@ -27,11 +29,13 @@ class MypageAddCarActivity : AppCompatActivity() {
     private val executor = Executors.newSingleThreadExecutor()
     private val mypageRepository = MypageRepository()
     private lateinit var registerButton: Button
+    private lateinit var imgGif: ImageView
     private var memberId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage_add_car)
+        initialSet()
         registerButton = findViewById(R.id.btn_mypage_add_car)
 
         val toolbarLogo: ImageView = findViewById(R.id.toolbar_logo)
@@ -62,6 +66,15 @@ class MypageAddCarActivity : AppCompatActivity() {
         val carNumberText: TextView = findViewById(R.id.edt_mypage_add_car_car_number)
         val ownerNameText: TextView = findViewById(R.id.edt_mypage_add_car_car_owner)
         registerButton.setOnClickListener {
+            imgGif.setVisibility(View.VISIBLE);
+            imgGif.bringToFront();
+            imgGif?.let {
+                Glide.with(this)
+                    .asGif()
+                    .load(R.raw.loading_animation)
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .into(imgGif!!)
+            }
             registerButton.isEnabled = false
             val carNumber = carNumberText.text.toString().trim()
             val name = ownerNameText.text.toString().trim()
@@ -140,6 +153,7 @@ class MypageAddCarActivity : AppCompatActivity() {
                             showCustomDialog("잠시 후 다시 시도해 주세요.")
                         }
                     }
+                    imgGif.visibility = View.INVISIBLE
                 } catch (e: Exception) {
                     Log.e("Exception", "Exception occurred: ${e.message}")
                     runOnUiThread {
@@ -147,6 +161,7 @@ class MypageAddCarActivity : AppCompatActivity() {
                         carNumberText.isEnabled = true
                         showCustomDialog("잠시 후 다시 시도해 주세요.")
                     }
+                    imgGif.visibility = View.INVISIBLE
                 }
             }
 
@@ -241,5 +256,9 @@ class MypageAddCarActivity : AppCompatActivity() {
             (resources.displayMetrics.widthPixels * 0.8).toInt(),
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
+    }
+
+    private fun initialSet() {
+        imgGif = findViewById(R.id.img_mypage_add_car_gif) as ImageView
     }
 }

@@ -13,12 +13,10 @@ import com.parkro.client.util.PreferencesUtil
 import com.parkro.client.domain.login.api.PostLoginReq
 import com.parkro.client.domain.login.data.LoginRepository
 import com.parkro.client.domain.signup.ui.SignUpActivity
-
 import org.json.JSONObject
 import java.util.Base64
 import android.view.animation.AnimationUtils
 import android.widget.*
-
 
 class LoginActivity : AppCompatActivity() {
 
@@ -26,85 +24,30 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(com.parkro.client.R.layout.activity_login)
         PreferencesUtil.init(applicationContext)
+
         val usernameText: EditText = findViewById(com.parkro.client.R.id.edt_login_username)
         val passwordText: EditText = findViewById(com.parkro.client.R.id.edt_login_password)
         val submitButton: Button = findViewById(com.parkro.client.R.id.btn_login)
         val signupButton: TextView = findViewById(com.parkro.client.R.id.tv_signup)
-        val loginRepository = LoginRepository()
         val errorText: TextView = findViewById(com.parkro.client.R.id.tv_login_error)
         val car: ImageView = findViewById(com.parkro.client.R.id.img_login_car_shadow)
+        val checkbox: CheckBox = findViewById(com.parkro.client.R.id.cb_login)
+        val loginRepository = LoginRepository()
+
+        val storedUsername = PreferencesUtil.getUsername(null)
+        val storedPassword = PreferencesUtil.getPassword(null)
+        if (storedUsername != null && storedPassword != null) {
+            usernameText.setText(storedUsername)
+            passwordText.setText(storedPassword)
+            checkbox.isChecked = true
+            loginChecked(storedUsername, storedPassword, car, errorText, submitButton, loginRepository)
+        }
+
         submitButton.setOnClickListener {
-            submitButton.isEnabled = false
             val username = usernameText.text.toString().trim()
             val password = passwordText.text.toString().trim()
-
-            val loginDTO = PostLoginReq(username, password)
-            loginRepository.postLogin(loginDTO) { result ->
-                result.fold(
-                    onSuccess = { response ->
-                        response?.let {
-                            PreferencesUtil.setAccessToken(it.token)
-                            PreferencesUtil.setUsername(it.username)
-                            PreferencesUtil.setCarProfile(it.carProfile)
-                            val payload = decodeJWT(it.token)
-                            val rolesList = extractRolesFromPayload(payload) // Extract roles as a list of strings
-                            if (rolesList.contains("ROLE_ADMIN")) {
-                                val animCarOut: Animation = AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
-                                car.startAnimation(animCarOut)
-                                animCarOut.setAnimationListener(object : Animation.AnimationListener {
-                                    override fun onAnimationStart(animation: Animation?) {
-                                    }
-
-                                    override fun onAnimationEnd(animation: Animation?) {
-                                        val intent = Intent(this@LoginActivity, AdminActivity::class.java)
-                                        startActivity(intent)
-                                        finish()
-                                    }
-
-                                    override fun onAnimationRepeat(animation: Animation?) {
-                                    }
-                                })
-                            } else {
-                                val animCarOut: Animation = AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
-                                car.startAnimation(animCarOut)
-                                animCarOut.setAnimationListener(object : Animation.AnimationListener {
-                                    override fun onAnimationStart(animation: Animation?) {
-                                    }
-
-                                    override fun onAnimationEnd(animation: Animation?) {
-                                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                                        startActivity(intent)
-                                        finish()
-                                    }
-
-                                    override fun onAnimationRepeat(animation: Animation?) {
-                                    }
-                                })
-                                }
-                            }
-                        },
-                    onFailure = { error ->
-                        val animCarOut: Animation = AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
-                        car.startAnimation(animCarOut)
-                        animCarOut.setAnimationListener(object : Animation.AnimationListener {
-                            override fun onAnimationStart(animation: Animation?) {
-                            }
-
-                            override fun onAnimationEnd(animation: Animation?) {
-                                submitButton.isEnabled = true
-                                runOnUiThread {
-                                    errorText.visibility = TextView.VISIBLE
-                                    setButtonMarginTop(submitButton, 60)
-                                }
-                            }
-
-                            override fun onAnimationRepeat(animation: Animation?) {
-                            }
-                        })
-
-                    }
-                )
-            }
+            if(checkbox.isChecked) loginChecked(username, password, car, errorText, submitButton, loginRepository)
+            else loginUnChecked(username, password, car, errorText, submitButton, loginRepository)
         }
 
         signupButton.setOnClickListener {
@@ -113,42 +56,110 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun loginChecked(username: String, password: String, car: ImageView, errorText: TextView, submitButton: Button, loginRepository: LoginRepository) {
+        submitButton.isEnabled = false
+        val loginDTO = PostLoginReq(username, password)
+        loginRepository.postLogin(loginDTO) { result ->
+            result.fold(
+                onSuccess = { response ->
+                    response?.let {
+                        PreferencesUtil.setAccessToken(it.token)
+                        PreferencesUtil.setPassword(password)
+                        PreferencesUtil.setUsername(it.username)
+                        PreferencesUtil.setCarProfile(it.carProfile)
+                        val payload = decodeJWT(it.token)
+                        val rolesList = extractRolesFromPayload(payload)
+                        if (rolesList.contains("ROLE_ADMIN")) {
+                            animateCarAndNavigate(car, AdminActivity::class.java)
+                        } else {
+                            animateCarAndNavigate(car, MainActivity::class.java)
+                        }
+                    }
+                },
+                onFailure = { error ->
+                    val animCarOut: Animation = AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
+                    car.startAnimation(animCarOut)
+                    animCarOut.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationStart(animation: Animation?) {}
+                        override fun onAnimationEnd(animation: Animation?) {
+                            submitButton.isEnabled = true
+                            runOnUiThread {
+                                errorText.visibility = TextView.VISIBLE
+                            }
+                        }
+                        override fun onAnimationRepeat(animation: Animation?) {}
+                    })
+                }
+            )
+        }
+    }
+
+    private fun loginUnChecked(username: String, password: String, car: ImageView, errorText: TextView, submitButton: Button, loginRepository: LoginRepository) {
+        submitButton.isEnabled = false
+        val loginDTO = PostLoginReq(username, password)
+        loginRepository.postLogin(loginDTO) { result ->
+            result.fold(
+                onSuccess = { response ->
+                    response?.let {
+                        PreferencesUtil.setAccessToken(it.token)
+                        PreferencesUtil.setUsername(it.username)
+                        PreferencesUtil.setCarProfile(it.carProfile)
+                        val payload = decodeJWT(it.token)
+                        val rolesList = extractRolesFromPayload(payload)
+                        if (rolesList.contains("ROLE_ADMIN")) {
+                            animateCarAndNavigate(car, AdminActivity::class.java)
+                        } else {
+                            animateCarAndNavigate(car, MainActivity::class.java)
+                        }
+                    }
+                },
+                onFailure = { error ->
+                    val animCarOut: Animation = AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
+                    car.startAnimation(animCarOut)
+                    animCarOut.setAnimationListener(object : Animation.AnimationListener {
+                        override fun onAnimationStart(animation: Animation?) {}
+                        override fun onAnimationEnd(animation: Animation?) {
+                            submitButton.isEnabled = true
+                            runOnUiThread {
+                                errorText.visibility = TextView.VISIBLE
+                            }
+                        }
+                        override fun onAnimationRepeat(animation: Animation?) {}
+                    })
+                }
+            )
+        }
+    }
+
+    private fun animateCarAndNavigate(car: ImageView, destination: Class<*>) {
+        val animCarOut: Animation = AnimationUtils.loadAnimation(application, com.parkro.client.R.anim.anim_car_out)
+        car.startAnimation(animCarOut)
+        animCarOut.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {}
+            override fun onAnimationEnd(animation: Animation?) {
+                val intent = Intent(this@LoginActivity, destination)
+                startActivity(intent)
+                finish()
+            }
+            override fun onAnimationRepeat(animation: Animation?) {}
+        })
+    }
+
     private fun decodeJWT(token: String): String {
         val parts = token.split(".")
         if (parts.size != 3) {
             throw IllegalArgumentException("Invalid JWT token")
         }
-        val payload = String(Base64.getUrlDecoder().decode(parts[1]))
-        return payload
+        return String(Base64.getUrlDecoder().decode(parts[1]))
     }
 
-    fun extractRolesFromPayload(payload: String): List<String> {
+    private fun extractRolesFromPayload(payload: String): List<String> {
         val jsonObject = JSONObject(payload)
-
         val rolesArray = jsonObject.getJSONArray("roles")
-
         val rolesList = mutableListOf<String>()
         for (i in 0 until rolesArray.length()) {
             rolesList.add(rolesArray.getString(i))
         }
-
         return rolesList
     }
-
-    private fun setButtonMarginTop(button: Button, marginDp: Int) {
-        val layoutParams = button.layoutParams as ViewGroup.MarginLayoutParams
-        val marginPx = dpToPx(marginDp)
-        layoutParams.topMargin = marginPx
-        button.layoutParams = layoutParams
-    }
-
-    // Function to convert dp to px
-    private fun dpToPx(dp: Int): Int {
-        return TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP,
-            dp.toFloat(),
-            resources.displayMetrics
-        ).toInt()
-    }
-
 }

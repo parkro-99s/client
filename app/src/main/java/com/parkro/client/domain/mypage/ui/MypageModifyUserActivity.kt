@@ -39,6 +39,8 @@ class MypageModifyUserActivity : AppCompatActivity() {
 
     private lateinit var modifiedBtn: Button
 
+    private var carProfile: Int = PreferencesUtil.getCarProfile()
+
 
     private val mypageRepository = MypageRepository()
 
@@ -46,7 +48,38 @@ class MypageModifyUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mypage_modify_user)
 
-        var carProfile = PreferencesUtil.getCarProfile()
+        val toolbarLogo: ImageView = findViewById(R.id.toolbar_logo)
+        toolbarLogo.visibility = View.GONE
+        updateToolbarTitle("회원정보 수정", showBackBtn = true)
+
+        passwordText = findViewById(R.id.edt_modify_user_password)
+        checkPasswordText = findViewById(R.id.edt_modify_user_check_password)
+        nicknameText = findViewById(R.id.edt_modify_user_nickname)
+        phoneNumberText = findViewById(R.id.edt_modify_user_phone_number)
+
+        fePasswordError = findViewById(R.id.tv_modify_user_password_error_fe)
+        feCheckPasswordError = findViewById(R.id.tv_modify_user_check_password_error_fe)
+        feNickNameError = findViewById(R.id.tv_modify_user_nickname_error_fe)
+        fePhoneNumberError = findViewById(R.id.tv_modify_user_phone_number_error_fe)
+
+        bePhoneNumberError = findViewById(R.id.tv_modify_user_phone_number_error_be)
+
+        modifiedBtn = findViewById(R.id.btn_modify_user)
+        mypageRepository.getUserDetails { result ->
+            result.fold(
+                onSuccess = { userDetails ->
+                    runOnUiThread {
+                        nicknameText.setText(userDetails.nickname)
+                        phoneNumberText.setText(userDetails.phoneNumber)
+                    }
+                },
+                onFailure = { error ->
+                    runOnUiThread {
+                    }
+                }
+            )
+        }
+
 
         val checkedCar1:ImageView = findViewById(R.id.img_modify_user_checked_car_1)
         val checkedCar2:ImageView = findViewById(R.id.img_modify_user_checked_car_2)
@@ -75,7 +108,7 @@ class MypageModifyUserActivity : AppCompatActivity() {
         fun setCheckedCarVisibility(index: Int) {
             allCheckedCars.forEachIndexed { i, imageView ->
                 imageView.visibility = if (i == index) View.VISIBLE else View.INVISIBLE
-                PreferencesUtil.setCarProfile(index + 1)
+                carProfile = index + 1
             }
         }
 
@@ -84,21 +117,6 @@ class MypageModifyUserActivity : AppCompatActivity() {
         car3.setOnClickListener { setCheckedCarVisibility(2) }
         car4.setOnClickListener { setCheckedCarVisibility(3) }
         car5.setOnClickListener { setCheckedCarVisibility(4) }
-
-        passwordText = findViewById(R.id.edt_modify_user_password)
-        checkPasswordText = findViewById(R.id.edt_modify_user_check_password)
-        nicknameText = findViewById(R.id.edt_modify_user_nickname)
-        phoneNumberText = findViewById(R.id.edt_modify_user_phone_number)
-
-        fePasswordError = findViewById(R.id.tv_modify_user_password_error_fe)
-        feCheckPasswordError = findViewById(R.id.tv_modify_user_check_password_error_fe)
-        feNickNameError = findViewById(R.id.tv_modify_user_nickname_error_fe)
-        fePhoneNumberError = findViewById(R.id.tv_modify_user_phone_number_error_fe)
-
-        bePhoneNumberError = findViewById(R.id.tv_modify_user_phone_number_error_be)
-
-        modifiedBtn = findViewById(R.id.btn_modify_user)
-
 
         setupTextWatchers()
 
@@ -210,22 +228,14 @@ class MypageModifyUserActivity : AppCompatActivity() {
             val password = passwordText.text.toString()
             val nickname = nicknameText.text.toString()
             val phoneNumber = phoneNumberText.text.toString()
-
-            carProfile = PreferencesUtil.getCarProfile()
-
-            Log.d("username","username+$username")
-            Log.d("username","password+$password")
-            Log.d("username","nickname+$nickname")
-            Log.d("username","phoneNumber+$phoneNumber")
-            Log.d("username","carProfile+$carProfile")
-            val currentCarProfile = PreferencesUtil.getCarProfile()
             if (username != null) {
-                mypageRepository.putModifiedUserDetails(username, password, nickname, phoneNumber, currentCarProfile) { result ->
+                mypageRepository.putModifiedUserDetails(username, password, nickname, phoneNumber, carProfile) { result ->
                     Log.d("result", "result+$result ")
                     result.fold(
                         onSuccess = { response ->
                             // Navigate to LoginActivity on successful sign-up
                             response?.let {
+                                PreferencesUtil.setCarProfile(carProfile)
                                 showCustomDialog("회원 정보가 수정되었습니다.")
                             }
                         },
@@ -241,6 +251,42 @@ class MypageModifyUserActivity : AppCompatActivity() {
         }
 
     }
+    // Update toolbar title
+    fun updateToolbarTitle(title: String, showBackBtn: Boolean = false, showLogo: Boolean = false) {
+        val toolbarTitle: TextView = findViewById(R.id.toolbar_title)
+        val toolbarBackBtn: ImageButton = findViewById(R.id.toolbar_back)
+        val toolbarLogo: ImageView = findViewById(R.id.toolbar_logo)
+
+        toolbarTitle.text = title
+        if (title.isEmpty()) {
+            toolbarBackBtn.visibility = View.GONE
+            toolbarTitle.visibility = View.GONE
+            toolbarLogo.visibility = View.VISIBLE
+            toolbarLogo.setImageResource(R.drawable.ic_toolbar_logo)
+        } else {
+            toolbarTitle.visibility = View.VISIBLE
+            toolbarLogo.visibility = View.GONE
+            if (showBackBtn) {
+                toolbarBackBtn.visibility = View.VISIBLE
+                toolbarBackBtn.setImageResource(R.drawable.left_chevron)
+                setMargins(toolbarTitle, 54.0f)
+                toolbarBackBtn.setOnClickListener {
+                    onBackPressed()
+                }
+            } else {
+                toolbarBackBtn.visibility = View.GONE
+                setMargins(toolbarTitle, 17.0f)
+            }
+        }
+    }
+
+    private fun setMargins(view: View, marginDp: Float) {
+        val params = view.layoutParams as RelativeLayout.LayoutParams
+        val marginPx = (marginDp * resources.displayMetrics.density).toInt()
+        params.marginStart = marginPx
+        view.layoutParams = params
+    }
+
 
     private fun showCustomDialog(message: String) {
         // Inflate the custom layout for the dialog

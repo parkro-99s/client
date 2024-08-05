@@ -12,10 +12,12 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
+import com.google.firebase.installations.Utils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.parkro.client.R
 import com.parkro.client.databinding.ActivityAdminBinding
+import com.parkro.client.util.PreferencesUtil
 
 class AdminActivity : AppCompatActivity() {
 
@@ -27,6 +29,7 @@ class AdminActivity : AppCompatActivity() {
         binding = ActivityAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        PreferencesUtil.init(context = this)
         // Custom toolbar setup
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
