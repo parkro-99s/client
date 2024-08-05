@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="70dp"
+            android:background="@color/parkro_navy" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingHorizontal="36dp">
+
+            <NumberPicker
+                android:id="@+id/np_year"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:divider="@android:color/transparent"
+                android:selectionDividerHeight="0dp"
+                android:textSize="18sp"
+                android:theme="@style/numberPickerCustomSize" />
+
+            <NumberPicker
+                android:id="@+id/np_month"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:divider="@android:color/transparent"
+                android:selectionDividerHeight="0dp"
+                android:theme="@style/numberPickerCustomSize"
+                android:textSize="18sp" />
+
+            <NumberPicker
+                android:id="@+id/np_day"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:divider="@android:color/transparent"
+                android:selectionDividerHeight="0dp"
+                android:theme="@style/numberPickerCustomSize"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_bottom_sheet_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/ic_btn_navy_long"
+        android:textColor="@color/parkro_white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        android:layout_marginHorizontal="20dp"
+        android:text="확인" />
+
+</LinearLayout>

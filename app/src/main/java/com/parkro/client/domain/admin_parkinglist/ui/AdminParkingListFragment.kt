@@ -5,17 +5,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.parkro.client.MainActivity
 import com.parkro.client.R
 import com.parkro.client.databinding.FragmentAdminParkingListBinding
-import com.parkro.client.domain.admin.ui.AdminActivity
+import java.util.*
 
 class AdminParkingListFragment : Fragment() {
     private lateinit var adminParkingListViewModel: AdminParkingListViewModel
@@ -30,18 +30,55 @@ class AdminParkingListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAdminParkingListBinding.inflate(inflater, container, false)
-        adminParkingListViewModel = ViewModelProvider(this).get(AdminParkingListViewModel::class.java)
+        adminParkingListViewModel = ViewModelProvider(requireActivity()).get(AdminParkingListViewModel::class.java)
+
+        // 오늘 날짜를 기본값으로 설정
+        val calendar = Calendar.getInstance()
+        val year = adminParkingListViewModel.selectedYear.value ?: calendar.get(Calendar.YEAR)
+        val month = adminParkingListViewModel.selectedMonth.value ?: calendar.get(Calendar.MONTH) + 1
+        val day = adminParkingListViewModel.selectedDay.value ?: calendar.get(Calendar.DAY_OF_MONTH)
 
         setupRecyclerView()
+        setupListener()
         observeViewModel()
 
-        adminParkingListViewModel.fetchAdminParkingList(1, "2024-07-30")
-        adminParkingListViewModel.resetSelectedParkingDetail()
-//        adminParkingListViewModel.fetchAdminParkingList(2, "2024-07-30") // 데이터 X
+        adminParkingListViewModel.updateSelectedDate(year, month, day)
+        refreshParkingList()
+//        adminParkingListViewModel.resetData()
+//        adminParkingListViewModel.fetchAdminParkingList(1, "$todayYear-${String.format("%02d", todayMonth)}-${String.format("%02d", todayDay)}")
 
         (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_parkinglist), false, true)
 
         return binding.root
+    }
+
+    private fun setupBtnTextAsDate() {
+        val year = adminParkingListViewModel.selectedYear.value ?: Calendar.getInstance().get(Calendar.YEAR)
+        val month = adminParkingListViewModel.selectedMonth.value ?: Calendar.getInstance().get(Calendar.MONTH) + 1
+        val day = adminParkingListViewModel.selectedDay.value ?: Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        binding.textBtnAdminParkingSelectDate.text = String.format("%02d.%02d.%02d", year % 100, month, day)
+    }
+
+    private fun setupListener() {
+        binding.btnAdminParkingSelectDate.setOnClickListener {
+            val bottomSheet = DateBottomSheetFragment()
+            bottomSheet.show(parentFragmentManager, bottomSheet.tag)
+        }
+
+        binding.btnAdminParkingSelectParkinglot.setOnClickListener {
+            val bottomSheet = StoreBottomSheetFragment()
+            bottomSheet.show(parentFragmentManager, bottomSheet.tag)
+        }
+
+        binding.edtAdminParkingListCar.setOnEditorActionListener { v, actionId, event ->
+            var handled = false
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                Log.d("AdminParkingListFragment", "text: ${v.text.toString().trim()}")
+                adminParkingListViewModel.updateSelectedCarNumber(v.text.toString().trim())
+                handled = true
+            }
+            handled
+        }
     }
 
     private fun setupRecyclerView() {
@@ -59,8 +96,14 @@ class AdminParkingListFragment : Fragment() {
                 val lastVisibleItem = layoutManager.findLastVisibleItemPosition()
 
                 if (lastVisibleItem + 2 >= totalItemCount) {
-                    adminParkingListViewModel.fetchAdminParkingList(1, "2024-07-30")
-//                    adminParkingListViewModel.fetchAdminParkingList(2, "2024-07-30")  // 데이터 X
+                    val year = adminParkingListViewModel.selectedYear.value ?: Calendar.getInstance().get(Calendar.YEAR)
+                    val month = adminParkingListViewModel.selectedMonth.value ?: Calendar.getInstance().get(Calendar.MONTH) + 1
+                    val day = adminParkingListViewModel.selectedDay.value ?: Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+
+                    val storeId: Int = if (adminParkingListViewModel.selectedStore.value == null) 1 else adminParkingListViewModel.selectedStore.value!!
+                    val parkingLotId: Int = if (adminParkingListViewModel.selectedParkingLot.value == null) 1 else adminParkingListViewModel.selectedParkingLot.value!!
+
+                    adminParkingListViewModel.fetchAdminParkingList(storeId = storeId, parkingLotId = parkingLotId, String.format("%d-%02d-%02d", year, month, day))
                 }
             }
         })
@@ -72,21 +115,53 @@ class AdminParkingListFragment : Fragment() {
                 binding.recyclerviewAdminParkingList.visibility = View.VISIBLE
                 binding.layoutAdminParkingListNotfound.visibility = View.GONE
                 adapter.setItems(adminParkingList)
-                Log.d("AdminParkingListFragment", "주차 정보 업데이트됨 ${adapter.itemCount}")
             } else {
                 showEmptyView("주차 정보를 찾을 수 없습니다.")
             }
         })
 
-        adminParkingListViewModel.errorState.observe(viewLifecycleOwner, Observer { error ->
+        adminParkingListViewModel.errorState.observe(viewLifecycleOwner, { error ->
             error?.let {
                 Log.e("AdminParkingListFragment", "Error: $it")
             }
         })
 
-        adminParkingListViewModel.adminParkingListSelectedParkingId.observe(viewLifecycleOwner, Observer { parkingId ->
-            Log.d("AdminParkingListFragment", "주차 정보 상세 보기 클릭: $parkingId")
+        adminParkingListViewModel.selectedCarNumber.observe(viewLifecycleOwner, Observer { car ->
+            Log.d("AdminParkingListFragment", "차번호 필터링: $car")
+            refreshParkingList()
+//            adminParkingListViewModel.resetData()
+//            adminParkingListViewModel.fetchAdminParkingList(1, date = "${adminParkingListViewModel.selectedYear.value}-${String.format("%02d", adminParkingListViewModel.selectedMonth.value)}-${String.format("%02d", adminParkingListViewModel.selectedDay.value)}")
         })
+
+        adminParkingListViewModel.selectedYear.observe(viewLifecycleOwner, Observer {
+            setupBtnTextAsDate()
+        })
+
+        adminParkingListViewModel.selectedMonth.observe(viewLifecycleOwner, Observer {
+            setupBtnTextAsDate()
+        })
+
+        adminParkingListViewModel.selectedDay.observe(viewLifecycleOwner, Observer {
+            setupBtnTextAsDate()
+        })
+
+        adminParkingListViewModel.selectedParkingLot.observe(viewLifecycleOwner, Observer { parkingLotId ->
+            Log.d("AdminParkingListFragment", "주차장 id: $parkingLotId")
+            refreshParkingList()
+        })
+    }
+
+    private fun refreshParkingList() {
+        val year = adminParkingListViewModel.selectedYear.value ?: Calendar.getInstance().get(Calendar.YEAR)
+        val month = adminParkingListViewModel.selectedMonth.value ?: Calendar.getInstance().get(Calendar.MONTH) + 1
+        val day = adminParkingListViewModel.selectedDay.value ?: Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+
+        adminParkingListViewModel.resetData()
+        Log.d("AdminParkingListFragment", "recycler view reload: $year $month $day")
+        val storeId: Int = if (adminParkingListViewModel.selectedStore.value == null) 1 else adminParkingListViewModel.selectedStore.value!!
+        val parkingLotId: Int = if (adminParkingListViewModel.selectedParkingLot.value == null) 1 else adminParkingListViewModel.selectedParkingLot.value!!
+
+        adminParkingListViewModel.fetchAdminParkingList(storeId = storeId, parkingLotId = parkingLotId, date = String.format("%d-%02d-%02d", year, month, day))
     }
 
     private fun showEmptyView(errorMessage: String) {

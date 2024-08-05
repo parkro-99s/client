@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface AdminParkingListService {
 
     @GET("/admin/parking/list")
-    fun getAdminParkingList(@Query("store") storeId: Int, @Query("date") date: String, @Query("car") car: String? = null, @Query("page") page: Int): Call<List<GetAdminParkingRes>>
+    fun getAdminParkingList(@Query("storeId") storeId: Int, @Query("parkingLotId") parkingLotId: Int, @Query("date") date: String, @Query("car") car: String? = null, @Query("page") page: Int): Call<List<GetAdminParkingRes>>
 
     @GET("/admin/parking/detail/{parkingId}")
     fun getAdminParkingListDetail(@Path("parkingId") parkingId: Int): Call<GetAdminParkingDetailRes>

@@ -116,7 +116,7 @@ class AdminParkingListDetailFragment : Fragment() {
             textAdminParkingValuePaymentCoupon.text = getString(R.string.formatted_discount_hour, detail.couponDiscountTime.toString())
             textAdminParkingValuePaymentReceipt.text = getString(R.string.formatted_discount_hour, detail.receiptDiscountTime.toString())
 
-            textAdminParkingValuePaymentPaymentTime.text = DateFormatUtil.formatMinuteToTime(TimeUnit.MILLISECONDS.toMinutes(DateFormatUtil.parseDate(detail.paymentDate).time - DateFormatUtil.parseDate(detail.entranceDate).time).toInt())
+            textAdminParkingValuePaymentPaymentTime.text = if (detail.paymentDate == null) getString(R.string.default_value_payment) else DateFormatUtil.formatMinuteToTime(TimeUnit.MILLISECONDS.toMinutes(DateFormatUtil.parseDate(detail.paymentDate).time - DateFormatUtil.parseDate(detail.entranceDate).time).toInt())
 
             textAdminParkingValuePaymentTotalPrice.text = getString(R.string.formatted_amount_payment, detail.totalPrice)
 
@@ -136,7 +136,7 @@ class AdminParkingListDetailFragment : Fragment() {
             textAdminParkingValuePaymentCoupon.text = getString(R.string.formatted_discount_hour, detail.couponDiscountTime.toString())
             textAdminParkingValuePaymentReceipt.text = getString(R.string.formatted_discount_hour, detail.receiptDiscountTime.toString())
 
-            textAdminParkingValuePaymentPaymentTime.text = DateFormatUtil.formatMinuteToTime(TimeUnit.MILLISECONDS.toMinutes(DateFormatUtil.parseDate(detail.paymentDate).time - DateFormatUtil.parseDate(detail.entranceDate).time).toInt())
+            textAdminParkingValuePaymentPaymentTime.text = if (detail.paymentDate == null) getString(R.string.default_value_payment) else DateFormatUtil.formatMinuteToTime(TimeUnit.MILLISECONDS.toMinutes(DateFormatUtil.parseDate(detail.paymentDate).time - DateFormatUtil.parseDate(detail.entranceDate).time).toInt())
 
             textAdminParkingValuePaymentTotalPrice.text = getString(R.string.formatted_amount_payment, detail.totalPrice)
 

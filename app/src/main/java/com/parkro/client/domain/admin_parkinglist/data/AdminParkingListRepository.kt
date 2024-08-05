@@ -17,6 +17,7 @@ class AdminParkingListRepository {
 
     fun getAdminParkingList(
         storeId: Int,
+        parkingLotId: Int,
         date: String,
         car: String? = null,
         page: Int,
@@ -24,7 +25,7 @@ class AdminParkingListRepository {
     ) {
         Log.d("AdminParkingListRepository", "[관리자] 주차 목록 요청: $storeId, $date, $car, $page")
 
-        adminParkingListService.getAdminParkingList(storeId, date, car, page).enqueue(object : Callback<List<GetAdminParkingRes>> {
+        adminParkingListService.getAdminParkingList(storeId, parkingLotId, date, car, page).enqueue(object : Callback<List<GetAdminParkingRes>> {
             override fun onResponse(
                 call: Call<List<GetAdminParkingRes>>,
                 response: Response<List<GetAdminParkingRes>>

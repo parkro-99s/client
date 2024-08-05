@@ -12,6 +12,12 @@
         <item name="android:checkboxStyle">@style/customCheckboxFontStyle</item>
     </style>
 
+    <style name="numberPickerCustomSize">
+        <item name="android:textSize">18sp</item>
+        <item name="android:editTextColor">@color/parkro_white</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="BottomNavTextStyle" parent="TextAppearance.AppCompat.Caption">
         <item name="android:textSize">12sp</item>
     </style>
