@@ -11,6 +11,7 @@ class PreferencesUtil private constructor(context: Context) {
         private const val PREFS = "prefs"
         private const val ACCESS_TOKEN = "access_token"
         private const val USER_NAME = "user_name"
+        private const val PASSWORD = "password"
         private const val CAR_PROFILE = "car_profile"
         private var instance: PreferencesUtil? = null
 
@@ -49,6 +50,10 @@ class PreferencesUtil private constructor(context: Context) {
             }
         }
 
+        fun setPassword(value: String?){
+            getInstance()!!.prefsEditor.putString(PASSWORD, value).apply()
+        }
+
         // Get access token
         fun getAccessToken(defValue: String?): String? {
             return getInstance()!!.prefs.getString(ACCESS_TOKEN, defValue)
@@ -62,6 +67,10 @@ class PreferencesUtil private constructor(context: Context) {
         // Get car profile
         fun getCarProfile(): Int {
             return getInstance()!!.prefs.getInt(CAR_PROFILE, 1)
+        }
+
+        fun getPassword(defValue: String?): String? {
+            return getInstance()!!.prefs.getString(PASSWORD, defValue)
         }
 
         // Clear all preferences
