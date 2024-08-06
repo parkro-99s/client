@@ -10,7 +10,7 @@
     tools:context=".domain.map.ui.MapFragment"
     app:umanoDragView="@id/map_drawer"
     app:umanoOverlay="true"
-    app:umanoPanelHeight="178dp"
+    app:umanoPanelHeight="172dp"
     app:umanoShadowHeight="0dp">
 
     <FrameLayout
@@ -65,7 +65,7 @@
                         android:paddingBottom="8dp"
                         android:text="@string/btn_store_name_space1"
                         android:textColor="@color/parkro_black"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -92,7 +92,7 @@
                         android:paddingBottom="8dp"
                         android:text="@string/btn_store_name_dongdaemoon"
                         android:textColor="@color/parkro_black"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -119,7 +119,7 @@
                         android:paddingBottom="8dp"
                         android:text="@string/btn_store_name_pangyo"
                         android:textColor="@color/parkro_black"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -146,7 +146,7 @@
                         android:paddingBottom="8dp"
                         android:text="@string/btn_store_name_daegu"
                         android:textColor="@color/parkro_black"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -167,7 +167,7 @@
     <LinearLayout
         android:id="@+id/map_drawer"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="475dp"
         android:background="@drawable/card_map"
         android:orientation="vertical"
         android:paddingTop="16dp"
@@ -180,7 +180,7 @@
             android:paddingTop="25dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:paddingBottom="35dp"
+            android:paddingBottom="40dp"
             android:orientation="horizontal">
 
             <RelativeLayout
@@ -193,10 +193,10 @@
                     android:id="@+id/text_map_first_item_parking_lot_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/pretendard_semibold"
+                    android:fontFamily="@font/sc_dream_semibold"
                     android:text="현대 아울렛 스페이스원"
                     android:textColor="@color/parkro_white"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
             <RelativeLayout
                 android:id="@+id/layout_map_first_copy"
@@ -210,10 +210,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:maxWidth="230dp"
-                    android:fontFamily="@font/pretendard_medium"
+                    android:fontFamily="@font/sc_dream_medium"
                     android:text="서울시 노원구 공릉로 00길"
                     android:textColor="@color/parkro_white"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <ImageButton
                     android:id="@+id/btn_map_first_copy"
@@ -237,11 +237,11 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3.2"
-                android:fontFamily="@font/pretendard_semibold"
+                android:fontFamily="@font/sc_dream_semibold"
                 android:gravity="center_vertical|end"
                 android:text="1800/2254"
                 android:textColor="@color/parkro_white"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

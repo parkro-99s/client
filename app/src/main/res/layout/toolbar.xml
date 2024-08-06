@@ -43,7 +43,7 @@
         android:layout_marginStart="17dp"
         android:textColor="@color/parkro_black"
         android:textStyle="bold"
-        android:textSize="20sp" />
+        android:textSize="18sp" />
 
     <ImageButton
         android:id="@+id/toolbar_delete"

@@ -36,7 +36,7 @@
             app:layout_constraintBottom_toTopOf="@id/text_receipt_price_info_content"
             android:layout_marginTop="30dp"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:text="@string/title_parking_price_info" />
 
         <TextView
@@ -49,7 +49,7 @@
             app:layout_constraintTop_toBottomOf="@id/text_receipt_price_info_title"
             app:layout_constraintBottom_toBottomOf="@id/img_receipt_info_frame"
             android:layout_marginBottom="30dp"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:text="@string/content_parking_price_info"
             android:lineSpacingMultiplier="1.4" />
 
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:text="@string/title_btn_barcode"
             android:textColor="@color/parkro_black"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:layout_marginBottom="8dp"
             app:layout_constraintStart_toStartOf="@id/btn_receipt_btn_to_scanner"
             app:layout_constraintEnd_toEndOf="@id/btn_receipt_btn_to_scanner"
@@ -107,7 +107,7 @@
             android:gravity="start"
             android:text="@string/title_discount_amount"
             android:textColor="@color/parkro_black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@id/text_receipt_title_receipt_discount"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -120,7 +120,7 @@
             android:gravity="end"
             android:text="@string/default_value_payment"
             android:textColor="@color/parkro_black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_receipt_title_total_price"
@@ -134,7 +134,7 @@
             android:gravity="start"
             android:text="@string/title_discount_hours"
             android:textColor="@color/parkro_black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/text_receipt_title_total_price" />
@@ -147,7 +147,7 @@
             android:gravity="end"
             android:text="@string/default_value_payment"
             android:textColor="@color/parkro_black"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/text_receipt_title_receipt_discount"
@@ -182,7 +182,7 @@
             android:layout_height="wrap_content"
             android:text="@string/title_btn_register"
             android:textColor="@color/parkro_white"
-            android:textSize="16sp"
+            android:textSize="14sp"
             app:layout_constraintStart_toStartOf="@id/btn_receipt_register"
             app:layout_constraintEnd_toEndOf="@id/btn_receipt_register"
             app:layout_constraintTop_toTopOf="@id/btn_receipt_register"

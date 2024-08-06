@@ -39,10 +39,10 @@
                     android:id="@+id/text_map_item_parking_lot_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/pretendard_semibold"
+                    android:fontFamily="@font/sc_dream_semibold"
                     android:text="현대 아울렛 스페이스원"
                     android:textColor="@android:color/black"
-                    android:textSize="16sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/text_map_item_outlabel"
@@ -51,15 +51,15 @@
                     android:layout_alignTop="@id/text_map_item_parking_lot_name"
                     android:layout_alignBottom="@id/text_map_item_parking_lot_name"
                     android:layout_marginStart="5dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_marginBottom="3dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
                     android:layout_toEndOf="@+id/text_map_item_parking_lot_name"
                     android:background="@drawable/label_orange"
-                    android:fontFamily="@font/pretendard_semibold"
+                    android:fontFamily="@font/sc_dream_semibold"
                     android:gravity="center"
                     android:text="@string/label_parkinglot_outside"
                     android:textColor="@color/parkro_white"
-                    android:textSize="12sp" />
+                    android:textSize="10sp" />
 
                 <RelativeLayout
                     android:id="@+id/layout_map_copy"
@@ -71,13 +71,12 @@
                         android:id="@+id/text_map_item_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
                         android:layout_marginTop="8dp"
-                        android:fontFamily="@font/pretendard_medium"
+                        android:fontFamily="@font/sc_dream_medium"
                         android:maxWidth="250dp"
                         android:text="서울시 노원구 공릉로 00길"
                         android:textColor="@android:color/black"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <ImageButton
                         android:id="@+id/btn_map_copy"
@@ -101,12 +100,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="0"
-                android:fontFamily="@font/pretendard_semibold"
+                android:fontFamily="@font/sc_dream_semibold"
                 android:gravity="center_vertical|end"
                 android:text="1800/2254"
                 android:textColor="@android:color/black"
                 android:background="@android:color/transparent"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
     </LinearLayout>

@@ -53,9 +53,10 @@
                 android:layout_marginTop="30dp"
                 android:background="@drawable/edt_background"
                 android:hint="아이디"
+                android:fontFamily="@font/sc_dream_semibold"
                 android:inputType="text"
                 android:paddingRight="20dp"
-                android:textSize="16sp"
+                android:textSize="13sp"
                 android:textStyle="normal" />
 
             <EditText
@@ -66,8 +67,9 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edt_background"
                 android:hint="비밀번호"
+                android:fontFamily="@font/sc_dream_semibold"
                 android:inputType="textPassword"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="normal" />
 
 
@@ -88,7 +90,7 @@
                     android:gravity="center"
                     android:text="@string/error_login_login_fe"
                     android:textColor="@color/parkro_red"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
                     android:visibility="invisible" />
 
@@ -110,7 +112,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="자동 로그인"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="@color/parkro_black" />
                 </LinearLayout>
@@ -126,8 +128,9 @@
                 android:layout_marginTop="10dp"
                 android:background="@drawable/btn_large_background"
                 android:text="로그인"
+                android:fontFamily="@font/sc_dream_semibold"
                 android:textColor="#FFFFFF"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView

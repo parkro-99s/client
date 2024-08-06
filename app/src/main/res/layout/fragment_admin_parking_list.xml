@@ -15,10 +15,11 @@
         android:paddingStart="60dp"
         android:background="@drawable/ic_input_admin_parkinglist"
         android:hint="차량 번호를 검색하세요."
+        android:fontFamily="@font/sc_dream_medium"
         android:textColor="@android:color/black"
         app:layout_constraintTop_toTopOf="parent"
         android:paddingBottom="1dp"
-        android:textSize="16sp"
+        android:textSize="12sp"
         android:imeOptions="actionDone"
         android:inputType="text" />
 
@@ -58,8 +59,8 @@
                 app:layout_constraintEnd_toEndOf="@id/btn_admin_parking_select_date"
                 app:layout_constraintTop_toTopOf="@id/btn_admin_parking_select_date"
                 app:layout_constraintBottom_toBottomOf="@id/btn_admin_parking_select_date"
-                android:textSize="16sp"
-                android:fontFamily="@font/pretendard_semibold"
+                android:textSize="14sp"
+                android:fontFamily="@font/sc_dream_semibold"
                 android:textColor="@android:color/black"
                 android:text="날짜" />
 
@@ -94,9 +95,9 @@
                 app:layout_constraintEnd_toEndOf="@id/btn_admin_parking_select_parkinglot"
                 app:layout_constraintTop_toTopOf="@id/btn_admin_parking_select_parkinglot"
                 app:layout_constraintBottom_toBottomOf="@id/btn_admin_parking_select_parkinglot"
-                android:fontFamily="@font/pretendard_semibold"
+                android:fontFamily="@font/sc_dream_semibold"
                 android:textColor="@android:color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:text="주차장" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -139,11 +140,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:fontFamily="@font/pretendard_semibold"
+            android:fontFamily="@font/sc_dream_semibold"
             android:text="@string/error_parkinglist_not_found"
             android:textColor="@android:color/black"
             android:layout_gravity="center_horizontal"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

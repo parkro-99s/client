@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
             android:text="@string/title_payment_failure" />
@@ -67,9 +67,9 @@
             app:layout_constraintTop_toTopOf="@id/btn_payment_failure_move_payment"
             app:layout_constraintBottom_toBottomOf="@id/btn_payment_failure_move_payment"
             android:layout_marginBottom="15dp"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="@android:color/black"
-            android:fontFamily="@font/pretendard_semibold"
+            android:fontFamily="@font/sc_dream_semibold"
             android:text="@string/btn_move_to_payment"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -80,7 +80,7 @@ class ParkingDetailFragment : Fragment() {
             binding.textParkingDetailValuePaymentTime.text = DateFormatUtil.formatMinuteToTime(detail.totalParkingTime)
 
             // 총 정산 금액 (예시로 paymentId 사용)
-            binding.textParkingDetailAmountPayment.text = detail.totalPrice.toString()
+            binding.textParkingDetailAmountPayment.text = getString(R.string.formatted_amount_payment, detail.totalPrice)
             binding.textParkingDetailPayby.text = detail.card ?: "-"
         })
 

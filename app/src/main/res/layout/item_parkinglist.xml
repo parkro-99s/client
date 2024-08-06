@@ -39,10 +39,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/pretendard_medium"
+                    android:fontFamily="@font/sc_dream_medium"
                     android:text="스페이스원"
                     android:textColor="@color/parkro_black"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/text_parkinglist_label"
@@ -50,12 +50,12 @@
                     android:layout_height="18dp"
                     android:layout_marginStart="5dp"
                     android:background="@drawable/label_orange"
-                    android:fontFamily="@font/pretendard_semibold"
+                    android:fontFamily="@font/sc_dream_semibold"
                     android:gravity="center"
                     android:layout_gravity="center_vertical"
                     android:text="@string/label_parkinglist_pay_done"
                     android:textColor="@color/parkro_white"
-                    android:textSize="11sp" />
+                    android:textSize="9sp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -68,10 +68,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:fontFamily="@font/pretendard_medium"
+                    android:fontFamily="@font/sc_dream_medium"
                     android:text="다산 블루웨일 1차"
                     android:textColor="@color/parkro_black"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
 
                 <ImageView
                     android:id="@+id/btn_parkinglist_chevron"
@@ -93,10 +93,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:fontFamily="@font/pretendard_medium"
+                    android:fontFamily="@font/sc_dream_medium"
                     android:text="123가1234"
                     android:textColor="@color/parkro_black"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/btn_parkinglist_entranceDate"
@@ -106,7 +106,7 @@
                     android:layout_centerVertical="true"
                     android:text="입차 24.07.19 12:20"
                     android:textColor="@color/parkro_gray"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
             </RelativeLayout>
         </LinearLayout>

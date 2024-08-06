@@ -1,5 +1,6 @@
 package com.parkro.client.domain.payment.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,8 +21,8 @@ class ReceiptViewModel : ViewModel() {
     val errorMessage: LiveData<ErrorRes> get() = _errorMessage
 
     fun resetReceiptData() {
-        _receiptData.value = null
-        _errorMessage.value = null
+        _receiptData.postValue(null)
+        _errorMessage.postValue(null)
     }
 
     fun fetchMemberReceiptInfo(receiptId: Int) {

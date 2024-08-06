@@ -31,10 +31,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:fontFamily="@font/pretendard_semibold"
+                android:fontFamily="@font/sc_dream_semibold"
                 android:text="@string/default_free_coupon"
                 android:textColor="@android:color/black"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 android:textStyle="" />
 
             <TextView
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/default_expired_date"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:textColor="@android:color/black" />
         </LinearLayout>
     </RelativeLayout>
