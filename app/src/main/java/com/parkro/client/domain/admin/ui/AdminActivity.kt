@@ -12,9 +12,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
-import com.google.firebase.installations.Utils
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.parkro.client.R
 import com.parkro.client.databinding.ActivityAdminBinding
 import com.parkro.client.util.PreferencesUtil
@@ -54,11 +51,7 @@ class AdminActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
             val fragmentsWithoutUpButton = setOf(
-//                R.id.navigation_map,
-                R.id.navigation_example, // map 대신 example
                 R.id.navigation_parkingdetail_admin,
-                R.id.navigation_payment,
-                R.id.navigation_mypage,
                 R.id.navigation_parkinglist_admin,
                 R.id.navigation_logout_admin
             )
@@ -68,45 +61,8 @@ class AdminActivity : AppCompatActivity() {
                 supportActionBar?.setDisplayHomeAsUpEnabled(false)
                 toolbar.navigationIcon = null
             }
-
-            // 기본 사용자 아이콘
-//            navView.menu.findItem(R.id.navigation_map)?.setIcon(R.drawable.ic_map_gray)
-            navView.menu.findItem(R.id.navigation_example)?.setIcon(R.drawable.ic_map_gray) // map 대신 example
-            navView.menu.findItem(R.id.navigation_parkinglist)?.setIcon(R.drawable.ic_parkinglist_gray)
-            navView.menu.findItem(R.id.navigation_payment)?.setIcon(R.drawable.ic_payment_gray)
-            navView.menu.findItem(R.id.navigation_mypage)?.setIcon(R.drawable.ic_mypage_gray)
-
-            // 현재 선택된 아이템 아이콘 업데이트
-            when (destination.id) {
-//                R.id.navigation_map -> {
-                R.id.navigation_example -> { // map 대신 example
-//                    navView.menu.findItem(R.id.navigation_map)?.setIcon(R.drawable.ic_map_navy)
-                    navView.menu.findItem(R.id.navigation_example)?.setIcon(R.drawable.ic_map_navy) // map 대신 example
-                }
-                R.id.navigation_parkinglist -> {
-                    navView.menu.findItem(R.id.navigation_parkinglist)?.setIcon(R.drawable.ic_parkinglist_navy)
-                }
-                R.id.navigation_payment -> {
-                    navView.menu.findItem(R.id.navigation_payment)?.setIcon(R.drawable.ic_payment_navy)
-                }
-                R.id.navigation_mypage -> {
-                    navView.menu.findItem(R.id.navigation_mypage)?.setIcon(R.drawable.ic_mypage_navy)
-                }
-            }
-
             updateToolbarTitle("", showBackBtn = navController.previousBackStackEntry != null)
         }
-
-        // TODO: 로그인 시, FCM Token 헤더에 함께 전달
-//        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-//            if (!task.isSuccessful) {
-//                Log.w("FCM", "Fetching FCM registration token failed", task.exception)
-//                return@addOnCompleteListener
-//            }
-//            // 새로운 FCM Token 발급
-//            val token = task.result
-//            Log.d("FCM-Token", token)
-//        }
     }
 
     // Update toolbar title
@@ -143,16 +99,5 @@ class AdminActivity : AppCompatActivity() {
         val marginPx = (marginDp * resources.displayMetrics.density).toInt()
         params.marginStart = marginPx
         view.layoutParams = params
-    }
-
-    private fun extractRoleFromJsonArray(jsonArray: String): String? {
-        return try {
-            val type = object : TypeToken<List<String>>() {}.type
-            val roles: List<String> = Gson().fromJson(jsonArray, type)
-            roles.firstOrNull()  // Return the first role if available
-        } catch (e: Exception) {
-            // Handle potential parsing errors or malformed JSON
-            null
-        }
     }
 }
