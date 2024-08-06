@@ -1,16 +1,24 @@
 package com.parkro.client.domain.admin_parkinglist.ui
 
+import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.NavHostFragment
 import com.parkro.client.MainActivity
 import com.parkro.client.R
+import com.parkro.client.common.data.ErrorRes
 import com.parkro.client.databinding.FragmentAdminParkingListBinding
 import com.parkro.client.databinding.FragmentAdminParkingListDetailBinding
 import com.parkro.client.domain.admin.ui.AdminActivity
@@ -59,6 +67,13 @@ class AdminParkingListDetailFragment : Fragment() {
         binding.btnAdminParkingCompletePayment.setOnClickListener {
             Log.d("AdminParkingListDetailFragment", "버튼 클릭! $parkingId")
             adminParkingListDetailViewModel.fetchAdminParking(parkingId)
+            showConfirmAlert()
+
+            NavHostFragment.findNavController(this@AdminParkingListDetailFragment).navigate(
+                R.id.navigation_parkinglist_admin,
+                null,
+                NavOptions.Builder().setLaunchSingleTop(true).build()
+            )
         }
     }
 
@@ -76,7 +91,7 @@ class AdminParkingListDetailFragment : Fragment() {
             textAdminParkingParkinglotName.text = detail.parkingLotName
 
             textAdminParkingValueCar.text = detail.carNumber
-            textAdminParkingValueEntrance.text = detail.entranceDate
+            textAdminParkingValueEntrance.text = DateFormatUtil.formatDate(detail.entranceDate)
 
             when (detail.parkingStatus) {
                 "ENTRANCE" -> updateUIENTRANCE()
@@ -112,7 +127,7 @@ class AdminParkingListDetailFragment : Fragment() {
 
             textAdminParkingValueExit.text = getString(R.string.default_value_payment)
 
-            textAdminParkingValuePaymentDate.text = detail.paymentDate
+            textAdminParkingValuePaymentDate.text = if (detail.paymentDate == null) getString(R.string.default_value_payment) else detail.paymentDate
             textAdminParkingValuePaymentCoupon.text = getString(R.string.formatted_discount_hour, detail.couponDiscountTime.toString())
             textAdminParkingValuePaymentReceipt.text = getString(R.string.formatted_discount_hour, detail.receiptDiscountTime.toString())
 
@@ -130,13 +145,14 @@ class AdminParkingListDetailFragment : Fragment() {
         binding.apply {
             textAdminParkingValueStatus.text = "출차 완료"
 
-            textAdminParkingValueExit.text = detail.exitDate
+            textAdminParkingValueExit.text = if (detail.exitDate == null) getString(R.string.default_value_payment) else DateFormatUtil.formatDate(detail.exitDate)
 
-            textAdminParkingValuePaymentDate.text = detail.paymentDate
+            textAdminParkingValuePaymentDate.text = if (detail.paymentDate == null) getString(R.string.default_value_payment) else detail.paymentDate
             textAdminParkingValuePaymentCoupon.text = getString(R.string.formatted_discount_hour, detail.couponDiscountTime.toString())
             textAdminParkingValuePaymentReceipt.text = getString(R.string.formatted_discount_hour, detail.receiptDiscountTime.toString())
 
-            textAdminParkingValuePaymentPaymentTime.text = if (detail.paymentDate == null) getString(R.string.default_value_payment) else DateFormatUtil.formatMinuteToTime(TimeUnit.MILLISECONDS.toMinutes(DateFormatUtil.parseDate(detail.paymentDate).time - DateFormatUtil.parseDate(detail.entranceDate).time).toInt())
+            textAdminParkingValuePaymentPaymentTime.text = if (detail.paymentDate == null) getString(R.string.default_value_payment) else DateFormatUtil.formatDifferenceToDateString(detail.entranceDate, detail.paymentDate)
+            Log.d("AdminParkingListDetailFragment", "update ui exit $detail")
 
             textAdminParkingValuePaymentTotalPrice.text = getString(R.string.formatted_amount_payment, detail.totalPrice)
 
@@ -144,5 +160,34 @@ class AdminParkingListDetailFragment : Fragment() {
             btnAdminParkingCompletePaymentDisabled.visibility = View.VISIBLE
             btnAdminParkingCompletePayment.visibility = View.GONE
         }
+    }
+
+    private fun showConfirmAlert() {
+        val dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.custom_dialog, null)
+        val messageTextView = dialogView.findViewById<TextView>(R.id.text_dialog_message)
+        val confirmButton = dialogView.findViewById<ImageButton>(R.id.btn_dialog_check)
+
+        messageTextView.text = "결제 완료 처리가 되었습니다."
+
+        val dialog = AlertDialog.Builder(requireContext())
+            .setView(dialogView)
+            .setCancelable(false)
+            .create()
+
+        confirmButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.setOnShowListener {
+            dialog.window?.let { window ->
+                window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                window.setLayout(
+                    (resources.displayMetrics.widthPixels * 0.8).toInt(),
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+            }
+        }
+
+        dialog.show()
     }
 }

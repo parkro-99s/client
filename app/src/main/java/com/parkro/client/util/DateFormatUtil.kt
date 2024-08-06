@@ -2,6 +2,7 @@ package com.parkro.client.util
 
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 object DateFormatUtil {
     private val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
@@ -38,5 +39,18 @@ object DateFormatUtil {
     fun parseDate(dateString: String, pattern: String = "yyyy-MM-dd HH:mm"): Date {
         val formatter = SimpleDateFormat(pattern, Locale.getDefault())
         return formatter.parse(dateString) ?: Date()
+    }
+
+    // 두 날짜의 차이를 포맷팅
+    fun formatDifferenceToDateString(startDate: String, endDate: String): String {
+        return try {
+            val start = inputFormat.parse(startDate)?.time ?: return "-"
+            val end = inputFormat.parse(endDate)?.time ?: return "-"
+            val diffMillis = end - start
+            val diffMinutes = TimeUnit.MILLISECONDS.toMinutes(diffMillis).toInt()
+            formatMinuteToTime(diffMinutes)
+        } catch (e: Exception) {
+            "-"
+        }
     }
 }

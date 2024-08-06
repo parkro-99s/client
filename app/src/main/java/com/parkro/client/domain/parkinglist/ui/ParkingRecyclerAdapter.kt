@@ -20,7 +20,7 @@ class ParkingRecyclerAdapter(
             binding.textParkinglistStoreName.text = parking.storeName
             binding.textParkinglistParkingLotName.text = parking.parkingLotName
             binding.textParkinglistCarNumber.text = parking.carNumber
-            binding.btnParkinglistEntranceDate.text = DateFormatUtil.formatDate(parking.entranceDate)
+            binding.btnParkinglistEntranceDate.text = "입차 ${DateFormatUtil.formatDate(parking.entranceDate)}"
 
             when (parking.status) {
                 "PAY" -> {

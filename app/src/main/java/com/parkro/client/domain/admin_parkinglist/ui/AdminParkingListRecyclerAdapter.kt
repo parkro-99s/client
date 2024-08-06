@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.parkro.client.R
 import com.parkro.client.databinding.ItemParkinglistBinding
 import com.parkro.client.domain.admin_parkinglist.api.GetAdminParkingRes
+import com.parkro.client.util.DateFormatUtil
 
 class AdminParkingListRecyclerAdapter(
     private var adminParkingList: MutableList<GetAdminParkingRes>,
@@ -22,7 +23,7 @@ class AdminParkingListRecyclerAdapter(
             binding.textParkinglistStoreName.text = parking.storeName
             binding.textParkinglistParkingLotName.text = parking.parkingLotName
             binding.textParkinglistCarNumber.text = parking.carNumber
-            binding.btnParkinglistEntranceDate.text = parking.entranceDate
+            binding.btnParkinglistEntranceDate.text = "입차 ${DateFormatUtil.formatDate(parking.entranceDate)}"
 
             when (parking.status) {
                 "PAY" -> {
@@ -39,11 +40,11 @@ class AdminParkingListRecyclerAdapter(
                 }
                 "ENTRANCE" -> {
                     binding.textParkinglistLabel.visibility = View.GONE
-                    binding.btnParkinglistChevron.visibility = View.GONE
+                    binding.btnParkinglistChevron.visibility = View.VISIBLE
                 }
                 else -> {
                     binding.textParkinglistLabel.visibility = View.GONE
-                    binding.btnParkinglistChevron.visibility = View.GONE
+                    binding.btnParkinglistChevron.visibility = View.VISIBLE
                 }
             }
 
