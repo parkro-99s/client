@@ -56,7 +56,7 @@ class AdminActivity : AppCompatActivity() {
             val fragmentsWithoutUpButton = setOf(
 //                R.id.navigation_map,
                 R.id.navigation_example, // map 대신 example
-                R.id.navigation_parkinglist,
+                R.id.navigation_parkingdetail_admin,
                 R.id.navigation_payment,
                 R.id.navigation_mypage,
                 R.id.navigation_parkinglist_admin,
