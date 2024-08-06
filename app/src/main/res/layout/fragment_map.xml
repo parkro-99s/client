@@ -198,11 +198,16 @@
                     android:textColor="@color/parkro_white"
                     android:textSize="16sp" />
 
+            <RelativeLayout
+                android:id="@+id/layout_map_first_copy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_map_first_item_parking_lot_name">
+
                 <TextView
                     android:id="@+id/text_map_first_item_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/text_map_first_item_parking_lot_name"
                     android:layout_marginTop="8dp"
                     android:maxWidth="230dp"
                     android:fontFamily="@font/pretendard_medium"
@@ -223,6 +228,7 @@
                     android:scaleType="fitCenter"
                     android:adjustViewBounds="true"
                     android:src="@drawable/ic_copy_white" />
+            </RelativeLayout>
 
             </RelativeLayout>
 

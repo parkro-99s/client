@@ -44,7 +44,7 @@ class ParkingLotRecyclerAdapter(private val parkingLots: List<GetParkingLotRes>)
             }
 
             // 클립보드 복사
-            binding.btnMapCopy.setOnClickListener {
+            binding.layoutMapCopy.setOnClickListener {
                 ClipboardUtil.copyTextToClipboard(
                     context,
                     binding.textMapItemAddress.text.toString(),

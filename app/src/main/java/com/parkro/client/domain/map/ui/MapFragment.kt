@@ -175,7 +175,7 @@ class MapFragment : Fragment() {
                     binding.textMapFirstItemAddress.text.toString().replace(" ", "\u00A0")
 
                 // 클립보드 복사
-                binding.btnMapFirstCopy.setOnClickListener {
+                binding.layoutMapFirstCopy.setOnClickListener {
                     ClipboardUtil.copyTextToClipboard(requireContext(),
                         binding.textMapFirstItemAddress.text.toString(),
                         "주소가 클립보드에 복사되었습니다.")
