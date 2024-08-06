@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_admin_parking_list" />
 
     <fragment
+        android:id="@+id/navigation_parkingdetail_admin"
+        android:name="com.parkro.client.domain.admin_parkinglist.ui.AdminParkingListDetailFragment"
+        android:label="@string/title_parking_detail"
+        tools:layout="@layout/fragment_admin_parking_list_detail" />
+
+    <fragment
         android:id="@+id/navigation_logout_admin"
         android:name="com.parkro.client.domain.admin_logout.ui.AdminLogoutFragment"
         android:label="@string/title_logout"

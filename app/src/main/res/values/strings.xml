@@ -61,7 +61,8 @@
     <string name="formatted_amount_payment">%1$,d원</string>
     <string name="default_value_time">-0시간 0분</string>
 
-    <string name="btn_completed_payment">결제 완료</string>
+    <string name="btn_completed_payment">결제하기</string>
+    <string name="btn_completed_payment_admin">결제 완료</string>
 
     <string name="title_empty_payment">정산할 차량 없음</string>
     <string name="content_empty_payment">현재 주차된 차량이 없습니다.</string>
@@ -98,6 +99,8 @@
     <string name="label_parkinglist_pay_done">정산완료</string>
     <string name="label_parkinglist_exit_done">출차완료</string>
     <string name="error_parkinglist_not_found">주차 내역이 없습니다.</string>
+
+    <string name="formatted_discount_hour">-%1s시간</string>
 
     <!-- common -->
     <string name="error_service_unavailable">현재 서비스 점검 중입니다.</string>

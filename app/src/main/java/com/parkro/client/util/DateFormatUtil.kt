@@ -1,7 +1,7 @@
 package com.parkro.client.util
 
 import java.text.SimpleDateFormat
-import java.util.Locale
+import java.util.*
 
 object DateFormatUtil {
     private val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
@@ -33,5 +33,10 @@ object DateFormatUtil {
         val hours = minute / 60
         val remainingMinutes = minute % 60
         return String.format("%02d시간 %02d분", hours, remainingMinutes)
+    }
+
+    fun parseDate(dateString: String, pattern: String = "yyyy-MM-dd HH:mm"): Date {
+        val formatter = SimpleDateFormat(pattern, Locale.getDefault())
+        return formatter.parse(dateString) ?: Date()
     }
 }
