@@ -66,6 +66,9 @@
 
     <string name="title_empty_payment">정산할 차량 없음</string>
     <string name="content_empty_payment">현재 주차된 차량이 없습니다.</string>
+    <string name="error_empty_parking_detail">주차 상세 내역이 없습니다.</string>
+    <string name="content_completed_parking_delete">주차 내역이 삭제되었습니다.</string>
+    <string name="content_dialog_parking_delete">주차 내역을 삭제하시겠습니까?</string>
 
     <string name="title_btn_use_coupon">사용하기</string>
 

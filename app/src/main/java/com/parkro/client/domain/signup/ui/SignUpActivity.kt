@@ -4,18 +4,17 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.text.Editable
+import android.text.Layout
 import android.text.TextWatcher
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.parkro.client.*
@@ -33,6 +32,14 @@ import java.net.URL
 import java.util.concurrent.Executors
 import java.util.regex.Pattern
 import kotlin.properties.Delegates
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.Target
+import android.widget.RelativeLayout
+
+
+
+
 
 class SignUpActivity : AppCompatActivity() {
     private val executor = Executors.newSingleThreadExecutor()
@@ -63,10 +70,13 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var verifyIdBtn: Button
     private lateinit var verifyCarBtn: Button
     private lateinit var signUpBtn: Button
+    private lateinit var imgGif: ImageView
+
     private val signUpRepository = SignUpRepository()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
+        initialSet()
 
         usernameText = findViewById(R.id.edt_signup_username)
         passwordText = findViewById(R.id.edt_signup_password)
@@ -305,6 +315,16 @@ class SignUpActivity : AppCompatActivity() {
 
         verifyCarBtn.setOnClickListener {
             verifyCarNumberLoading++
+
+            imgGif.setVisibility(View.VISIBLE);
+            imgGif.bringToFront();
+            imgGif?.let {
+                Glide.with(this)
+                    .asGif()
+                    .load(R.raw.loading_animation)
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .into(imgGif!!)
+            }
             verifyCarBtn.isEnabled=false
             nameText.isEnabled=false
             carNumberText.isEnabled=false
@@ -370,6 +390,7 @@ class SignUpActivity : AppCompatActivity() {
                         }
                     }
                     verifyCarNumberLoading--
+                    imgGif.visibility = View.INVISIBLE
                 } catch (e: Exception) {
                     serverError.visibility = View.VISIBLE
                     runOnUiThread {
@@ -381,6 +402,7 @@ class SignUpActivity : AppCompatActivity() {
                         setEditTextMarginTop(nicknameText, 35)
                     }
                     verifyCarNumberLoading--
+                    imgGif.visibility = View.INVISIBLE
                 }
             }
         }
@@ -682,5 +704,10 @@ class SignUpActivity : AppCompatActivity() {
             (resources.displayMetrics.widthPixels * 0.8).toInt(),
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
+    }
+
+
+    private fun initialSet() {
+        imgGif = findViewById(R.id.img_signup_gif) as ImageView
     }
 }
