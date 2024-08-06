@@ -1,6 +1,9 @@
 package com.parkro.client.domain.map.ui
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
@@ -15,15 +18,16 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
 import com.kakao.vectormap.*
 import com.kakao.vectormap.camera.CameraUpdateFactory
 import com.parkro.client.R
 import com.parkro.client.domain.map.api.GetParkingLotRes
-import com.parkro.client.domain.map.data.ParkingLotRepository
 import com.kakao.vectormap.label.*
 import com.parkro.client.databinding.FragmentMapBinding
+import com.parkro.client.util.ClipboardUtil
 import com.parkro.client.util.PermissionUtil
 import com.parkro.client.util.PreferencesUtil
 
@@ -50,9 +54,7 @@ class MapFragment : Fragment() {
     private lateinit var locationRequest: LocationRequest
     private lateinit var locationCallback: LocationCallback
 
-    private val parkingLotRepository = ParkingLotRepository()
     private val labels = mutableListOf<Label>()
-
     private lateinit var permissionUtil: PermissionUtil
 
     // 권한 요청 결과 처리
@@ -78,9 +80,6 @@ class MapFragment : Fragment() {
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         val root: View = binding.root
         mapView = binding.mapMap
-
-        // PreferencesUtil 초기화
-        PreferencesUtil.init(requireContext())
 
         // FusedLocationProviderClient 인스턴스를 가져옴
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -108,6 +107,8 @@ class MapFragment : Fragment() {
 
         setupButtons()
         binding.recyclerviewMapList.layoutManager = LinearLayoutManager(requireContext())  // 리사이클러뷰
+
+        observeViewModel()
 
         return root
     }
@@ -144,11 +145,11 @@ class MapFragment : Fragment() {
         currentSelectedTextView = textView
 
         // 주차장 데이터 로드
-        fetchParkingLotData(storeId)
+        mapViewModel.fetchParkingLotData(storeId)
     }
 
-    private fun fetchParkingLotData(storeId: String) {
-        parkingLotRepository.getParkingLotList(storeId) { result ->
+    private fun observeViewModel() {
+        mapViewModel.parkingLots.observe(viewLifecycleOwner) { result ->
             result.onSuccess { parkingLots ->
                 // 기존 라벨 제거
                 removeExistingLabels()
@@ -170,6 +171,16 @@ class MapFragment : Fragment() {
                 binding.textMapFirstItemAddress.text = firstParkingLot.address
                 binding.textMapFirstItemSpaces.text = "${firstParkingLot.usedSpaces}/${firstParkingLot.totalSpaces}"
 
+                binding.textMapFirstItemAddress.text =
+                    binding.textMapFirstItemAddress.text.toString().replace(" ", "\u00A0")
+
+                // 클립보드 복사
+                binding.btnMapFirstCopy.setOnClickListener {
+                    ClipboardUtil.copyTextToClipboard(requireContext(),
+                        binding.textMapFirstItemAddress.text.toString(),
+                        "주소가 클립보드에 복사되었습니다.")
+                }
+
                 // RecyclerView에 데이터 표시
                 val otherParkingLots = parkingLots.subList(1, parkingLots.size)
                 binding.recyclerviewMapList.adapter = ParkingLotRecyclerAdapter(otherParkingLots)
@@ -179,8 +190,14 @@ class MapFragment : Fragment() {
                     kakaoMap.moveCamera(CameraUpdateFactory.newCenterPosition(LatLng.from(it.latitude, it.longitude)))
                 }
             }.onFailure { exception ->
-                Log.e("ParkingListViewModel", "aaaaaaaaaaaaaa", exception)
+                Log.e("MapFragment", "Error fetching parking lots", exception)
                 Toast.makeText(context, "주차장을 찾을 수 없습니다. 통신 상태를 확인해주세요.", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        mapViewModel.errorState.observe(viewLifecycleOwner) { errorMessage ->
+            errorMessage?.let {
+                Toast.makeText(context, it, Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -202,7 +219,7 @@ class MapFragment : Fragment() {
 
         // 주차장 데이터 로드
         if (::kakaoMap.isInitialized) {
-            fetchParkingLotData("1")
+            mapViewModel.fetchParkingLotData("1")
         }
     }
 
@@ -300,5 +317,13 @@ class MapFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    // 클립보드 복사
+    public fun copyTextToClipboard(context: Context, text: String, message: String) {
+        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText("주소", text)
+        clipboard.setPrimaryClip(clip)
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }
