@@ -57,9 +57,6 @@
         android:theme="@style/Theme.Client"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".common.ui.LoadingActivity"
-            android:exported="false" />
-        <activity
             android:name=".domain.mypage.ui.MypageModifyUserActivity"
             android:exported="false" />
         <activity
