@@ -1,5 +1,6 @@
 package com.parkro.client.domain.parkinglist.ui
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -36,9 +37,10 @@ class ParkingListViewModel() : ViewModel() {
                 result.onSuccess { list ->
                     // 기존 리스트에 새로운 데이터 추가
                     val currentList = _parkingList.value.orEmpty().toMutableList()
+                    Log.d("AdminParkingListviewModel", "currentList: $currentList")
                     currentList.addAll(list)
-                    _parkingList.value = currentList
-                    _errorState.value = null
+                    _parkingList.postValue(currentList)
+                    _errorState.postValue(null)
                     currentPage++
                     isLoading = false
 
