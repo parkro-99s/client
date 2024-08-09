@@ -26,6 +26,20 @@ import com.parkro.client.domain.admin_parkinglist.api.GetAdminParkingDetailRes
 import com.parkro.client.util.DateFormatUtil
 import java.util.concurrent.TimeUnit
 
+/**
+ * 관리자 주차 상세 내역 Fragment
+ *
+ * @author 김지수
+ * @since 2024.08.05
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.05   김지수      최초 생성
+ * 2024.08.05   김지수      관리자 주차 목록 전체 조회
+ * 2024.08.06   김지수      모달창 안내 추가
+ * </pre>
+ */
 class AdminParkingListDetailFragment : Fragment() {
 
     private lateinit var adminParkingListDetailViewModel: AdminParkingListDetailViewModel

@@ -14,6 +14,18 @@ import com.parkro.client.R
 import com.parkro.client.databinding.DateBottomSheetLayoutBinding
 import java.util.*
 
+/**
+ * 날짜 선택하는 Bottom Sheet 관련 Fragment
+ *
+ * @author 김지수
+ * @since 2024.08.06
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.06   김지수      최초 생성
+ * </pre>
+ */
 class DateBottomSheetFragment : BottomSheetDialogFragment() {
 
     private var _binding: DateBottomSheetLayoutBinding? = null

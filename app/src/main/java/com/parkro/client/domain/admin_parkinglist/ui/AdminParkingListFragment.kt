@@ -20,6 +20,19 @@ import com.parkro.client.databinding.FragmentAdminParkingListBinding
 import com.parkro.client.domain.admin.ui.AdminActivity
 import java.util.*
 
+/**
+ * 관리자 주차 목록 Fragment
+ *
+ * @author 김지수
+ * @since 2024.08.05
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.05   김지수      최초 생성
+ * 2024.08.05   김지수      주차 내역 전체 페이징 조회
+ * </pre>
+ */
 class AdminParkingListFragment : Fragment() {
     private lateinit var adminParkingListViewModel: AdminParkingListViewModel
     private var _binding: FragmentAdminParkingListBinding? = null

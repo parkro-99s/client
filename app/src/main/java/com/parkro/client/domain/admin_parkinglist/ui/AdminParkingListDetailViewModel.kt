@@ -7,6 +7,19 @@ import androidx.lifecycle.ViewModel
 import com.parkro.client.domain.admin_parkinglist.api.GetAdminParkingDetailRes
 import com.parkro.client.domain.admin_parkinglist.data.AdminParkingListRepository
 
+/**
+ * 관리자 주차 상세 내역에 대해 관리되는 ViewModel
+ *
+ * @author 김지수
+ * @since 2024.08.05
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.05   김지수      최초 생성
+ * 2024.08.05   김지수      주차 상세 내역 조회
+ * </pre>
+ */
 class AdminParkingListDetailViewModel: ViewModel() {
 
     private val adminParkingListRepository = AdminParkingListRepository()

@@ -17,7 +17,19 @@ import com.parkro.client.domain.payment.data.PaymentData
 import com.parkro.client.domain.payment.data.PaymentRepository
 import java.net.URISyntaxException
 
-// 결제창 웹뷰로 띄울 Activity
+/**
+ * 결제창 웹뷰로 띄울 Activity
+ *
+ * @author 김지수
+ * @since 2024.07.31
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.07.31   김지수      최초 생성
+ * 2024.08.04   김지수      결제 실패 시 이동할 PaymentFailureActivity 설정
+ * </pre>
+ */
 class PaymentWebViewActivity : AppCompatActivity() {
     private lateinit var webView: WebView
     private lateinit var paymentData: PaymentData

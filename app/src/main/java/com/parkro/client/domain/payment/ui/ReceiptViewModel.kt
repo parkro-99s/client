@@ -10,6 +10,18 @@ import com.parkro.client.domain.payment.data.ReceiptRepository
 import org.json.JSONException
 import org.json.JSONObject
 
+/**
+ * 영수증 데이터 관리 ViewModel
+ *
+ * @author 김지수
+ * @since 2024.08.01
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.01   김지수      최초 생성
+ * </pre>
+ */
 class ReceiptViewModel : ViewModel() {
 
     private val receiptRepository = ReceiptRepository()

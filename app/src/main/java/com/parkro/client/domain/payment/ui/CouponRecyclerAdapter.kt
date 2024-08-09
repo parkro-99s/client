@@ -11,6 +11,18 @@ import com.parkro.client.domain.payment.api.GetMemberCouponListItem
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * 보유중인 쿠폰 목록 RecyclerView
+ *
+ * @author 김지수
+ * @since 2024.08.02
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.02   김지수      최초 생성
+ * </pre>
+ */
 class CouponRecyclerAdapter(
     private var couponList: List<GetMemberCouponListItem>,
     private val onItemClickListener: OnItemClickListener

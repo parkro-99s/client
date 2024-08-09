@@ -1,6 +1,7 @@
 package com.parkro.client.domain.payment.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,18 @@ import com.parkro.client.MainActivity
 import com.parkro.client.R
 import com.parkro.client.databinding.FragmentReceiptBinding
 
+/**
+ * 영수증 등록 Fragment
+ *
+ * @author 김지수
+ * @since 2024.08.01
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.01   김지수      최초 생성
+ * </pre>
+ */
 class ReceiptFragment : Fragment() {
 
     private var _binding: FragmentReceiptBinding? = null

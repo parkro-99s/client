@@ -8,6 +8,20 @@ import com.parkro.client.domain.payment.api.GetCurrentParkingInfo
 import com.parkro.client.domain.payment.data.PaymentRepository
 import kotlin.math.max
 
+/**
+ * 정산 ViewModel
+ *
+ * @author 김지수
+ * @since 2024.08.02
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.02   김지수      최초 생성
+ * 2024.08.02   김지수      정산 시 이루어지는 할인, 주차 정보 등 데이터 관레
+ * 2024.08.02   김지수      영수증 등록 내역 반영
+ * </pre>
+ */
 class PaymentViewModel : ViewModel() {
 
     private val paymentRepository = PaymentRepository()

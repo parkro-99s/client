@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,19 @@ import com.parkro.client.R
 import com.parkro.client.common.data.ErrorRes
 import com.parkro.client.databinding.FragmentBarcodeScanBinding
 
+/**
+ * 바코드 스캔 Fragment
+ *
+ * @author 김지수
+ * @since 2024.08.01
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.01   김지수      최초 생성
+ * 2024.08.01   김지수      영수증 바코드 스캔 기능
+ * </pre>
+ */
 class BarcodeScanFragment : Fragment() {
 
     private var _binding: FragmentBarcodeScanBinding? = null

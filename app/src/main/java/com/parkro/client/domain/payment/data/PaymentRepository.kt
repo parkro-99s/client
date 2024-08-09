@@ -10,13 +10,28 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * 정산 관련 Repository
+ *
+ * @author 김지수
+ * @since 2024.07.31
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.07.31   김지수      최초 생성
+ * 2024.07.31   김지수      현재 주차중인, 정산 필요한 주차 정보 상세 조회
+ * 2024.08.02   김지수      사용자 쿠폰 리스트 조회
+ * 2024.08.04   김지수      실제 결제 등록
+ * </pre>
+ */
 class PaymentRepository {
 
-    // RetrofitClient 기반으로 인스턴스 생성 후 ExampleService 구현체 전달
     private val paymentService: PaymentService by lazy {
         RetrofitClient.instance.create(PaymentService::class.java)
     }
 
+    // 현재 주차중인, 정산 필요한 주차 정보 상세 조회
     fun findParkingInfoFirst(username: String, onResult: (Result<GetCurrentParkingInfo>) -> Unit) {
         val call = paymentService.getParkingInfoFirst(username)
 
@@ -45,6 +60,7 @@ class PaymentRepository {
         })
     }
 
+    // 사용자 쿠폰 리스트 조회
     fun getMemberCouponList(username: String, onResult: (Result<GetMemberCouponList>) -> Unit) {
         val call = paymentService.getMemberCouponList(username)
 
@@ -72,6 +88,7 @@ class PaymentRepository {
         })
     }
 
+    // 실제 결제 등록
     fun addPayment(paymentRequest: PostPaymentReq, onResult: (Result<Int>) -> Unit) {
         val call = paymentService.addPayment(paymentRequest)
 

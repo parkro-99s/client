@@ -129,6 +129,7 @@
                 android:layout_height="50dp"
                 android:background="@drawable/btn_small_background"
                 android:text="수정"
+                android:fontFamily="@font/sc_dream_semibold"
                 android:textColor="#FFFFFF"
                 android:gravity="center"
                 android:textSize="14sp"
@@ -190,6 +191,7 @@
                     android:layout_height="48dp"
                     android:background="@drawable/btn_large_background"
                     android:text="차량 등록하기"
+                    android:fontFamily="@font/sc_dream_semibold"
                     android:textColor="#FFFFFF"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -226,8 +228,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
-                        android:layout_marginBottom="6dp"
-                        >
+                        android:layout_marginBottom="6dp">
 
                         <ImageView
                             android:id="@+id/img_mypage_info_car_1"
@@ -276,10 +277,10 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="30dp"
+                        android:layout_marginBottom="6dp"
                         android:text="1234"
                         android:textColor="@color/parkro_black"
                         android:textSize="14sp"
-                        android:layout_marginBottom="6dp"
                         android:textStyle="bold" />
 
                     <Space
