@@ -18,7 +18,19 @@ import com.google.android.material.bottomnavigation.LabelVisibilityMode
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.parkro.client.databinding.ActivityMainBinding
-
+/**
+ * 메인 페이지 액티비티
+ *
+ * @author 김민정, 김지수, 양재혁
+ * @since 2024.07.25
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.07.25   양재혁      툴바 생성
+ * 2024.07.25   양재혁      툴바 변경 로직
+ * </pre>
+ */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

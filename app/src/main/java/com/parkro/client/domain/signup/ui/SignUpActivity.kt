@@ -36,11 +36,18 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.Target
 import android.widget.RelativeLayout
-
-
-
-
-
+/**
+ * 회원 가입 액티비티
+ *
+ * @author 양재혁
+ * @since 2024.07.25
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.01   양재혁      최초 생성
+ * </pre>
+ */
 class SignUpActivity : AppCompatActivity() {
     private val executor = Executors.newSingleThreadExecutor()
     private lateinit var usernameText: EditText

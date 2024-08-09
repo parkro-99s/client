@@ -2,7 +2,18 @@ package com.parkro.client.util
 
 import android.content.Context
 import android.content.SharedPreferences
-
+/**
+ * SharedPreferences
+ *
+ * @author 양재혁
+ * @since 2024.07.25
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.07.25   김지수      최초 생성
+ * </pre>
+ */
 class PreferencesUtil private constructor(context: Context) {
     private val prefs: SharedPreferences
     private val prefsEditor: SharedPreferences.Editor

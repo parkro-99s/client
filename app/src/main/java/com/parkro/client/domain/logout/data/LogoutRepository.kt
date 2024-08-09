@@ -6,12 +6,24 @@ import com.parkro.client.domain.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+/**
+ * 로그아웃
+ *
+ * @author 양재혁
+ * @since 2024.07.25
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.02   양재혁      최초 생성
+ * </pre>
+ */
 class LogoutRepository {
     private val logoutService: LogoutService by lazy {
         RetrofitClient.instance.create(LogoutService::class.java)
     }
 
+    /* 로그아웃 */
     fun postLogout(
         onResult: (Result<Void>) -> Unit
     ) {

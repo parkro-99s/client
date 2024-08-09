@@ -22,10 +22,18 @@ import com.parkro.client.domain.logout.data.LogoutRepository
 import com.parkro.client.domain.mypage.data.MypageRepository
 import com.parkro.client.util.PreferencesUtil
 import androidx.fragment.app.FragmentActivity
-
-
-
-
+/**
+ * 마이페이지 프래그먼트
+ *
+ * @author 양재혁
+ * @since 2024.07.25
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.02   양재혁      최초 생성
+ * </pre>
+ */
 class MypageFragment : Fragment() {
     private lateinit var mypageViewModel: MypageViewModel
     private var _binding: FragmentMypageBinding? = null

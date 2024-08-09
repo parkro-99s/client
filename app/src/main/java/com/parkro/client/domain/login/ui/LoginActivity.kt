@@ -17,7 +17,18 @@ import org.json.JSONObject
 import java.util.Base64
 import android.view.animation.AnimationUtils
 import android.widget.*
-
+/**
+ * 로그인 액티비티
+ *
+ * @author 양재혁
+ * @since 2024.07.25
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.07.31   양재혁      최초 생성
+ * </pre>
+ */
 class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
