@@ -10,9 +10,18 @@ import okhttp3.Request
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-
-// 서버 url을 설정하고 데이터 파싱 및 객체 정보를 반환할 수 있는 인스턴스 제공
-// object로 선언해 싱글톤으로 작동
+/**
+ * Retrofit2 설정
+ *
+ * @author 김지수
+ * @since 2024.07.25
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.01   양재혁      인터셉터 생성
+ * </pre>
+ */
 object RetrofitClient {
 
     private const val BASE_URL = BuildConfig.SERVER_BASEURL // 서버 URL

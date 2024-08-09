@@ -17,7 +17,18 @@ import com.parkro.client.util.PreferencesUtil
 import com.parkro.client.databinding.FragmentAdminLogoutBinding
 import com.parkro.client.domain.login.ui.LoginActivity
 import com.parkro.client.domain.logout.data.LogoutRepository
-
+/**
+ * 관리자 로그아웃 프래그먼트
+ *
+ * @author 양재혁
+ * @since 2024.08.02
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.02   양재혁      최초 생성
+ * </pre>
+ */
 class AdminLogoutFragment : Fragment() {
     private var _binding: FragmentAdminLogoutBinding? = null
     private val binding get() = _binding!!

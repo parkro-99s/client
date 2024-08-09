@@ -10,7 +10,18 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+/**
+ * 마이페이지
+ *
+ * @author 양재혁
+ * @since 2024.08.03
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.03   양재혁      최초 생성
+ * </pre>
+ */
 class MypageRepository {
 
     private val mypageService: MypageService by lazy {
@@ -19,6 +30,7 @@ class MypageRepository {
 
     private val username: String? = PreferencesUtil.getUsername(null)
 
+    /* 회원 탈퇴 */
     fun patchUserDetails(
         onResult: (Result<Int>) -> Unit
     ) {
@@ -52,6 +64,7 @@ class MypageRepository {
         })
     }
 
+    /* 차량 삭제 */
     fun patchCarDetails(
         onResult: (Result<String>) -> Unit
     ) {
@@ -80,6 +93,7 @@ class MypageRepository {
         })
     }
 
+    /* 회원 정보 조회 */
     fun getUserDetails(
         onResult: (Result<GetUserDetailsRes>) -> Unit
     ) {
@@ -107,6 +121,7 @@ class MypageRepository {
         })
     }
 
+    /* 차량 등록 */
     fun postCarDetails(memberId: Int, carNumber: String, onResult: (Result<ResponseBody>) -> Unit) {
         val call = mypageService.postCarDetails(PostCarReq(memberId, carNumber))
         call.enqueue(object : Callback<ResponseBody> {
@@ -131,6 +146,7 @@ class MypageRepository {
         })
     }
 
+    /* 회원 정보 수정 */
     fun putModifiedUserDetails(username: String, password: String, nickname: String, phoneNumber: String, carProfile: Int, onResult: (Result<ResponseBody>) -> Unit) {
         val call = mypageService.putUserDetails(username, PutModifiedUserDetailsReq(username, password, nickname, phoneNumber, carProfile))
         call.enqueue(object : Callback<ResponseBody> {

@@ -23,6 +23,18 @@ import com.parkro.client.util.PreferencesUtil
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.regex.Pattern
+/**
+ * 회원 정보 수정 액티비티
+ *
+ * @author 양재혁
+ * @since 2024.08.04
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.04   양재혁      최초 생성
+ * </pre>
+ */
 
 class MypageModifyUserActivity : AppCompatActivity() {
     private lateinit var passwordText: EditText

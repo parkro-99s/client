@@ -9,7 +9,18 @@ import com.parkro.client.domain.network.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
+/**
+ * 로그인
+ *
+ * @author 양재혁
+ * @since 2024.07.31
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.07.31   양재혁      최초 생성
+ * </pre>
+ */
 class LoginRepository {
 
     // RetrofitClient 기반으로 인스턴스 생성 후 ExampleService 구현체 전달
@@ -17,6 +28,7 @@ class LoginRepository {
         RetrofitClient.instance.create(LoginService::class.java)
     }
 
+    /* 로그인 */
     fun postLogin(postLoginReq: PostLoginReq, onResult: (Result<PostLoginRes>) -> Unit) {
         // Fetch FCM Token
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->

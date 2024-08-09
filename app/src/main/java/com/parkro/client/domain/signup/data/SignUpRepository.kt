@@ -8,6 +8,18 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+/**
+ * 회원가입
+ *
+ * @author 양재혁
+ * @since 2024.08.01
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.01   양재혁      최초 생성
+ * </pre>
+ */
 private const val TAG = "SignUpService"
 
 class SignUpRepository {
@@ -16,7 +28,7 @@ class SignUpRepository {
         RetrofitClient.instance.create(SignUpService::class.java)
     }
 
-    // 중복 아이디 조회
+    /* 중복 아이디 조회 */
     fun getUsername(username: String, onResult: (Result<ResponseBody>) -> Unit) {
         val call = signUpService.getUsername(username)
 
@@ -39,6 +51,7 @@ class SignUpRepository {
         })
     }
 
+    /* 회원 가입 */
     fun postSignUp(
         postSignUpReq: PostSignUpReq,
         onResult: (Result<String>) -> Unit
