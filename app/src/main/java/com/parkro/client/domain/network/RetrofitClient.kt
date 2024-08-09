@@ -14,11 +14,12 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
  * Retrofit2 설정
  *
  * @author 김지수
- * @since 2024.07.25
+ * @since 2024.07.28
  *
  * <pre>
  * 수정일자       수정자        수정내용
  * ------------ --------    ---------------------------
+ * 2024.07.28   김지수      최초 생성
  * 2024.08.01   양재혁      인터셉터 생성
  * </pre>
  */
