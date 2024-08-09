@@ -11,8 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import com.parkro.client.MainActivity
 import com.parkro.client.R
@@ -21,7 +19,7 @@ import com.parkro.client.domain.login.ui.LoginActivity
 import com.parkro.client.domain.logout.data.LogoutRepository
 import com.parkro.client.domain.mypage.data.MypageRepository
 import com.parkro.client.util.PreferencesUtil
-import androidx.fragment.app.FragmentActivity
+
 /**
  * 마이페이지 프래그먼트
  *

@@ -8,7 +8,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 /**
- * 주차장
+ * 주차장 관련 Repository
  *
  * @author 김민정
  * @since 2024.08.02

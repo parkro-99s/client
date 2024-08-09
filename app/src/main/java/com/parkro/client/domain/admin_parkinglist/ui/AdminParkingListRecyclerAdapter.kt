@@ -1,6 +1,5 @@
 package com.parkro.client.domain.admin_parkinglist.ui
 
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View

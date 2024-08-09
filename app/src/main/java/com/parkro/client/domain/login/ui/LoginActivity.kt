@@ -2,9 +2,6 @@ package com.parkro.client.domain.login.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.util.TypedValue
-import android.view.ViewGroup
 import android.view.animation.Animation
 import androidx.appcompat.app.AppCompatActivity
 import com.parkro.client.domain.admin.ui.AdminActivity

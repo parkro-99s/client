@@ -9,15 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomnavigation.LabelVisibilityMode
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.parkro.client.databinding.ActivityMainBinding
+
 /**
  * 메인 페이지 액티비티
  *
@@ -27,8 +25,12 @@ import com.parkro.client.databinding.ActivityMainBinding
  * <pre>
  * 수정일자       수정자        수정내용
  * ------------ --------    ---------------------------
+ * 2024.07.25   김지수      기본 툴바를 커스텀 툴바로 변경
  * 2024.07.25   양재혁      툴바 생성
  * 2024.07.25   양재혁      툴바 변경 로직
+ * 2024.07.25   김민정      Bottom Navigation Bar 생성
+ * 2024.07.25   김민정      기본 네비게이션 아이콘(Back Button) 제거
+ *
  * </pre>
  */
 class MainActivity : AppCompatActivity() {
@@ -115,17 +117,6 @@ class MainActivity : AppCompatActivity() {
 
             updateToolbarTitle("", showBackBtn = navController.previousBackStackEntry != null)
         }
-
-        // TODO: 로그인 시, FCM Token 헤더에 함께 전달
-//        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-//            if (!task.isSuccessful) {
-//                Log.w("FCM", "Fetching FCM registration token failed", task.exception)
-//                return@addOnCompleteListener
-//            }
-//            // 새로운 FCM Token 발급
-//            val token = task.result
-//            Log.d("FCM-Token", token)
-//        }
     }
 
     // Update toolbar title

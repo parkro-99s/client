@@ -1,6 +1,5 @@
 package com.parkro.client.domain.login.data
 
-import android.util.Log
 import com.google.firebase.messaging.FirebaseMessaging
 import com.parkro.client.domain.login.api.PostLoginReq
 import com.parkro.client.domain.login.api.LoginService
@@ -19,6 +18,7 @@ import retrofit2.Response
  * 수정일자       수정자        수정내용
  * ------------ --------    ---------------------------
  * 2024.07.31   양재혁      최초 생성
+ * 2024.07.31   김민정      FCM Token 발급
  * </pre>
  */
 class LoginRepository {

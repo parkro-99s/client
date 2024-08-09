@@ -1,7 +1,6 @@
 package com.parkro.client.domain.mypage.ui
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -15,14 +14,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.parkro.client.R
-import com.parkro.client.domain.login.ui.LoginActivity
-import com.parkro.client.domain.mypage.api.PutModifiedUserDetailsReq
 import com.parkro.client.domain.mypage.data.MypageRepository
-import com.parkro.client.domain.signup.api.PostSignUpReq
 import com.parkro.client.util.PreferencesUtil
 import org.json.JSONException
-import org.json.JSONObject
 import java.util.regex.Pattern
+
 /**
  * 회원 정보 수정 액티비티
  *
