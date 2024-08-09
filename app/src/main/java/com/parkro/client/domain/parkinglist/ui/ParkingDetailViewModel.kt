@@ -1,6 +1,5 @@
 package com.parkro.client.domain.parkinglist.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +8,18 @@ import com.parkro.client.domain.parkinglist.api.GetParkingDetailRes
 import com.parkro.client.domain.parkinglist.data.ParkingRepository
 import kotlinx.coroutines.launch
 
+/**
+ * 주차 상세 내역 뷰 모델
+ *
+ * @author 김민정
+ * @since 2024.08.03
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.03   김민정       최초 생성
+ * </pre>
+ */
 class ParkingDetailViewModel : ViewModel() {
     private val _parkingDetail = MutableLiveData<GetParkingDetailRes>()
     val parkingDetail: LiveData<GetParkingDetailRes> = _parkingDetail

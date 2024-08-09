@@ -4,6 +4,18 @@ import android.content.Context
 import androidx.core.content.ContextCompat
 import androidx.activity.result.ActivityResultLauncher
 
+/**
+ * 요청 권한 설정
+ *
+ * @author 김민정
+ * @since 2024.08.02
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.02   김민정       최초 생성
+ * </pre>
+ */
 class PermissionUtil(private val context: Context, private val launcher: ActivityResultLauncher<Array<String>>) {
 
     // 요청할 위치 권한 목록

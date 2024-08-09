@@ -31,33 +31,48 @@ import com.parkro.client.util.ClipboardUtil
 import com.parkro.client.util.PermissionUtil
 import com.parkro.client.util.PreferencesUtil
 
+/**
+ * 지도 프래그먼트
+ *
+ * @author 김민정
+ * @since 2024.07.31
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.07.31   김민정       최초 생성
+ * 2024.08.01   김민정       내 위치 핀
+ * 2024.08.02   김민정       지점별 주차장 핀
+ * 2024.08.03   김민정       주차장 리사이클러뷰
+ * </pre>
+ */
 class MapFragment : Fragment() {
 
     private lateinit var mapViewModel: MapViewModel
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var mapView: MapView
-    private var zoomlevel = 17
+    private lateinit var fusedLocationClient: FusedLocationProviderClient   // 위치 서비스 클라이언트
+    private lateinit var mapView: MapView   // 카카오 맵 객체
+    private var zoomlevel = 17  // 기본 줌 레벨
 
-    // 클릭된 버튼 추적
+    // 클릭된 버튼 추적하기 위한 변수
     private var currentSelectedButton: ImageButton? = null
     private var currentSelectedTextView: TextView? = null
 
-    private lateinit var kakaoMap: KakaoMap
-    private lateinit var layer: LabelLayer
-    private lateinit var centerLabel: Label
-    private var startPosition: LatLng? = null
+    private lateinit var kakaoMap: KakaoMap     // 카카오맵 객체
+    private lateinit var layer: LabelLayer      // 라벨 레이어 객체
+    private lateinit var centerLabel: Label     // 중앙 라벨 객체
+    private var startPosition: LatLng? = null   // 초기 위치
 
-    private var requestingLocationUpdates = false
-    private lateinit var locationRequest: LocationRequest
-    private lateinit var locationCallback: LocationCallback
+    private var requestingLocationUpdates = false               // 위치 업데이트 요청 상태 추적
+    private lateinit var locationRequest: LocationRequest       // 위치 요청 객체
+    private lateinit var locationCallback: LocationCallback     // 위치 콜백 객체
 
-    private val labels = mutableListOf<Label>()
-    private lateinit var permissionUtil: PermissionUtil
+    private val labels = mutableListOf<Label>() // 라벨 리스트
+    private lateinit var permissionUtil: PermissionUtil         // 권한 유틸리티 객체
 
-    // 권한 요청 결과 처리
+    // 권한 요청 결과를 처리하는 런처
     private val requestPermissionsLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -76,6 +91,7 @@ class MapFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // ViewModel 인스턴스 초기화
         mapViewModel = ViewModelProvider(this).get(MapViewModel::class.java)
         _binding = FragmentMapBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -113,6 +129,9 @@ class MapFragment : Fragment() {
         return root
     }
 
+    /**
+     * 지도 위에 있는 버튼들의 클릭 리스너를 설정하는 메서드
+     */
     private fun setupButtons() {
         binding.btnMapSpace1.setOnClickListener {
             onStoreButtonClick(it as ImageButton, binding.textMapSpace1, "1")
@@ -131,6 +150,9 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * 주차장 버튼이 클릭 시, 호출되는 메서드
+     */
     private fun onStoreButtonClick(button: ImageButton, textView: TextView, storeId: String) {
         // 이전에 선택된 버튼 색상 변경
         currentSelectedButton?.setImageResource(R.drawable.btn_map_store_white)
@@ -148,6 +170,9 @@ class MapFragment : Fragment() {
         mapViewModel.fetchParkingLotData(storeId)
     }
 
+    /**
+     * ViewModel 데이터 변화 관찰
+     */
     private fun observeViewModel() {
         mapViewModel.parkingLots.observe(viewLifecycleOwner) { result ->
             result.onSuccess { parkingLots ->
@@ -202,6 +227,9 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * 내 위치 추적 메서드
+     */
     private fun trackMyLocation() {
         if (::centerLabel.isInitialized) {
             kakaoMap.trackingManager?.startTracking(centerLabel)
@@ -210,6 +238,9 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * 초기 상태를 설정하는 메서드
+     */
     private fun initialSetup() {
         // 초기 상태에서 btnMapSpace1이 선택된 것처럼 설정
         currentSelectedButton = binding.btnMapSpace1
@@ -223,6 +254,9 @@ class MapFragment : Fragment() {
         }
     }
 
+    /**
+     * 주차장 라벨 추가 메서드
+     */
     private fun addParkingLotLabel(parkingLot: GetParkingLotRes) {
         if (!::kakaoMap.isInitialized) {
             return
@@ -236,6 +270,9 @@ class MapFragment : Fragment() {
         labels.add(label)
     }
 
+    /**
+     * 기존의 라벨을 제거 메서드
+     */
     private fun removeExistingLabels() {
         for (label in labels) {
             layer.remove(label)
@@ -246,15 +283,18 @@ class MapFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if (requestingLocationUpdates) {
-            startLocationUpdates()
+            startLocationUpdates()      // 위치 업데이트 시작
         }
     }
 
     override fun onPause() {
         super.onPause()
-        fusedLocationClient.removeLocationUpdates(locationCallback)
+        fusedLocationClient.removeLocationUpdates(locationCallback)     // 위치 업데이트 중지
     }
 
+    /**
+     * 시작 위치 가져오는 메서드
+     */
     @SuppressLint("MissingPermission")
     private fun getStartLocation() {
         fusedLocationClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY, null)
@@ -266,6 +306,9 @@ class MapFragment : Fragment() {
             }
     }
 
+    /**
+     * 지도 시작 메서드
+     */
     private fun startMap() {
         mapView.start(object : KakaoMapReadyCallback() {
 
@@ -308,6 +351,9 @@ class MapFragment : Fragment() {
         })
     }
 
+    /**
+     * 위치 업데이트 시작
+     */
     @SuppressLint("MissingPermission")
     private fun startLocationUpdates() {
         requestingLocationUpdates = true
@@ -316,14 +362,6 @@ class MapFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
-    }
-
-    // 클립보드 복사
-    public fun copyTextToClipboard(context: Context, text: String, message: String) {
-        val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-        val clip = ClipData.newPlainText("주소", text)
-        clipboard.setPrimaryClip(clip)
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        _binding = null     // 바인딩 객체 해제
     }
 }

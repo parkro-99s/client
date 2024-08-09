@@ -10,6 +10,18 @@ import com.parkro.client.domain.parkinglist.api.GetParkingRes
 import com.parkro.client.domain.parkinglist.data.ParkingRepository
 import kotlinx.coroutines.launch
 
+/**
+ * 주차 내역 뷰 모델
+ *
+ * @author 김민정
+ * @since 2024.08.03
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.03   김민정       최초 생성
+ * </pre>
+ */
 class ParkingListViewModel() : ViewModel() {
 
     // 주차 리스트 데이터 저장
@@ -34,6 +46,7 @@ class ParkingListViewModel() : ViewModel() {
         viewModelScope.launch {
             repository.getParkingList(username, currentPage) { result ->
 
+                // 데이터 요청 성공
                 result.onSuccess { list ->
                     // 기존 리스트에 새로운 데이터 추가
                     val currentList = _parkingList.value.orEmpty().toMutableList()
@@ -50,6 +63,7 @@ class ParkingListViewModel() : ViewModel() {
                     }
 
                 }.onFailure { error ->
+                    // 데이터 요청 실패
                     val errorCode = when (error) {
                         is ErrorResponseException -> if (currentPage == 1) error.errorRes.status else null
                         else -> 500

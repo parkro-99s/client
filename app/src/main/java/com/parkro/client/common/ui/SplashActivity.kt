@@ -11,6 +11,19 @@ import android.view.View
 import android.view.animation.Animation
 import com.parkro.client.domain.login.ui.LoginActivity
 
+
+/**
+ * 스플래시 애니메이션 액티비티
+ *
+ * @author 김민정
+ * @since 2024.08.03
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.03   김민정      최초 생성
+ * </pre>
+ */
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding

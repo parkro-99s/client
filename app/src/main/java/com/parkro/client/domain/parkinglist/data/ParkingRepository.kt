@@ -11,6 +11,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * 주차 내역
+ *
+ * @author 김민정
+ * @since 2024.08.03
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.03   김민정       최초 생성
+ * </pre>
+ */
 class ParkingRepository {
 
     // RetrofitClient 기반으로 인스턴스 생성 후 ParkingService 구현체 전달

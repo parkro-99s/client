@@ -19,6 +19,18 @@ import com.parkro.client.R
 import com.parkro.client.databinding.FragmentParkingDetailBinding
 import com.parkro.client.util.DateFormatUtil
 
+/**
+ * 주차 상세 내역 뷰 모델
+ *
+ * @author 김민정
+ * @since 2024.08.03
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.03   김민정       최초 생성
+ * </pre>
+ */
 class ParkingDetailFragment : Fragment() {
 
     private var _binding: FragmentParkingDetailBinding? = null

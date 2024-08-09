@@ -7,6 +7,18 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * 주차장
+ *
+ * @author 김민정
+ * @since 2024.08.02
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.02   김민정       최초 생성
+ * </pre>
+ */
 class ParkingLotRepository {
 
     // RetrofitClient 기반으로 인스턴스 생성 후 ParkingLotService 구현체 전달
@@ -14,6 +26,7 @@ class ParkingLotRepository {
         RetrofitClient.instance.create(ParkingLotService::class.java)
     }
 
+    // 주차장 목록 조회
     fun getParkingLotList(storeId: String, onResult: (Result<List<GetParkingLotRes>>) -> Unit) {
 
         // 비동기적으로 API 요청 수행
@@ -25,12 +38,10 @@ class ParkingLotRepository {
                     response.body()?.let {
                         onResult(Result.success(it))
                     } ?: run {
-//                        onResult(Result.failure(Exception("Response body is null")))
                         onResult(Result.failure(Throwable("Empty response body")))
                     }
                 } else {
                     // 서버 응답 코드가 200이 아닌 경우, 에러 메시지를 포함해서 전달
-//                    onResult(Result.failure(Exception("Failed to get response")))
                     val errorMessage = response.errorBody()?.string() ?: "Unknown error"
                     onResult(Result.failure(Throwable(errorMessage)))
                 }
