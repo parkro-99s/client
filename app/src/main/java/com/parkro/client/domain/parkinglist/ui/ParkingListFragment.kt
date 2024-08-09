@@ -14,6 +14,18 @@ import com.parkro.client.R
 import com.parkro.client.databinding.FragmentParkinglistBinding
 import com.parkro.client.util.PreferencesUtil
 
+/**
+ * 주차 내역 프래그먼트
+ *
+ * @author 김민정
+ * @since 2024.07.24
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.07.24   김민정       최초 생성
+ * </pre>
+ */
 class ParkingListFragment : Fragment() {
 
     private lateinit var parkingListViewModel: ParkingListViewModel
@@ -27,13 +39,15 @@ class ParkingListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // ViewModel 인스턴스 초기화
         parkingListViewModel = ViewModelProvider(this).get(ParkingListViewModel::class.java)
         _binding = FragmentParkinglistBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // 툴바 설정
+        // 툴바 설정 : 타이틀(주차내역), 뒤로가기 활성화
         (activity as? MainActivity)?.updateToolbarTitle(getString(R.string.title_parkinglist), false, true)
 
+        // 사용자 이름 설정
         username = PreferencesUtil.getUsername("user2").toString()
 
         setupRecyclerView()
@@ -45,7 +59,9 @@ class ParkingListFragment : Fragment() {
         return root
     }
 
-    // RecyclerView 설정
+    /**
+     * RecyclerView 설정
+     */
     private fun setupRecyclerView() {
 
         // 카드 아이템 터치 시, 상세 페이지로 이동
@@ -73,6 +89,9 @@ class ParkingListFragment : Fragment() {
         })
     }
 
+    /**
+     * ViewModel을 관찰하여 UI를 업데이트
+     */
     private fun observeViewModel() {
         // 주차 리스트 관찰
         parkingListViewModel.parkingList.observe(viewLifecycleOwner) { parkingList ->
@@ -99,14 +118,18 @@ class ParkingListFragment : Fragment() {
         }
     }
 
-    // 빈 화면 표시
+    /**
+     * 빈 화면 표시
+     */
     private fun showEmptyView(errorMessage: String) {
         binding.recyclerviewParkingList.visibility = View.GONE
         binding.layoutParkinglistNotfound.visibility = View.VISIBLE
         binding.textParkinglistNotfound.text = errorMessage
     }
 
-    // 주차 내역 상세 페이지
+    /**
+     * 주차 내역 상세 페이지로 이동
+     */
     private fun openParkingDetailFragment(parkingId: Int) {
         val bundle = Bundle().apply {
             putInt("parkingId", parkingId)
@@ -116,6 +139,6 @@ class ParkingListFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        _binding = null  // 바인딩 객체 해제
     }
 }

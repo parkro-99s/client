@@ -4,6 +4,18 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
+/**
+ * 날짜 포맷팅
+ *
+ * @author 김민정
+ * @since 2024.07.31
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.07.31   김민정       최초 생성
+ * </pre>
+ */
 object DateFormatUtil {
     private val inputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
     private val outputFormat = SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.getDefault())

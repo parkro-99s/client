@@ -13,6 +13,18 @@ import com.google.firebase.messaging.RemoteMessage
 import com.parkro.client.MainActivity
 import com.parkro.client.R
 
+/**
+ * FCM 알림 액티비티
+ *
+ * @author 김민정
+ * @since 2024.07.29
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.07.29   김민정       최초 생성
+ * </pre>
+ */
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     companion object {
@@ -39,6 +51,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
+    /**
+     * 알림 표시
+     */
     private fun showNotification(title: String?, message: String?) {
 
         // 알림 클릭 시, 열릴 액티비티 지정
