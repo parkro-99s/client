@@ -12,7 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 /**
- * 주차 내역
+ * 주차 내역 관련 Repository
  *
  * @author 김민정
  * @since 2024.08.03

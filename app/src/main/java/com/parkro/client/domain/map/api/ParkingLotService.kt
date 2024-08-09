@@ -22,7 +22,7 @@ interface ParkingLotService {
     /**
      * 지점별 주차장 목록 조회 메서드
      * @param storeId
-     * @return List<GetParkingLotRes>
+     * @return 주차장 리스트
      */
     @GET("/parking-lot")
     fun getParkingLotList(@Query("store") storeId: String): Call<List<GetParkingLotRes>>

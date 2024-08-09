@@ -25,7 +25,7 @@ interface ParkingService {
      * username(유저아이디)로 주차 내역을 조회하는 메서드
      * @param username
      * @param page
-     * @return List<GetParkingRes>
+     * @return 주차 내역 리스트
      */
     @GET("/parking/list")
     fun getParkingList(@Query("username") username: String,
@@ -34,7 +34,7 @@ interface ParkingService {
     /**
      * pakringId로 주차 내역 상세 조회
      * @param parking
-     * @return GetParkingDetailRes
+     * @return 주차 상세 정보
      */
     @GET("/payment")
     fun getParkingDetail(@Query("parking") parking: Int) : Call<GetParkingDetailRes>

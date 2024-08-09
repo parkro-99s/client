@@ -16,10 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
-import com.parkro.client.MainActivity
 import com.parkro.client.R
-import com.parkro.client.common.data.ErrorRes
-import com.parkro.client.databinding.FragmentAdminParkingListBinding
 import com.parkro.client.databinding.FragmentAdminParkingListDetailBinding
 import com.parkro.client.domain.admin.ui.AdminActivity
 import com.parkro.client.domain.admin_parkinglist.api.GetAdminParkingDetailRes
