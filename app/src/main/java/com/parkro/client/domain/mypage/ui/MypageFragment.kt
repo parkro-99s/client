@@ -26,7 +26,7 @@ import androidx.fragment.app.FragmentActivity
  * 마이페이지 프래그먼트
  *
  * @author 양재혁
- * @since 2024.07.25
+ * @since 2024.08.02
  *
  * <pre>
  * 수정일자       수정자        수정내용

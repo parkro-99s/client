@@ -7,7 +7,7 @@ import retrofit2.http.*
  * 회원 가입 도메인
  *
  * @author 양재혁
- * @since 2024.07.25
+ * @since 2024.08.01
  *
  * <pre>
  * 수정일자       수정자        수정내용

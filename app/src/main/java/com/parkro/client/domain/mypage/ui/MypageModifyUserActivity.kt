@@ -27,7 +27,7 @@ import java.util.regex.Pattern
  * 회원 정보 수정 액티비티
  *
  * @author 양재혁
- * @since 2024.07.25
+ * @since 2024.08.04
  *
  * <pre>
  * 수정일자       수정자        수정내용

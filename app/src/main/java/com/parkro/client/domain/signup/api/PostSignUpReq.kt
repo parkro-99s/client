@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
  * 회원가입 클래스
  *
  * @author 양재혁
- * @since 2024.07.25
+ * @since 2024.08.01
  *
  * <pre>
  * 수정일자       수정자        수정내용

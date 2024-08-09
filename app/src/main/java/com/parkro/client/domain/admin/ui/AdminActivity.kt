@@ -19,7 +19,7 @@ import com.parkro.client.util.PreferencesUtil
  * 관리자 액티비티
  *
  * @author 양재혁
- * @since 2024.07.25
+ * @since 2024.08.02
  *
  * <pre>
  * 수정일자       수정자        수정내용

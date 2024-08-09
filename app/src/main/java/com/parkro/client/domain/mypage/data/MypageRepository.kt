@@ -14,7 +14,7 @@ import retrofit2.Response
  * 마이페이지
  *
  * @author 양재혁
- * @since 2024.07.25
+ * @since 2024.08.03
  *
  * <pre>
  * 수정일자       수정자        수정내용

@@ -9,7 +9,7 @@ import retrofit2.http.POST
  * 로그아웃 도메인
  *
  * @author 양재혁
- * @since 2024.07.25
+ * @since 2024.08.02
  *
  * <pre>
  * 수정일자       수정자        수정내용
