@@ -8,6 +8,18 @@ import com.parkro.client.domain.payment.api.GetMemberCouponList
 import com.parkro.client.domain.payment.api.GetMemberCouponListItem
 import com.parkro.client.domain.payment.data.PaymentRepository
 
+/**
+ * 쿠폰 관련 Coupon
+ *
+ * @author 김지수
+ * @since 2024.08.02
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.02   김지수      최초 생성
+ * </pre>
+ */
 class CouponViewModel : ViewModel() {
 
     private val paymentRepository = PaymentRepository()

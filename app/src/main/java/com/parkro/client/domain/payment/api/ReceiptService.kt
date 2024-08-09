@@ -6,7 +6,11 @@ import retrofit2.http.Path
 
 interface ReceiptService {
 
-    // API 경로 지정 및 응답 데이터 지정
+    /**
+     * 바코드로 인식된 영수증 정보 조회
+     * @param receiptId
+     * @return 성공 여부
+     */
     @GET("/receipt/{receiptId}")
     fun getMemberReceiptInfo(@Path("receiptId") receiptId: Int): Call<GetReceiptRes>
 }

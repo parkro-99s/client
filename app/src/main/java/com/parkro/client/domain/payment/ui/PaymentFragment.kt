@@ -27,6 +27,18 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * 정산 Fragment
+ *
+ * @author 김지수
+ * @since 2024.07.31
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.07.31   김지수      최초 생성
+ * </pre>
+ */
 class PaymentFragment : Fragment() {
 
     private lateinit var paymentViewModel: PaymentViewModel

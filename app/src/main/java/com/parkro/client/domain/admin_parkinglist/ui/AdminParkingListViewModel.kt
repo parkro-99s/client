@@ -6,6 +6,19 @@ import com.parkro.client.domain.admin_parkinglist.api.GetAdminParkingRes
 import com.parkro.client.domain.admin_parkinglist.data.AdminParkingListRepository
 import kotlinx.coroutines.launch
 
+/**
+ * 관리자 주차 목록에 대해 관리하는 ViewModel
+ *
+ * @author 김지수
+ * @since 2024.08.05
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.05   김지수      최초 생성
+ * 2024.08.05   김지수      관리자 주차 목록 조회
+ * </pre>
+ */
 class AdminParkingListViewModel : ViewModel() {
 
     private val adminParkingListRepository = AdminParkingListRepository()

@@ -9,6 +9,18 @@ import android.widget.ImageButton
 import com.parkro.client.MainActivity
 import com.parkro.client.R
 
+/**
+ * 결제 실패 시 이동할 Activity
+ *
+ * @author 김지수
+ * @since 2024.08.04
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.04   김지수      최초 생성
+ * </pre>
+ */
 class PaymentFailureActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

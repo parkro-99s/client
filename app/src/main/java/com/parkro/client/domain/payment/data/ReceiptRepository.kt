@@ -7,6 +7,19 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+/**
+ * 영수증 관련 Service
+ *
+ * @author 김지수
+ * @since 2024.08.01
+ *
+ * <pre>
+ * 수정일자       수정자        수정내용
+ * ------------ --------    ---------------------------
+ * 2024.08.01   김지수      최초 생성
+ * 2024.08.01   김지수      receipt_id로 영수증 데이터 조회
+ * </pre>
+ */
 class ReceiptRepository {
 
     // RetrofitClient 기반으로 인스턴스 생성 후 ReceiptService 구현체 전달
@@ -14,6 +27,7 @@ class ReceiptRepository {
         RetrofitClient.instance.create(ReceiptService::class.java)
     }
 
+    // receipt_id로 영수증 데이터 조회
     fun getMemberReceiptInfo(receiptId: Int, onResult: (Result<GetReceiptRes>) -> Unit) {
         val call = receiptService.getMemberReceiptInfo(receiptId)
 
